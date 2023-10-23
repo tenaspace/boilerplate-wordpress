@@ -1,0 +1,234 @@
+<?php
+use KubAT\PhpSimple\HtmlDomParser;
+
+/**
+ * Check Vite Dev Mode
+ */
+if (!function_exists('tenaspace_is_vite_dev_mode')) {
+  function tenaspace_is_vite_dev_mode()
+  {
+    return !file_exists(get_template_directory() . '/dist/manifest.json');
+  }
+}
+
+/**
+ * Require All Files In Folder
+ */
+if (!function_exists('tenaspace_require_all_files')) {
+  function tenaspace_require_all_files($path, $excludes = [])
+  {
+    foreach (glob(get_template_directory() . $path . '/*.php') as $filename) {
+      $explode = explode('/', $filename);
+      if (!in_array(str_replace('.php', '', end($explode)), $excludes)) {
+        require_once($filename);
+      }
+    }
+  }
+}
+
+/**
+ * Enqueue JS per page
+ */
+if (!function_exists('tenaspace_enqueue_scripts_per_page')) {
+  function tenaspace_enqueue_scripts_per_page($path)
+  {
+    if (!$path) {
+      return;
+    }
+    global $name_enqueue_scripts_per_page;
+    $name_enqueue_scripts_per_page = wp_basename($path, '.php');
+    if (tenaspace_is_vite_dev_mode()) {
+      echo '<script type="module" crossorigin src="' . PUBLIC_URI . '/scripts/pages/' . $name_enqueue_scripts_per_page . '.js"></script>';
+    } else {
+      add_action('wp_enqueue_scripts', function () {
+        global $name_enqueue_scripts_per_page;
+        $manifest = json_decode(file_get_contents(PUBLIC_URI . '/manifest.json'), true);
+        if (is_array($manifest)) {
+          $manifest_values = array_values($manifest);
+          if (sizeof($manifest_values) > 0) {
+            foreach ($manifest_values as $manifest_value) {
+              if (isset($manifest_value['src']) && $manifest_value['src'] === 'src/scripts/pages/' . $name_enqueue_scripts_per_page . '.js') {
+                if (isset($manifest_value['file']) && !empty($manifest_value['file'])) {
+                  wp_enqueue_script($name_enqueue_scripts_per_page, PUBLIC_URI . '/' . $manifest_value['file'], [], false, true);
+                }
+              }
+            }
+          }
+        }
+      }, 20);
+    }
+  }
+}
+
+/**
+ * Check WooCommerce is activated
+ */
+if (!function_exists('tenaspace_is_woocommerce_activated')) {
+  function tenaspace_is_woocommerce_activated()
+  {
+    return class_exists('WooCommerce') ? true : false;
+  }
+}
+
+/**
+ * Limit Word
+ */
+if (!function_exists('tenaspace_limit_words')) {
+  function tenaspace_limit_words($string, $limit = 25)
+  {
+    return preg_replace('/((\w+\W*){' . ($limit - 1) . '}(\w+))(.*)/', '${1}', $string) . ((str_word_count($string) > $limit) ? '...' : '');
+  }
+}
+
+/**
+ * Get Nav Menu Items
+ */
+if (!function_exists('tenaspace_get_nav_menu_items')) {
+  function tenaspace_get_nav_menu_items(array &$nav_menu_items, $parent_id = 0)
+  {
+    $result = [];
+    foreach ($nav_menu_items as &$item) {
+      if ($item->menu_item_parent == $parent_id) {
+        $children = tenaspace_get_nav_menu_items($nav_menu_items, $item->ID);
+        if ($children) {
+          $item->children = $children;
+        }
+        $result[$item->ID] = $item;
+        unset($item);
+      }
+    }
+    $result = array_values(array_filter($result));
+    return $result;
+  }
+}
+
+/**
+ * Get Nav Menu
+ */
+if (!function_exists('tenaspace_get_nav_menu')) {
+  function tenaspace_get_nav_menu($theme_location)
+  {
+    $items = wp_get_nav_menu_items($theme_location);
+    return $items ? tenaspace_get_nav_menu_items($items) : [];
+  }
+}
+
+/**
+ * Get Attachment ID By URL
+ */
+if (!function_exists('tenaspace_get_attachment_id_by_url')) {
+  function tenaspace_get_attachment_id_by_url($url)
+  {
+    $url = preg_replace('/-\d+[Xx]\d+\./', '.', $url);
+    return attachment_url_to_postid($url);
+  }
+}
+
+/**
+ * Table Of Contents
+ */
+if (!function_exists('tenaspace_get_table_of_contents')) {
+  function tenaspace_get_table_of_contents($post_id)
+  {
+    if (!$post_id) {
+      return;
+    }
+    $content = HtmlDomParser::str_get_html(str_replace(']]>', ']]&gt;', apply_filters('the_content', get_the_content($post_id))));
+    $result = [];
+    if (class_exists('ACF')) {
+      $toc_settings = get_post_meta($post_id, 'table_of_contents', true);
+      if ($content && is_array($toc_settings) && sizeof($toc_settings) > 0) {
+        $heading_tags = [];
+        foreach ($toc_settings as $k => $v) {
+          if ($content->find($v)) {
+            array_push($heading_tags, $v);
+          }
+        }
+        if (is_array($heading_tags) && sizeof($heading_tags) > 0) {
+          $heading_tags_shift = $heading_tags;
+          array_shift($heading_tags_shift);
+          foreach ($content->find($heading_tags[0]) as $k => $v) {
+            $current[$heading_tags[0]] = $k;
+            $parent_id = 0;
+            array_push($result, [
+              'id' => $v->tag . '-' . $k,
+              'tag' => $v->tag,
+              'text' => trim($v->plaintext),
+              'hash' => sanitize_title(trim($v->plaintext)),
+              'uri' => rtrim(str_replace(home_url(), '', get_the_permalink($post_id)), '/'),
+              'url' => rtrim(get_the_permalink($post_id), '/') . '#' . sanitize_title(trim($v->plaintext)),
+              'parent_id' => $parent_id,
+            ]);
+            if (is_array($heading_tags) && sizeof($heading_tags) > 1) {
+              $prev_tag = $v->tag;
+              while (($v = $v->next_sibling()) && strcmp($v->tag, $heading_tags[0]) !== 0) {
+                foreach ($heading_tags_shift as $key => $value) {
+                  if (strcmp($v->tag, $value) == 0) {
+                    if (strcmp($value, $prev_tag) == 0) {
+                      $parent_id = $result[array_key_last($result)]['parent_id'];
+                    } else {
+                      if (array_search($value, $heading_tags) > array_search($prev_tag, $heading_tags)) {
+                        $current[$value] = 0;
+                        $parent_id = $result[array_key_last($result)]['id'];
+                      } else {
+                        $parent_id = $result[array_search($result[array_key_last($result)]['parent_id'], array_column($result, 'id'))]['parent_id'];
+                      }
+                    }
+                    array_push($result, [
+                      'id' => $value . '-' . $current[$value],
+                      'tag' => $value,
+                      'text' => trim($v->plaintext),
+                      'hash' => sanitize_title(trim($v->plaintext)),
+                      'uri' => rtrim(str_replace(home_url(), '', get_the_permalink($post_id)), '/'),
+                      'url' => rtrim(get_the_permalink($post_id), '/') . '#' . sanitize_title(trim($v->plaintext)),
+                      'parent_id' => $parent_id,
+                    ]);
+                    $current[$value] += 1;
+                    $prev_tag = $value;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    return $result;
+  }
+}
+
+if (!function_exists('tenaspace_get_toc_items')) {
+  function tenaspace_get_toc_items(array &$toc, $parent_id = 0)
+  {
+    if (!$toc) {
+      return;
+    }
+    $result = [];
+    foreach ($toc as $key => &$item) {
+      if ($item['parent_id'] === $parent_id) {
+        $children = tenaspace_get_toc_items($toc, $item['id']);
+        if ($children) {
+          $item['children'] = $children;
+        }
+        $result[$key] = $item;
+        unset($item);
+      }
+    }
+    $result = array_map(function ($item) {
+      unset($item['id']);
+      unset($item['parent_id']);
+      return $item;
+    }, array_values(array_filter($result)));
+    return $result;
+  }
+}
+
+if (!function_exists('tenaspace_get_toc')) {
+  function tenaspace_get_toc($post_id)
+  {
+    $items = tenaspace_get_table_of_contents($post_id);
+    return is_array($items) && sizeof($items) > 0 ? tenaspace_get_toc_items($items) : [];
+  }
+}
+
+?>

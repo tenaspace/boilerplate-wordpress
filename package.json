@@ -1,0 +1,39 @@
+{
+  "name": "wordpress-tena",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "delete-manifest": "npx rimraf dist/manifest.json",
+    "dev": "yarn delete-manifest && vite",
+    "build": "vite build",
+    "imagemin-build": "node imagemin.mjs src/assets/images/**/* dist/assets/images",
+    "deploy": "yarn build && yarn imagemin-build"
+  },
+  "dependencies": {
+    "@alpinejs/collapse": "^3.12.3",
+    "@alpinejs/focus": "^3.12.3",
+    "@alpinejs/mask": "^3.12.3",
+    "@caneara/iodine": "^8.5.0",
+    "alpinejs": "^3.12.3",
+    "jquery": "^3.7.0",
+    "vanilla-lazyload": "^17.8.4"
+  },
+  "devDependencies": {
+    "@ixkaito/imagemin": "^0.1.0",
+    "autoprefixer": "^10.4.14",
+    "imagemin-gifsicle": "^7.0.0",
+    "imagemin-jpegtran": "^7.0.0",
+    "imagemin-optipng": "^8.0.0",
+    "imagemin-svgo": "^10.0.1",
+    "postcss": "^8.4.27",
+    "postcss-import": "^15.1.0",
+    "prettier": "^3.0.3",
+    "prettier-plugin-tailwindcss": "^0.5.5",
+    "rimraf": "^5.0.1",
+    "tailwind-bootstrap-grid": "^5.0.1",
+    "tailwindcss": "^3.3.3",
+    "vite": "^4.4.9",
+    "vite-plugin-live-reload": "^3.0.2",
+    "vite-plugin-static-copy": "^0.17.0"
+  }
+}
