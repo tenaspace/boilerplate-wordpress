@@ -16,8 +16,8 @@ tenaspace_require_all_files('/inc/shortcodes');
 tenaspace_require_all_files('/inc/ajax');
 
 if (tenaspace_is_woocommerce_activated()) {
-	$tenaspace->woocommerce = require_once('inc/woocommerce/class-tenaspace-woocommerce.php');
 	require_once('inc/woocommerce/tenaspace-woocommerce-functions.php');
+	$tenaspace->woocommerce = require_once('inc/woocommerce/class-tenaspace-woocommerce.php');
 	require_once('inc/woocommerce/tenaspace-woocommerce-template-functions.php');
 	require_once('inc/woocommerce/tenaspace-woocommerce-template-hooks.php');
 }
