@@ -1,5 +1,11 @@
 module.exports = {
-  content: [`./*.php`, `./inc/**/*.php`, `./ui/**/*.php`, `./woocommerce/**/*.php`, `./src/**/*.{js,ts,jsx,tsx,mdx}`],
+  content: [
+    `./*.php`,
+    `./inc/**/*.php`,
+    `./ui/**/*.php`,
+    `./woocommerce/**/*.php`,
+    `./src/**/*.{php,js,ts,jsx,tsx,mdx}`,
+  ],
   theme: {
     extend: {
       zIndex: {
@@ -25,4 +31,4 @@ module.exports = {
       gridGutterWidth: `0`,
     }),
   ],
-};
+}

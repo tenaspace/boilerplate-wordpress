@@ -1,18 +1,19 @@
 <?php
 
-function cptui_register_my_cpts_projects() {
+function cptui_register_my_cpts_projects()
+{
 
 	/**
 	 * Post Type: Projects.
 	 */
 
 	$labels = [
-		"name" => esc_html__( "Projects", "tenaspace" ),
-		"singular_name" => esc_html__( "Project", "tenaspace" ),
+		"name" => esc_html__("Projects", "tenaspace"),
+		"singular_name" => esc_html__("Project", "tenaspace"),
 	];
 
 	$args = [
-		"label" => esc_html__( "Projects", "tenaspace" ),
+		"label" => esc_html__("Projects", "tenaspace"),
 		"labels" => $labels,
 		"description" => "",
 		"public" => true,
@@ -31,15 +32,15 @@ function cptui_register_my_cpts_projects() {
 		"map_meta_cap" => true,
 		"hierarchical" => true,
 		"can_export" => false,
-		"rewrite" => [ "slug" => "projects", "with_front" => true ],
+		"rewrite" => ["slug" => "projects", "with_front" => true],
 		"query_var" => true,
-		"supports" => [ "title", "editor", "thumbnail", "author", "page-attributes" ],
+		"supports" => ["title", "editor", "thumbnail", "author", "page-attributes"],
 		"show_in_graphql" => false,
 	];
 
-	register_post_type( "projects", $args );
+	register_post_type("projects", $args);
 }
 
-add_action( 'init', 'cptui_register_my_cpts_projects' );
+add_action('init', 'cptui_register_my_cpts_projects');
 
 ?>

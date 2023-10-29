@@ -1,6 +1,4 @@
 <?php
-use KubAT\PhpSimple\HtmlDomParser;
-
 if (!defined('ABSPATH')) {
   exit;
 }
@@ -14,13 +12,13 @@ if (!class_exists('Tenaspace')) {
       $this->defines();
       $this->google_fonts();
       $this->scripts();
-      $this->alpine_start();
       add_filter('body_class', [$this, 'body_classes']);
-      $this->custom_hooks();
+      add_action('init', [$this, 'custom_blocks']);
     }
 
     public function setup()
     {
+      add_theme_support('title-tag');
       load_theme_textdomain('tenaspace', get_template_directory() . '/languages');
       add_theme_support('automatic-feed-links');
       add_theme_support('post-thumbnails');
@@ -51,11 +49,15 @@ if (!class_exists('Tenaspace')) {
     public function google_fonts()
     {
       add_action('wp_head', function () {
-        echo '<link rel="profile" href="https://gmpg.org/xfn/11">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">';
-      }, 10);
+        ?>
+        <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap" as="style"
+          onload="this.onload=null;this.rel='stylesheet'" />
+        <noscript>
+          <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap" rel="stylesheet"
+            type="text/css" />
+        </noscript>
+        <?php
+      }, 5);
     }
 
     public function scripts()
@@ -79,7 +81,7 @@ if (!class_exists('Tenaspace')) {
        */
       global $name_main;
       $name_main = 'main';
-      if (vs_is_vite_dev_mode()) {
+      if (tenaspace_is_vite_dev_mode()) {
         function get_scripts()
         {
           global $name_main;
@@ -88,7 +90,7 @@ if (!class_exists('Tenaspace')) {
 
         add_action('wp_head', function () {
           get_scripts();
-        }, 99998);
+        }, 99999);
       } else {
         function get_css()
         {
@@ -118,7 +120,7 @@ if (!class_exists('Tenaspace')) {
               foreach ($manifest_values as $manifest_value) {
                 if (isset($manifest_value['css']) && is_array($manifest_value) && sizeof($manifest_value['css']) > 0) {
                   if (isset($manifest_value['file']) && !empty($manifest_value['file'])) {
-                    wp_enqueue_script($name_main, PUBLIC_URI . '/' . $manifest_value['file'], [], false, true);
+                    echo '<script type="text/javascript" src="' . PUBLIC_URI . '/' . $manifest_value['file'] . '?ver=' . get_bloginfo('version') . '" id="' . $name_main . '-js"></script>';
                   }
                 }
               }
@@ -128,36 +130,10 @@ if (!class_exists('Tenaspace')) {
 
         add_action('wp_enqueue_scripts', function () {
           get_css();
-          get_js();
-        }, 99998);
-      }
-    }
-
-    public function alpine_start()
-    {
-      global $name_alpine_start;
-      $name_alpine_start = 'alpine-start';
-      if (tenaspace_is_vite_dev_mode()) {
-        add_action('wp_footer', function () {
-          global $name_alpine_start;
-          echo '<script type="module" crossorigin src="' . PUBLIC_URI . '/' . $name_alpine_start . '.js"></script>';
         }, 99999);
-      } else {
-        add_action('wp_enqueue_scripts', function () {
-          global $name_alpine_start;
-          $manifest = json_decode(file_get_contents(PUBLIC_URI . '/manifest.json'), true);
-          if (is_array($manifest)) {
-            $manifest_values = array_values($manifest);
-            if (sizeof($manifest_values) > 0) {
-              foreach ($manifest_values as $manifest_value) {
-                if (isset($manifest_value['src']) && $manifest_value['src'] === 'src/' . $name_alpine_start . '.js') {
-                  if (isset($manifest_value['file']) && !empty($manifest_value['file'])) {
-                    wp_enqueue_script($name_alpine_start, PUBLIC_URI . '/' . $manifest_value['file'], [], false, true);
-                  }
-                }
-              }
-            }
-          }
+
+        add_action('wp_footer', function () {
+          get_js();
         }, 99999);
       }
     }
@@ -172,89 +148,30 @@ if (!class_exists('Tenaspace')) {
       return $classes;
     }
 
-    public function custom_hooks()
+    public function custom_blocks()
     {
-      /**
-       * Disable Heartbeat
-       */
-      // add_action('init', function() {
-      //   wp_deregister_script('heartbeat');
-      // });
-
-      /**
-       * Disabled XML-RPC
-       */
-      add_filter('xmlrpc_enabled', '__return_false');
-
-      /**
-       * Log Mail
-       */
-      add_action('wp_mail_failed', function ($wp_error) {
-        $fn = WP_CONTENT_DIR . '/mail.log';
-        $fp = fopen($fn, 'a');
-        fputs($fp, "Mailer Error: " . $wp_error->get_error_message() . "\n");
-        fclose($fp);
-      }, 10, 1);
-
-      /**
-       * Allow Form Multiple Upload
-       */
-      add_action('post_edit_form_tag', function () {
-        echo ' enctype="multipart/form-data"';
-      });
-
-      /**
-       * The Menu
-       */
-      add_filter('wp_get_nav_menu_items', function ($items, $menu, $args) {
-        _wp_menu_item_classes_by_context($items);
-        return $items;
-      }, 10, 3);
-
-      /**
-       * The Archive - Title
-       */
-      add_filter('get_the_archive_title', function ($title) {
-        if (is_category()) {
-          $title = single_cat_title('', false);
-        } elseif (is_tag()) {
-          $title = single_tag_title('', false);
-        } elseif (is_author()) {
-          $title = '<span class="vcard">' . get_the_author() . '</span>';
-        } elseif (is_tax()) { //for custom post types
-          $title = sprintf(__('%1$s'), single_term_title('', false));
-        } elseif (is_post_type_archive()) {
-          $title = post_type_archive_title('', false);
+      $blocks = glob(get_template_directory() . '/build/custom-blocks/*/');
+      if (isset($blocks) && is_array($blocks) && sizeof($blocks) > 0) {
+        foreach ($blocks as $block) {
+          register_block_type($block);
         }
-        return $title;
-      });
+      }
 
-      /**
-       * The Excerpt
-       */
-      add_filter('excerpt_more', function ($dots) {
-        return '...';
-      });
+      function register_custom_blocks_category($categories)
+      {
 
-      /**
-       * The Content - Hash ID For H Tag
-       */
-      if (class_exists('ACF')) {
-        add_filter('the_content', function ($content) {
-          if (!$content) {
-            return;
-          }
-          $toc_settings = get_post_meta(get_the_ID(), 'table_of_contents', true);
-          if ($content && is_array($toc_settings) && sizeof($toc_settings) > 0) {
-            $content = HtmlDomParser::str_get_html($content);
-            foreach ($toc_settings as $k => $v) {
-              foreach ($content->find($v) as $element) {
-                $element->setAttribute('id', sanitize_title(trim($element->plaintext)));
-              }
-            }
-          }
-          return $content;
-        }, 15, 1);
+        $categories[] = array(
+          'slug' => 'custom-blocks',
+          'title' => 'Custom blocks'
+        );
+
+        return $categories;
+      }
+
+      if (version_compare(get_bloginfo('version'), '5.8', '>=')) {
+        add_filter('block_categories_all', 'register_custom_blocks_category');
+      } else {
+        add_filter('block_categories', 'register_custom_blocks_category');
       }
     }
   }

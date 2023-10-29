@@ -1,7 +1,8 @@
 /* CSS */
 
-import './styles/globals.css';
+import './styles/globals.css'
 
 /* JS */
 
-import './scripts/globals';
+import './scripts/globals'
+import './scripts/alpine'

@@ -9,9 +9,9 @@ $tenaspace = (object) [
 	'version' => $tenaspace_version,
 	'main' => require_once('inc/class-tenaspace.php'),
 ];
-require_once('inc/wordpress-shims.php');
+require_once('inc/tenaspace-hooks.php');
 
-tenaspace_require_all_files('/inc/cpts');
+tenaspace_require_all_files('/inc/custom-post-types');
 tenaspace_require_all_files('/inc/shortcodes');
 tenaspace_require_all_files('/inc/ajax');
 

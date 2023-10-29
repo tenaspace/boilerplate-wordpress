@@ -1,31 +1,20 @@
-import { defineConfig, loadEnv, normalizePath } from "vite";
-import liveReload from "vite-plugin-live-reload";
-import { viteStaticCopy } from "vite-plugin-static-copy";
-const path = require("path");
-const fs = require("fs");
+import { defineConfig, loadEnv, normalizePath } from 'vite'
+import liveReload from 'vite-plugin-live-reload'
+import { viteStaticCopy } from 'vite-plugin-static-copy'
+import path from 'path'
 
 let rollupOptions = {
   input: {
     main: normalizePath(path.resolve(__dirname, `./src/main.js`)),
-    "alpine-start": normalizePath(path.resolve(__dirname, `./src/alpine-start.js`)),
+    // alpine: normalizePath(path.resolve(__dirname, `./src/alpine.js`)),
   },
-};
-
-fs.readdirSync(`./src/scripts/pages/`).forEach((file) => {
-  if (file) {
-    if (path.extname(file) === `.js`) {
-      rollupOptions.input[file] = normalizePath(
-        path.resolve(__dirname, `./src/scripts/pages/${file.split()}`)
-      );
-    }
-  }
-});
+}
 
 export default ({ mode }) => {
-  process.env = { ...process.env, ...loadEnv(mode, process.cwd()) };
+  process.env = { ...process.env, ...loadEnv(mode, process.cwd()) }
   return defineConfig({
     plugins: [
-      liveReload(`${__dirname}/**/*.php`),
+      liveReload([`${__dirname}/**/*.php`]),
       viteStaticCopy({
         targets: [
           {
@@ -54,5 +43,5 @@ export default ({ mode }) => {
       port: process.env.VITE_SERVER_PORT ?? 3000,
       https: false,
     },
-  });
-};
+  })
+}

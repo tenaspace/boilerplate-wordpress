@@ -27,40 +27,6 @@ if (!function_exists('tenaspace_require_all_files')) {
 }
 
 /**
- * Enqueue JS per page
- */
-if (!function_exists('tenaspace_enqueue_scripts_per_page')) {
-  function tenaspace_enqueue_scripts_per_page($path)
-  {
-    if (!$path) {
-      return;
-    }
-    global $name_enqueue_scripts_per_page;
-    $name_enqueue_scripts_per_page = wp_basename($path, '.php');
-    if (tenaspace_is_vite_dev_mode()) {
-      echo '<script type="module" crossorigin src="' . PUBLIC_URI . '/scripts/pages/' . $name_enqueue_scripts_per_page . '.js"></script>';
-    } else {
-      add_action('wp_enqueue_scripts', function () {
-        global $name_enqueue_scripts_per_page;
-        $manifest = json_decode(file_get_contents(PUBLIC_URI . '/manifest.json'), true);
-        if (is_array($manifest)) {
-          $manifest_values = array_values($manifest);
-          if (sizeof($manifest_values) > 0) {
-            foreach ($manifest_values as $manifest_value) {
-              if (isset($manifest_value['src']) && $manifest_value['src'] === 'src/scripts/pages/' . $name_enqueue_scripts_per_page . '.js') {
-                if (isset($manifest_value['file']) && !empty($manifest_value['file'])) {
-                  wp_enqueue_script($name_enqueue_scripts_per_page, PUBLIC_URI . '/' . $manifest_value['file'], [], false, true);
-                }
-              }
-            }
-          }
-        }
-      }, 20);
-    }
-  }
-}
-
-/**
  * Check WooCommerce is activated
  */
 if (!function_exists('tenaspace_is_woocommerce_activated')) {
@@ -137,7 +103,7 @@ if (!function_exists('tenaspace_get_table_of_contents')) {
     $result = [];
     if (class_exists('ACF')) {
       $toc_settings = get_post_meta($post_id, 'table_of_contents', true);
-      if ($content && is_array($toc_settings) && sizeof($toc_settings) > 0) {
+      if (isset($content) && is_array($toc_settings) && sizeof($toc_settings) > 0) {
         $heading_tags = [];
         foreach ($toc_settings as $k => $v) {
           if ($content->find($v)) {

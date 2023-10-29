@@ -5,9 +5,8 @@ $referer = wp_get_referer();
 $nonce = wp_create_nonce($action);
 ?>
 
-<form novalidate method="POST" class="space-y-2" x-data="FormContact($el)" data-action="<?php echo $action; ?>"
-  data-action-url="<?php echo $action_url; ?>" data-referer="<?php echo $referer; ?>" data-nonce="<?php echo $nonce; ?>"
-  @submit.prevent="onSubmit">
+<form novalidate class="space-y-2" x-data="formContact($el)" data-action-url="<?php echo $action_url; ?>"
+  data-referer="<?php echo $referer; ?>" data-nonce="<?php echo $nonce; ?>" @submit.prevent="onSubmit">
   <div>
     <input type="text" placeholder="Full name *" class="w-full border px-5 py-2" x-model="fields.fullName"
       :class="states?.fields?.fullName?.error && 'border-red-500'" @change="onValidate" :disabled="loading" />
