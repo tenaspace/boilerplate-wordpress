@@ -60,14 +60,14 @@ const FormContact = () => {
             .then((res) => res.json())
             .then((res) => {
               if (res.success) {
-                // console.log(`reset form`);
+                // console.log(`reset form`)
               }
-              // console.log(res.alert);
+              // console.log(`successfully`)
               this.loading = false
             })
             .catch((err) => {
               console.error(err)
-              // console.log(res.alert);
+              // console.log(`error`)
               this.loading = false
             })
         } else {
