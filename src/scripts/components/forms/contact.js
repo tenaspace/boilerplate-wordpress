@@ -1,4 +1,5 @@
 import Iodine from '@caneara/iodine'
+import { load } from 'recaptcha-v3'
 
 const iodine = new Iodine()
 
@@ -7,7 +8,7 @@ const FormContact = () => {
     window.Alpine.data(`formContact`, (el) => ({
       actionUrl: el.getAttribute(`data-action-url`),
       fields: {
-        action: `form_contact`,
+        action: el.getAttribute(`data-action`),
         referer: el.getAttribute(`data-referer`),
         nonce: el.getAttribute(`data-nonce`),
         fullName: ``,
@@ -50,26 +51,33 @@ const FormContact = () => {
         this.loading = true
         this.onValidate()
         if (this.states.valid) {
-          fetch(this.actionUrl, {
-            method: `POST`,
-            headers: {
-              'Content-type': `application/x-www-form-urlencoded`,
-            },
-            body: new URLSearchParams(this.fields),
-          })
-            .then((res) => res.json())
-            .then((res) => {
-              if (res.success) {
-                // console.log(`reset form`)
-              }
-              // console.log(`successfully`)
-              this.loading = false
+          try {
+            load(import.meta.env.VITE_GOOLE_RECAPTCHA_SITE_KEY ?? ``).then((recaptcha) => {
+              recaptcha.execute(this.fields.action).then((token) => {
+                fetch(this.actionUrl, {
+                  method: `POST`,
+                  headers: {
+                    'Content-type': `application/x-www-form-urlencoded`,
+                  },
+                  body: new URLSearchParams({ ...this.fields, token }),
+                })
+                  .then((response) => response.json())
+                  .then((response) => {
+                    if (response.success) {
+                      // console.log(`reset`)
+                      // console.log(`success`)
+                    } else {
+                      // console.log(`error`)
+                    }
+                    this.loading = false
+                  })
+              })
             })
-            .catch((err) => {
-              console.error(err)
-              // console.log(`error`)
-              this.loading = false
-            })
+          } catch (error) {
+            console.error(error)
+            // console.log(`error`)
+            this.loading = false
+          }
         } else {
           this.loading = false
         }

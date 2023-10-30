@@ -1,6 +1,7 @@
 @import './alpinejs.css';
 @import './vanilla-lazyload.css';
 @import './woocommerce.css';
+@import './google-recaptcha-v3.css';
 
 @tailwind base;
 @tailwind components;

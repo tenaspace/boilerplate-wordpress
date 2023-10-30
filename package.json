@@ -19,7 +19,8 @@
     "alpinejs": "^3.13.2",
     "clsx": "^2.0.0",
     "jquery": "^3.7.1",
-    "tailwind-merge": "^1.14.0",
+    "recaptcha-v3": "^1.10.0",
+    "tailwind-merge": "^2.0.0",
     "vanilla-lazyload": "^17.8.5"
   },
   "devDependencies": {

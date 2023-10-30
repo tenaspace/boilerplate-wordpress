@@ -1,6 +1,8 @@
 <?php
 
 require_once('vendor/autoload.php');
+$dotenv = Dotenv\Dotenv::createImmutable(get_template_directory());
+$dotenv->safeLoad();
 
 require_once('inc/tenaspace-functions.php');
 $theme = wp_get_theme('tenaspace');

@@ -37,6 +37,21 @@ if (!function_exists('tenaspace_is_woocommerce_activated')) {
 }
 
 /**
+ * Verify reCAPTCHA v3
+ */
+if (!function_exists('tenaspace_recaptcha_verify')) {
+  function tenaspace_recaptcha_verify($token, $action)
+  {
+    $recaptcha = new \ReCaptcha\ReCaptcha($_ENV['GOOLE_RECAPTCHA_SECRET_KEY'] ?? '');
+    $verify = $recaptcha->setExpectedHostname($_SERVER['SERVER_NAME'])
+      ->setExpectedAction($action)
+      ->setScoreThreshold(0.5)
+      ->verify($token, $_SERVER['REMOTE_ADDR']);
+    return $verify->toArray();
+  }
+}
+
+/**
  * Limit Word
  */
 if (!function_exists('tenaspace_limit_words')) {
