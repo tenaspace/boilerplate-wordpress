@@ -51,33 +51,48 @@ const FormContact = () => {
         this.loading = true
         this.onValidate()
         if (this.states.valid) {
-          try {
-            load(import.meta.env.VITE_GOOLE_RECAPTCHA_SITE_KEY ?? ``).then((recaptcha) => {
-              recaptcha.execute(this.fields.action).then((token) => {
-                fetch(this.actionUrl, {
-                  method: `POST`,
-                  headers: {
-                    'Content-type': `application/x-www-form-urlencoded`,
-                  },
-                  body: new URLSearchParams({ ...this.fields, token }),
-                })
-                  .then((response) => response.json())
-                  .then((response) => {
-                    if (response.success) {
-                      // console.log(`reset`)
-                      // console.log(`success`)
-                    } else {
-                      // console.log(`error`)
-                    }
-                    this.loading = false
+          load(import.meta.env.VITE_GOOLE_RECAPTCHA_SITE_KEY ?? ``)
+            .then((recaptcha) => {
+              recaptcha
+                .execute(this.fields.action)
+                .then((token) => {
+                  fetch(this.actionUrl, {
+                    method: `POST`,
+                    headers: {
+                      'Content-type': `application/x-www-form-urlencoded`,
+                    },
+                    body: new URLSearchParams({ ...this.fields, token }),
                   })
-              })
+                    .then((response) => response.json())
+                    .then((response) => {
+                      if (response.success) {
+                        // console.log(`reset`)
+                        // console.log(`success`)
+                      } else {
+                        if(response.error) {
+                          console.error(response.error)
+                        }
+                        // console.log(`error`)
+                      }
+                      this.loading = false
+                    })
+                    .catch((error) => {
+                      console.error(error)
+                      // console.log(`error`)
+                      this.loading = false
+                    })
+                })
+                .catch((error) => {
+                  console.error(error)
+                  // console.log(`error`)
+                  this.loading = false
+                })
             })
-          } catch (error) {
-            console.error(error)
-            // console.log(`error`)
-            this.loading = false
-          }
+            .catch((error) => {
+              console.error(error)
+              // console.log(`error`)
+              this.loading = false
+            })
         } else {
           this.loading = false
         }
