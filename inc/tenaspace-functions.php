@@ -15,9 +15,9 @@ if (!function_exists('tenaspace_is_vite_dev_mode')) {
  * Require All Files In Folder
  */
 if (!function_exists('tenaspace_require_all_files')) {
-  function tenaspace_require_all_files($path, $excludes = [])
+  function tenaspace_require_all_files($path, $deep = false, $excludes = [])
   {
-    foreach (glob(get_template_directory() . $path . '/*.php') as $filename) {
+    foreach (glob(get_template_directory() . $path . ($deep ? '/**' : '') . '/*.php') as $filename) {
       $explode = explode('/', $filename);
       if (!in_array(str_replace('.php', '', end($explode)), $excludes)) {
         require_once($filename);

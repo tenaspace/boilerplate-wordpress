@@ -13,6 +13,8 @@ $tenaspace = (object) [
 ];
 require_once('inc/tenaspace-hooks.php');
 
+tenaspace_require_all_files('/mail-templates', true);
+
 tenaspace_require_all_files('/inc/custom-post-types');
 tenaspace_require_all_files('/inc/shortcodes');
 tenaspace_require_all_files('/inc/ajax');

@@ -13,7 +13,7 @@ const FormContact = () => {
         nonce: el.getAttribute(`data-nonce`),
         fullName: ``,
         email: ``,
-        telephone: ``,
+        phoneNumber: ``,
         message: ``,
       },
       rules: {
@@ -22,7 +22,7 @@ const FormContact = () => {
         nonce: [`required`],
         fullName: [`required`],
         email: [`required`, `email`],
-        telephone: [`required`, `minLength:10`, `maxLength:10`],
+        phoneNumber: [`required`, `minLength:10`, `maxLength:10`],
       },
       errors: {
         fullName: {
@@ -32,10 +32,10 @@ const FormContact = () => {
           required: `E-mail is required.`,
           email: `E-mail is not valid.`,
         },
-        telephone: {
-          required: `Telephone is required.`,
-          'minLength:10': `Telephone is not valid.`,
-          'maxLength:10': `Telephone is not valid.`,
+        phoneNumber: {
+          required: `Phone number is required.`,
+          'minLength:10': `Phone number is not valid.`,
+          'maxLength:10': `Phone number is not valid.`,
         },
       },
       firstSubmited: false,
@@ -66,31 +66,31 @@ const FormContact = () => {
                     .then((response) => response.json())
                     .then((response) => {
                       if (response.success) {
-                        // console.log(`reset`)
-                        // console.log(`success`)
+                        el.reset();
+                        console.log(`Submitted successfully!`)
                       } else {
-                        if(response.error) {
+                        if (response.error) {
                           console.error(response.error)
                         }
-                        // console.log(`error`)
+                        console.log(`Error occurred!`)
                       }
                       this.loading = false
                     })
                     .catch((error) => {
                       console.error(error)
-                      // console.log(`error`)
+                      console.log(`Error occurred!`)
                       this.loading = false
                     })
                 })
                 .catch((error) => {
                   console.error(error)
-                  // console.log(`error`)
+                  console.log(`Error occurred!`)
                   this.loading = false
                 })
             })
             .catch((error) => {
               console.error(error)
-              // console.log(`error`)
+              console.log(`Error occurred!`)
               this.loading = false
             })
         } else {

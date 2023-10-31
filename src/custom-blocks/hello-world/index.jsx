@@ -17,7 +17,7 @@ registerBlockType(name, {
     }
     return (
       <div {...blockProps}>
-        <RichText tagName={`p`} placeholder={`${__(`Text`)}...`} onChange={onChange} value={__(content)} />
+        <RichText tagName={`p`} placeholder={`${__(`Text`)}...`} onChange={onChange} value={content} />
       </div>
     )
   },

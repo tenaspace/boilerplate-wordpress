@@ -4,6 +4,6 @@ $content = $attributes['content'];
 
 <?php if ($content && !empty($content)): ?>
   <p>
-    <?php echo __($content); ?>
+    <?php echo $content; ?>
   </p>
 <?php endif; ?>
