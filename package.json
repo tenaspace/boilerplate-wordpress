@@ -1,6 +1,7 @@
 {
   "name": "boilerplate-wordpress",
   "version": "1.0.0",
+  "type": "module",
   "private": true,
   "scripts": {
     "delete-manifest": "npx rimraf dist/manifest.json",
@@ -12,11 +13,11 @@
     "deploy": "yarn build && yarn custom-blocks-build && yarn imagemin-build"
   },
   "dependencies": {
-    "@alpinejs/collapse": "^3.13.2",
-    "@alpinejs/focus": "^3.13.2",
-    "@alpinejs/mask": "^3.13.2",
+    "@alpinejs/collapse": "^3.13.3",
+    "@alpinejs/focus": "^3.13.3",
+    "@alpinejs/mask": "^3.13.3",
     "@caneara/iodine": "^8.5.0",
-    "alpinejs": "^3.13.2",
+    "alpinejs": "^3.13.3",
     "clsx": "^2.0.0",
     "jquery": "^3.7.1",
     "recaptcha-v3": "^1.10.0",
@@ -25,12 +26,12 @@
   },
   "devDependencies": {
     "@ixkaito/imagemin": "^0.1.0",
-    "@typescript-eslint/eslint-plugin": "^6.9.1",
-    "@typescript-eslint/parser": "^6.9.1",
-    "@wordpress/icons": "^9.36.0",
-    "@wordpress/scripts": "^26.16.0",
+    "@typescript-eslint/eslint-plugin": "^6.12.0",
+    "@typescript-eslint/parser": "^6.12.0",
+    "@wordpress/icons": "^9.37.0",
+    "@wordpress/scripts": "^26.17.0",
     "autoprefixer": "^10.4.16",
-    "eslint": "^8.52.0",
+    "eslint": "^8.54.0",
     "eslint-plugin-tailwindcss": "^3.13.0",
     "imagemin-gifsicle": "^7.0.0",
     "imagemin-jpegtran": "^7.0.0",
@@ -38,14 +39,14 @@
     "imagemin-svgo": "^10.0.1",
     "postcss": "^8.4.31",
     "postcss-import": "^15.1.0",
-    "prettier": "^3.0.3",
-    "prettier-plugin-tailwindcss": "^0.5.6",
+    "prettier": "^3.1.0",
+    "prettier-plugin-tailwindcss": "^0.5.7",
     "rimraf": "^5.0.5",
     "tailwind-bootstrap-grid": "^5.0.1",
     "tailwindcss": "^3.3.5",
-    "typescript": "^5.2.2",
-    "vite": "^4.5.0",
+    "typescript": "^5.3.2",
+    "vite": "^5.0.2",
     "vite-plugin-live-reload": "^3.0.2",
-    "vite-plugin-static-copy": "^0.17.0"
+    "vite-plugin-static-copy": "^1.0.0"
   }
 }

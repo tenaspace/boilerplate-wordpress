@@ -1,23 +1,37 @@
+import Alpine from 'alpinejs'
+import collapse from '@alpinejs/collapse'
+import focus from '@alpinejs/focus'
+import mask from '@alpinejs/mask'
 // import jQuery from "jquery";
 // window.$ = window.jQuery = jQuery;
-import LazyLoad from 'vanilla-lazyload'
+import VanillaLazyLoad from './vanilla-lazyload'
 import FormContact from './components/forms/contact'
 
 /**
- * LazyLoad
+ * Alpinejs Safari fix: https://github.com/alpinejs/alpine/discussions/1964
  */
 
-document.addEventListener(`alpine:init`, () => {
-  window.lazyLoadInstance = new LazyLoad({
-    threshold: 0,
-  })
-  window.Alpine.nextTick(() => {
-    window.lazyLoadInstance.update()
-  })
-})
+window.queueMicrotask = (callback) => {
+  Promise.resolve()
+    .then(callback)
+    .catch((e) =>
+      setTimeout(() => {
+        throw e
+      }),
+    )
+}
 
-/**
- * Components
- */
+Alpine.plugin(collapse)
+Alpine.plugin(focus)
+Alpine.plugin(mask)
 
+window.Alpine = Alpine
+
+/* Add any custom values between this line and the "stop editing" line. */
+
+VanillaLazyLoad()
 FormContact()
+
+/* That's all, stop editing! Happy publishing. */
+
+Alpine.start()
