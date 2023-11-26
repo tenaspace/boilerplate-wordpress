@@ -1,8 +1,8 @@
 {
   "$schema": "https://schemas.wp.org/trunk/block.json",
   "apiVersion": 3,
-  "name": "custom-blocks/hello-world",
-  "title": "Hello world!",
+  "name": "custom-blocks/test",
+  "title": "test",
   "textdomain": "tenaspace",
   "category": "custom-blocks",
   "icon": "",

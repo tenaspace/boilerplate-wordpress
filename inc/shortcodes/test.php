@@ -1,9 +1,9 @@
 <?php
 
-add_shortcode('hello_world', function () {
+add_shortcode('test', function () {
   ob_start();
   ?>
-  <div>Hello world!</div>
+  <div>test</div>
   <?php
   $template = ob_get_contents();
   ob_end_clean();

@@ -7,7 +7,7 @@ use KubAT\PhpSimple\HtmlDomParser;
 if (!function_exists('tenaspace_is_vite_dev_mode')) {
   function tenaspace_is_vite_dev_mode()
   {
-    return !file_exists(get_template_directory() . '/dist/manifest.json');
+    return !file_exists(get_template_directory() . '/dist/.vite/manifest.json');
   }
 }
 

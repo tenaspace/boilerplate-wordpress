@@ -4,7 +4,7 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "delete-manifest": "npx rimraf dist/manifest.json",
+    "delete-manifest": "npx rimraf dist/.vite/manifest.json",
     "dev": "yarn delete-manifest && vite",
     "build": "vite build",
     "custom-blocks-dev": "wp-scripts start",

@@ -92,7 +92,7 @@ if (!class_exists('Tenaspace')) {
         function get_css()
         {
           global $name_main;
-          $manifest = json_decode(file_get_contents(PUBLIC_URI . '/manifest.json'), true);
+          $manifest = json_decode(file_get_contents(PUBLIC_URI . '/.vite/manifest.json'), true);
           if (is_array($manifest)) {
             $manifest_values = array_values($manifest);
             if (sizeof($manifest_values) > 0) {
@@ -110,7 +110,7 @@ if (!class_exists('Tenaspace')) {
         function get_js()
         {
           global $name_main;
-          $manifest = json_decode(file_get_contents(PUBLIC_URI . '/manifest.json'), true);
+          $manifest = json_decode(file_get_contents(PUBLIC_URI . '/.vite/manifest.json'), true);
           if (is_array($manifest)) {
             $manifest_values = array_values($manifest);
             if (sizeof($manifest_values) > 0) {
