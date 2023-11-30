@@ -1,5 +1,22 @@
 <?php
 use KubAT\PhpSimple\HtmlDomParser;
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+
+if (!function_exists('tenaspace_write_log')) {
+  function tenaspace_write_log($log)
+  {
+    if (WP_DEBUG === true) {
+      if (is_array($log) || is_object($log)) {
+        error_log(print_r($log, true));
+      } else {
+        error_log($log);
+      }
+    }
+  }
+
+}
 
 /**
  * Check Vite Dev Mode
@@ -48,6 +65,36 @@ if (!function_exists('tenaspace_recaptcha_verify')) {
       ->setScoreThreshold(0.5)
       ->verify($token, $_SERVER['REMOTE_ADDR']);
     return $verify->toArray();
+  }
+}
+
+/**
+ * Mailer
+ */
+if (!function_exists('tenaspace_mailer')) {
+  function tenaspace_mailer()
+  {
+    $mail = new PHPMailer(true);
+    try {
+      $mail->isSMTP();
+      $mail->SMTPAuth = true;
+      if ($_ENV['SENDGRID_API_KEY']) {
+        $mail->Host = 'smtp.sendgrid.net';
+        $mail->Username = 'apikey';
+        $mail->Password = $_ENV['SENDGRID_API_KEY'];
+        $mail->SMTPSecure = 'tls';
+        $mail->Port = 587;
+      } else {
+        $mail->Host = $_ENV['SMTP_HOST'] ?? '';
+        $mail->Username = $_ENV['SMTP_USERNAME'] ?? '';
+        $mail->Password = $_ENV['SMTP_PASSWORD'] ?? '';
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+        $mail->Port = $_ENV['SMTP_PORT'] ?? '';
+      }
+    } catch (Exception $error) {
+      tenaspace_write_log($mail->ErrorInfo);
+    }
+    return $mail;
   }
 }
 

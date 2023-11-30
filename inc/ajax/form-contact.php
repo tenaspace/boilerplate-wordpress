@@ -1,4 +1,5 @@
 <?php
+use PHPMailer\PHPMailer\Exception;
 
 $action = 'form_contact';
 $ajax = "wp_ajax_{$action}";
@@ -6,10 +7,7 @@ $ajax_nopriv = "wp_ajax_nopriv_{$action}";
 
 function form_contact()
 {
-  $response = [
-    'success' => false,
-    'error' => ''
-  ];
+  $response = ['success' => false];
   $data = $_POST;
   if (isset($data['nonce']) && !empty($data['nonce']) && wp_verify_nonce($data['nonce'], $data['action'])) {
     $token = isset($data['token']) && !empty($data['token']) ? $data['token'] : '';
@@ -17,30 +15,56 @@ function form_contact()
     if ($verify['success'] == true && $verify['score'] > 0.5) {
       unset($data['token']);
 
-      $admin = new \SendGrid\Mail\Mail();
-      $admin->setFrom($_ENV['SENDGRID_EMAIL_SENDER'] ?? '', $_ENV['SENDGRID_EMAIL_SENDER_NAME'] ?? '');
-      $admin->setSubject(__('Contact request', 'tenaspace'));
-      $admin->addTo($_ENV['EMAIL_RECIPIENTS'] ?? '');
-      $admin->addContent('text/html', tenaspace_mail_template_contact_admin($data));
-      $admin->setReplyTo($_ENV['EMAIL_NO_REPLY'] ?? '');
-      $sendgrid_admin = new \SendGrid($_ENV['SENDGRID_API_KEY'] ?? '');
+      $mail = tenaspace_mailer();
 
-      $user = new \SendGrid\Mail\Mail();
-      $user->setFrom($_ENV['SENDGRID_EMAIL_SENDER'] ?? '', $_ENV['SENDGRID_EMAIL_SENDER_NAME'] ?? '');
-      $user->setSubject(__('Thank you for contacting us', 'tenaspace'));
-      $user->addTo(isset($data['email']) && !empty($data['email']) && is_email($data['email']) ? $data['email'] : '');
-      $user->addContent('text/html', tenaspace_mail_template_contact_user());
-      $user->setReplyTo($_ENV['EMAIL_NO_REPLY'] ?? '');
-      $sendgrid_user = new \SendGrid($_ENV['SENDGRID_API_KEY'] ?? '');
-
+      // Send to Admin
       try {
-        $sendgrid_admin->send($admin);
-        $sendgrid_user->send($user);
-        $response['success'] = true;
+        $mail->setFrom($_ENV['EMAIL_SENDER'] ?? '', $_ENV['EMAIL_SENDER_NAME'] ?? '');
+        if ($_ENV['EMAIL_RECIPIENTS']) {
+          $recipients = explode(',', $_ENV['EMAIL_RECIPIENTS']);
+          if (isset($recipients) && is_array($recipients) && sizeof($recipients) > 0) {
+            foreach ($recipients as $recipient) {
+              $mail->addAddress($recipient);
+            }
+          }
+        }
+        $mail->isHTML(true);
+        $mail->Subject = '[#' . current_time('timestamp') . '] ' . __('Contact request', 'tenaspace');
+        $mail->Body = tenaspace_mail_template_contact_admin($data);
+        $mail->addReplyTo($_ENV['EMAIL_NO_REPLY'] ?? '');
+        $mail->send();
       } catch (Exception $error) {
-        $response['error'] = $error->getMessage();
+        tenaspace_write_log($mail->ErrorInfo);
+        $response['success'] = false;
       }
+      $mail->clearAllRecipients();
+      $mail->clearReplyTos();
+      $mail->clearAttachments();
+
+      // Send to User
+      try {
+        $mail->setFrom($_ENV['EMAIL_SENDER'] ?? '', $_ENV['EMAIL_SENDER_NAME'] ?? '');
+        $mail->addAddress(isset($data['email']) && !empty($data['email']) && is_email($data['email']) ? $data['email'] : '');
+        $mail->isHTML(true);
+        $mail->Subject = '[#' . current_time('timestamp') . '] ' . __('Thank you for contacting us', 'tenaspace');
+        $mail->Body = tenaspace_mail_template_contact_user();
+        $mail->addReplyTo($_ENV['EMAIL_NO_REPLY'] ?? '');
+        $mail->send();
+      } catch (Exception $error) {
+        tenaspace_write_log($mail->ErrorInfo);
+      }
+      $mail->clearAllRecipients();
+      $mail->clearReplyTos();
+      $mail->clearAttachments();
+
+      $response['success'] = true;
+    } else {
+      tenaspace_write_log($verify['error-codes']);
+      $response['success'] = false;
     }
+  } else {
+    tenaspace_write_log(__('Nonce is invalid.', 'tenaspace'));
+    $response['success'] = false;
   }
   wp_send_json($response);
   wp_die();
