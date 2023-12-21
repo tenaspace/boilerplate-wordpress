@@ -5,7 +5,7 @@
     <div class="py-5">
       <div class="container mx-auto px-5">
         <div class="flex flex-col items-center justify-center">
-          <div class="text-8xl md:text-9xl font-bold text-center mb-2">404</div>
+          <div class="text-8xl md:text-9xl font-bold text-center mb-5">404</div>
           <div class="text-2xl md:text-3xl font-bold text-center mb-2">OOOps! Page Not Found</div>
           <p class="text-base md:text-lg text-center mb-10">Sorry about that! Please visit our homepage to get where you
             need to go.</p>
