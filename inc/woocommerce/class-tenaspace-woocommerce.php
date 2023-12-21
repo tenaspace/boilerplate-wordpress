@@ -10,8 +10,8 @@ if (!class_exists('Tenaspace_WooCommerce')) {
 		public function __construct()
 		{
 			add_action('after_setup_theme', [$this, 'setup']);
-			add_filter('woocommerce_enqueue_styles', '__return_empty_array'); // Remove default WooCommerce CSS
-			add_action('wp_enqueue_scripts', [$this, 'scripts'], 10);
+			// add_filter('woocommerce_enqueue_styles', '__return_empty_array'); // Remove default WooCommerce CSS
+			// add_action('wp_enqueue_scripts', [$this, 'scripts'], 10);
 		}
 
 		public function setup()
