@@ -1,11 +1,13 @@
 <?php get_header(); ?>
 
-<div class="py-10">
+<main class="py-10">
   <div class="py-5">
     <div class="container mx-auto px-5">
-      <h1 class="text-3xl font-bold">Home</h1>
+      <header>
+        <h1 class="text-3xl font-bold mb-2">Home</h1>
+      </header>
     </div>
   </div>
-</div>
+</main>
 
 <?php get_footer(); ?>

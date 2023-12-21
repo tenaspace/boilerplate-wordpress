@@ -1,30 +1,27 @@
 <?php get_header(); ?>
 
-<div class="py-10">
-  <header class="py-5">
+<main class="py-10">
+  <div class="py-5">
     <div class="container mx-auto px-5">
-      <div class="row md:flex-row-reverse md:items-center -m-2.5">
-        <div class="col-12 md:col-auto p-2.5">
-          <?php
-          if (function_exists('yoast_breadcrumb')) {
-            yoast_breadcrumb();
-          } else {
-            if (function_exists('woocommerce_breadcrumb')) {
-              woocommerce_breadcrumb();
-            }
+      <div class="mb-5">
+        <?php
+        if (function_exists('yoast_breadcrumb')) {
+          yoast_breadcrumb();
+        } else {
+          if (function_exists('woocommerce_breadcrumb')) {
+            woocommerce_breadcrumb();
           }
-          ?>
-        </div>
-        <div class="col-12 md:col p-2.5">
-          <h1 class="text-3xl font-bold">
-            Search keywords:
-            <?php echo esc_html(get_search_query()); ?>
-          </h1>
-        </div>
+        }
+        ?>
       </div>
-      <div class="mt-2"></div>
+      <header>
+        <h1 class="text-3xl font-bold mb-2">
+          Search keywords:
+          <?php echo esc_html(get_search_query()); ?>
+        </h1>
+      </header>
     </div>
-  </header>
+  </div>
   <div class="py-5">
     <div class="container mx-auto px-5">
       <?php if (have_posts()): ?>
@@ -47,6 +44,6 @@
       <?php endif; ?>
     </div>
   </div>
-</div>
+</main>
 
 <?php get_footer(); ?>

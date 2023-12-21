@@ -14,4 +14,3 @@ $body_class = isset($args['body_class']) && is_array($args['body_class']) && siz
 <body <?php body_class($body_class); ?>>
 
   <?php wp_body_open(); ?>
-  <main>
