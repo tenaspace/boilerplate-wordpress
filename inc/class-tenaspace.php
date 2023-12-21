@@ -59,23 +59,6 @@ if (!class_exists('Tenaspace')) {
 
     public function scripts()
     {
-      /**
-       * Remove CSS
-       */
-      // add_action('wp_enqueue_scripts', function () {
-      //   global $wp_styles;
-      //   foreach ($wp_styles->queue as $handle) {
-      //     if (strpos($handle, 'wp-block-') === 0) {
-      //       wp_dequeue_style($handle);
-      //     }
-      //   }
-      //   wp_dequeue_style('classic-theme-styles');
-      //   wp_dequeue_style('global-styles');
-      // }, 99999);
-
-      /**
-       * Add CSS & JS
-       */
       global $name_main;
       $name_main = 'main';
       if (tenaspace_is_vite_dev_mode()) {
