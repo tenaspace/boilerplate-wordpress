@@ -21,7 +21,15 @@ module.exports = {
         toast: 1090,
       },
       fontFamily: {
-        inter: [`'Inter', sans-serif`],
+        'be-vietnam-pro': [`'Be Vietnam Pro', sans-serif`],
+      },
+      colors: {
+        ts: {
+          black: `#010101`,
+          beige: `#f2f0ea`,
+          yellow: `#edcf5d`,
+          gray: `#a4a4a4`,
+        },
       },
     },
   },

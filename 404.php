@@ -1,17 +1,16 @@
 <?php get_header('404'); ?>
 
-<div class="flex flex-col justify-center w-full h-screen">
-  <div class="py-10">
-    <div class="py-5">
-      <div class="container mx-auto px-5">
-        <div class="flex flex-col items-center justify-center">
-          <div class="text-8xl md:text-9xl font-bold text-center mb-5">404</div>
-          <div class="text-2xl md:text-3xl font-bold text-center mb-2">OOOps! Page Not Found</div>
-          <p class="text-base md:text-lg text-center mb-10">Sorry about that! Please visit our homepage to get where you
-            need to go.</p>
-          <a href="<?php echo home_url(); ?>" class="inline-block text-center bg-black text-white px-5 py-2">Back to
-            homepage</a>
-        </div>
+<div class="flex h-screen w-full flex-col justify-center">
+  <div class="py-6">
+    <div class="container mx-auto px-6">
+      <div class="flex flex-col items-center justify-center">
+        <div class="mb-6 text-center text-8xl font-bold md:text-9xl">404</div>
+        <div class="mb-4 text-center text-3xl font-bold md:text-4xl">OOOps! Page Not Found</div>
+        <p class="mb-8 text-center">Sorry about that! Please visit our homepage to get where you
+          need to go.</p>
+        <a href="<?php echo home_url(); ?>"
+          class="inline-block rounded-xl bg-black px-10 py-3.5 text-center font-normal text-white">Back to
+          homepage</a>
       </div>
     </div>
   </div>

@@ -47,11 +47,11 @@ if (!class_exists('Tenaspace')) {
     {
       add_action('wp_head', function () {
         ?>
-        <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap" as="style"
-          onload="this.onload=null;this.rel='stylesheet'" />
+        <link rel="preload" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;700&display=swap"
+          as="style" onload="this.onload=null;this.rel='stylesheet'" />
         <noscript>
-          <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap" rel="stylesheet"
-            type="text/css" />
+          <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;700&display=swap"
+            rel="stylesheet" type="text/css" />
         </noscript>
         <?php
       }, 5);
@@ -121,9 +121,11 @@ if (!class_exists('Tenaspace')) {
     public function body_classes($classes)
     {
       $classes = array_merge([
-        'antialiased',
-        'font-inter',
+        'font-be-vietnam-pro',
         'text-base',
+        'font-light',
+        'bg-white',
+        'text-black'
       ], $classes);
       return $classes;
     }
