@@ -11,6 +11,7 @@ $body_class = isset($args['body_class']) && is_array($args['body_class']) && siz
   <?php wp_head(); ?>
 </head>
 
-<body <?php body_class($body_class); ?>>
+<body x-data="app" @resize.window="useWindowSize" <?php body_class($body_class); ?>
+  :style="{ '--ts-window-size-width': windowSize.width, '--ts-window-size-height': windowSize.height }">
 
   <?php wp_body_open(); ?>

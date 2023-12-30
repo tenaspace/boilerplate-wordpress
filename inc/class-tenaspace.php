@@ -41,16 +41,29 @@ if (!class_exists('Tenaspace')) {
 
       define('PUBLIC_PATH', $public_path);
       define('PUBLIC_URI', $public_uri);
+
+      define('CLASSES', [
+        'heading-1' => 'text-[81px] leading-tight font-bold md:text-[91px] md:leading-tight lg:text-[101px] lg:leading-tight',
+        'heading-2' => 'text-[54px] leading-tight font-bold md:text-[60px] md:leading-tight lg:text-[68px] lg:leading-tight',
+        'heading-3' => 'text-[36px] leading-normal font-bold md:text-[42px] md:leading-normal lg:text-[45px] lg:leading-normal',
+        'heading-4' => 'text-[24px] leading-normal font-medium md:text-[27px] md:leading-normal lg:text-[30px] lg:leading-normal',
+        'leading' => 'text-[18px] leading-normal font-normal',
+        'body' => 'text-[16px] leading-normal font-normal',
+        'link' => 'text-[16px] leading-normal font-medium underline',
+        'button' => 'text-[16px] leading-normal font-medium tracking-[0.4px]',
+        'caption' => 'text-[16px] leading-normal font-normal text-ts-gray',
+        'container' => 'mx-auto w-full px-6 sm:px-10 md:px-0 md:w-[88.88888%] md:max-w-[1280px]',
+      ]);
     }
 
     public function google_fonts()
     {
       add_action('wp_head', function () {
         ?>
-        <link rel="preload" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;700&display=swap"
+        <link rel="preload" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&display=swap"
           as="style" onload="this.onload=null;this.rel='stylesheet'" />
         <noscript>
-          <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;700&display=swap"
+          <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&display=swap"
             rel="stylesheet" type="text/css" />
         </noscript>
         <?php
@@ -122,10 +135,9 @@ if (!class_exists('Tenaspace')) {
     {
       $classes = array_merge([
         'font-be-vietnam-pro',
-        'text-base',
-        'font-light',
+        CLASSES['body'],
         'bg-white',
-        'text-black'
+        'text-ts-black'
       ], $classes);
       return $classes;
     }

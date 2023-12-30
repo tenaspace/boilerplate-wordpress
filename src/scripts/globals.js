@@ -29,7 +29,30 @@ window.Alpine = Alpine
 
 /* Add any custom values between this line and the "stop editing" line. */
 
+window.Alpine.data(`app`, () => ({
+  windowSize: {
+    width: `0px`,
+    height: `0px`,
+  },
+  useWindowSize() {
+    this.windowSize.width = `${window.innerWidth}px`
+    this.windowSize.height = `${window.innerHeight}px`
+  },
+  init() {
+    this.useWindowSize()
+  },
+}))
+
+/**
+ * libs
+ */
+
 VanillaLazyLoad()
+
+/**
+ * components
+ */
+
 FormContact()
 
 /* That's all, stop editing! Happy publishing. */

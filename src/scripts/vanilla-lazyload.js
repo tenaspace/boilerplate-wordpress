@@ -5,7 +5,7 @@ const VanillaLazyLoad = () => {
     threshold: 0,
   })
 
-  Alpine.nextTick(() => {
+  window.Alpine.nextTick(() => {
     window.lazyLoadInstance.update()
   })
 }
