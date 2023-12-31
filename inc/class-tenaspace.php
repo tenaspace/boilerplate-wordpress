@@ -43,7 +43,7 @@ if (!class_exists('Tenaspace')) {
       define('PUBLIC_URI', $public_uri);
 
       define('CLASSES', [
-        'container' => 'mx-auto w-full px-6 sm:px-10 md:px-0 md:w-[88.88888%] md:max-w-[1280px]',
+        'container' => 'mx-auto w-full px-4 sm:px-10 md:px-0 md:w-[88.88888%] md:max-w-[1280px]',
         'typography' => [
           'h1' => 'text-[81px] leading-tight font-bold md:text-[91px] md:leading-tight lg:text-[101px] lg:leading-tight',
           'h2' => 'text-[54px] leading-tight font-bold md:text-[60px] md:leading-tight lg:text-[68px] lg:leading-tight',
