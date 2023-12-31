@@ -1,5 +1,7 @@
 <?php
+
 $content = $attributes['content'];
+
 ?>
 
 <?php if ($content && !empty($content)): ?>

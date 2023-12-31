@@ -11,6 +11,7 @@ if (!function_exists('wp_body_open')) {
 /**
  * Disable Heartbeat
  */
+
 // add_action('init', function() {
 //   wp_deregister_script('heartbeat');
 // });
@@ -18,11 +19,13 @@ if (!function_exists('wp_body_open')) {
 /**
  * Disabled XML-RPC
  */
+
 add_filter('xmlrpc_enabled', '__return_false');
 
 /**
  * Log Mail
  */
+
 add_action('wp_mail_failed', function ($wp_error) {
 	$fn = WP_CONTENT_DIR . '/mail.log';
 	$fp = fopen($fn, 'a');
@@ -33,6 +36,7 @@ add_action('wp_mail_failed', function ($wp_error) {
 /**
  * Allow Form Multiple Upload
  */
+
 add_action('post_edit_form_tag', function () {
 	echo ' enctype="multipart/form-data"';
 });
@@ -40,6 +44,7 @@ add_action('post_edit_form_tag', function () {
 /**
  * The Menu
  */
+
 add_filter('wp_get_nav_menu_items', function ($items, $menu, $args) {
 	_wp_menu_item_classes_by_context($items);
 	return $items;
@@ -48,6 +53,7 @@ add_filter('wp_get_nav_menu_items', function ($items, $menu, $args) {
 /**
  * The Archive - Title
  */
+
 add_filter('get_the_archive_title', function ($title) {
 	if (is_category()) {
 		$title = single_cat_title('', false);
@@ -66,6 +72,7 @@ add_filter('get_the_archive_title', function ($title) {
 /**
  * The Excerpt
  */
+
 add_filter('excerpt_more', function ($dots) {
 	return '...';
 });
@@ -73,6 +80,7 @@ add_filter('excerpt_more', function ($dots) {
 /**
  * The Content - Hash ID For H Tag
  */
+
 if (class_exists('ACF')) {
 	add_filter('the_content', function ($content) {
 		if (!$content) {

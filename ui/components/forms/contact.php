@@ -1,8 +1,10 @@
 <?php
+
 $action = 'form_contact';
 $action_url = admin_url('admin-ajax.php');
 $referer = wp_get_referer();
 $nonce = wp_create_nonce($action);
+
 ?>
 
 <form novalidate class="space-y-2" x-data="formContact($el)" data-action="<?php echo $action; ?>"

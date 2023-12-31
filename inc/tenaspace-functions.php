@@ -21,6 +21,7 @@ if (!function_exists('tenaspace_write_log')) {
 /**
  * Check Vite Dev Mode
  */
+
 if (!function_exists('tenaspace_is_vite_dev_mode')) {
   function tenaspace_is_vite_dev_mode()
   {
@@ -31,6 +32,7 @@ if (!function_exists('tenaspace_is_vite_dev_mode')) {
 /**
  * Require All Files In Folder
  */
+
 if (!function_exists('tenaspace_require_all_files')) {
   function tenaspace_require_all_files($path, $deep = false, $excludes = [])
   {
@@ -46,6 +48,7 @@ if (!function_exists('tenaspace_require_all_files')) {
 /**
  * Check WooCommerce is activated
  */
+
 if (!function_exists('tenaspace_is_woocommerce_activated')) {
   function tenaspace_is_woocommerce_activated()
   {
@@ -56,6 +59,7 @@ if (!function_exists('tenaspace_is_woocommerce_activated')) {
 /**
  * Verify reCAPTCHA v3
  */
+
 if (!function_exists('tenaspace_recaptcha_verify')) {
   function tenaspace_recaptcha_verify($token, $action)
   {
@@ -71,6 +75,7 @@ if (!function_exists('tenaspace_recaptcha_verify')) {
 /**
  * Mailer
  */
+
 if (!function_exists('tenaspace_mailer')) {
   function tenaspace_mailer()
   {
@@ -101,6 +106,7 @@ if (!function_exists('tenaspace_mailer')) {
 /**
  * Limit Word
  */
+
 if (!function_exists('tenaspace_limit_words')) {
   function tenaspace_limit_words($string, $limit = 25)
   {
@@ -111,6 +117,7 @@ if (!function_exists('tenaspace_limit_words')) {
 /**
  * Get Nav Menu Items
  */
+
 if (!function_exists('tenaspace_get_nav_menu_items')) {
   function tenaspace_get_nav_menu_items(array &$nav_menu_items, $parent_id = 0)
   {
@@ -133,6 +140,7 @@ if (!function_exists('tenaspace_get_nav_menu_items')) {
 /**
  * Get Nav Menu
  */
+
 if (!function_exists('tenaspace_get_nav_menu')) {
   function tenaspace_get_nav_menu($theme_location)
   {
@@ -144,6 +152,7 @@ if (!function_exists('tenaspace_get_nav_menu')) {
 /**
  * Get Attachment ID By URL
  */
+
 if (!function_exists('tenaspace_get_attachment_id_by_url')) {
   function tenaspace_get_attachment_id_by_url($url)
   {
@@ -155,6 +164,7 @@ if (!function_exists('tenaspace_get_attachment_id_by_url')) {
 /**
  * Table Of Contents
  */
+
 if (!function_exists('tenaspace_get_table_of_contents')) {
   function tenaspace_get_table_of_contents($post_id)
   {

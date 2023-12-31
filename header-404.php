@@ -2,7 +2,9 @@
 <html class="no-js" <?php language_attributes(); ?>>
 
 <?php
+
 $body_class = isset($args['body_class']) && is_array($args['body_class']) && sizeof($args['body_class']) > 0 ? $args['body_class'] : [];
+
 ?>
 
 <head>
