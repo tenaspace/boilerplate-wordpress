@@ -23,12 +23,6 @@ module.exports = {
       fontFamily: {
         'be-vietnam-pro': [`'Be Vietnam Pro', sans-serif`],
       },
-      colors: {
-        ts: {
-          black: `#010101`,
-          gray: `#8d8d8d`,
-        },
-      },
     },
   },
   plugins: [

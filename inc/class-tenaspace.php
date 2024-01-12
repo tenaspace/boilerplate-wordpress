@@ -4,6 +4,8 @@ if (!defined('ABSPATH')) {
   exit;
 }
 
+use TailwindMerge\TailwindMerge;
+
 if (!class_exists('Tenaspace')) {
   class Tenaspace
   {
@@ -138,12 +140,13 @@ if (!class_exists('Tenaspace')) {
 
     public function body_classes($classes)
     {
-      $classes = array_merge([
-        'font-be-vietnam-pro',
-        CLASSES['typography']['base'],
-        'bg-white',
-        'text-ts-black'
-      ], $classes);
+      $tw = TailwindMerge::instance();
+      $classes = [
+        $tw->merge(array_merge([
+          CLASSES['typography']['base'],
+          'font-be-vietnam-pro bg-white text-black dark:bg-white dark:text-black',
+        ], $classes))
+      ];
       return $classes;
     }
 

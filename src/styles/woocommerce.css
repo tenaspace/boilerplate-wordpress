@@ -1,5 +1,5 @@
 /* single_add_to_cart_button */
 
 .button.alt {
-  @apply box-border flex w-full items-center justify-center space-x-2.5 rounded-lg border border-ts-black bg-ts-black px-7 py-4 text-center text-[16px] font-medium leading-normal tracking-[0.4px] text-white;
+  
 }

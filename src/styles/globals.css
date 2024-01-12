@@ -24,7 +24,7 @@
 
     .wp-block-heading {
       &:not(:first-child) {
-        @apply mt-11;
+        @apply mt-10;
       }
 
       &:not(:last-child) {
@@ -60,7 +60,7 @@
 
     .wp-block-image {
       figcaption {
-        @apply text-[14px] font-normal leading-[24px] text-ts-gray;
+        @apply text-[14px] font-normal leading-[24px] text-gray-500;
       }
     }
   }

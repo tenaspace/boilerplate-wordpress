@@ -17,7 +17,7 @@ get_header('404');
           found</div>
         <p class="text-center mb-12">Sorry about that! Please visit our home page to get where you need to go.</p>
         <a href="<?php echo home_url(); ?>"
-          class="<?php echo $tw->merge([CLASSES['typography']['small'], 'box-border inline-block rounded-lg border border-ts-black bg-ts-black px-6 py-2.5 text-center text-white']); ?>">Back
+          class="<?php echo $tw->merge([CLASSES['typography']['small'], 'box-border inline-block rounded-lg border border-black bg-black px-6 py-2.5 text-center text-white']); ?>">Back
           to
           home page</a>
       </div>
