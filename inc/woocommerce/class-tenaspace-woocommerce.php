@@ -11,7 +11,6 @@ if (!class_exists('Tenaspace_WooCommerce')) {
 		{
 			add_action('after_setup_theme', [$this, 'setup']);
 			add_filter('woocommerce_enqueue_styles', '__return_empty_array'); // Remove default WooCommerce CSS
-			remove_action('woocommerce_sidebar', 'woocommerce_get_sidebar', 10);
 		}
 
 		public function setup()

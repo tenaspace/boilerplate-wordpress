@@ -7,17 +7,13 @@
 </h1>
 
 <?php if (have_posts()): ?>
-  <div>
-    <div>
-      <?php while (have_posts()):
-        the_post(); ?>
-        <div>
-          <?php the_content(); ?>
-        </div>
-      <?php endwhile;
-      wp_reset_postdata(); ?>
+  <?php while (have_posts()):
+    the_post(); ?>
+    <div class="the-content">
+      <?php the_content(); ?>
     </div>
-  </div>
+  <?php endwhile;
+  wp_reset_postdata(); ?>
 <?php endif; ?>
 
 <?php get_footer(); ?>

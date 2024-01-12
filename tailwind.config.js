@@ -26,9 +26,7 @@ module.exports = {
       colors: {
         ts: {
           black: `#010101`,
-          beige: `#f2f0ea`,
-          yellow: `#edcf5d`,
-          gray: `#a4a4a4`,
+          gray: `#8d8d8d`,
         },
       },
     },

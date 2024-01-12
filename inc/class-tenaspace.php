@@ -46,15 +46,16 @@ if (!class_exists('Tenaspace')) {
       define('CLASSES', [
         'container' => 'mx-auto w-full px-4 sm:px-10 md:px-0 md:w-[88.88888%] md:max-w-[1280px]',
         'typography' => [
-          'h1' => 'text-[81px] leading-tight font-bold md:text-[91px] md:leading-tight lg:text-[101px] lg:leading-tight',
-          'h2' => 'text-[54px] leading-tight font-bold md:text-[60px] md:leading-tight lg:text-[68px] lg:leading-tight',
-          'h3' => 'text-[36px] leading-normal font-bold md:text-[42px] md:leading-normal lg:text-[45px] lg:leading-normal',
-          'h4' => 'text-[24px] leading-normal font-medium md:text-[27px] md:leading-normal lg:text-[30px] lg:leading-normal',
-          'leading' => 'text-[18px] leading-normal font-normal',
-          'body' => 'text-[16px] leading-normal font-normal',
-          'link' => 'text-[16px] leading-normal font-medium underline',
-          'button' => 'text-[16px] leading-normal font-medium tracking-[0.4px]',
-          'caption' => 'text-[16px] leading-normal font-normal text-ts-gray',
+          'h1' => 'text-[56px] leading-[64px] font-bold',
+          'h2' => 'text-[48px] leading-[56px] font-bold',
+          'h3' => 'text-[40px] leading-[48px] font-bold',
+          'h4' => 'text-[32px] leading-[40px] font-bold',
+          'h5' => 'text-[24px] leading-[32px] font-bold',
+          'h6' => 'text-[20px] leading-[26px] font-bold',
+          'large' => 'text-[18px] leading-[24px] font-medium',
+          'base' => 'text-[16px] leading-[24px] font-normal',
+          'small' => 'text-[14px] leading-[24px] font-normal',
+          'extra-small' => 'text-[12px] leading-[18px] font-normal',
         ],
       ]);
     }
@@ -139,7 +140,7 @@ if (!class_exists('Tenaspace')) {
     {
       $classes = array_merge([
         'font-be-vietnam-pro',
-        CLASSES['body'],
+        CLASSES['typography']['base'],
         'bg-white',
         'text-ts-black'
       ], $classes);
