@@ -16,6 +16,7 @@ if (!class_exists('Tenaspace')) {
       $this->google_fonts();
       $this->scripts();
       add_filter('body_class', [$this, 'body_classes']);
+      add_action('widgets_init', [$this, 'widgets']);
       add_action('init', [$this, 'custom_blocks']);
     }
 
@@ -148,6 +149,17 @@ if (!class_exists('Tenaspace')) {
         ], $classes))
       ];
       return $classes;
+    }
+
+    public function widgets()
+    {
+      register_sidebar(
+        array(
+          'name' => __('test', 'tenaspace'),
+          'id' => 'test',
+          'description' => '',
+        )
+      );
     }
 
     public function custom_blocks()

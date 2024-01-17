@@ -1,16 +1,13 @@
 <?php
 
-if (!function_exists('tenaspace_woocommerce_main_content_wrapper')) {
-  function tenaspace_woocommerce_main_content_wrapper()
+if (!function_exists('tenaspace_wc_template_loop_product_link_open')) {
+  function tenaspace_wc_template_loop_product_link_open()
   {
-    echo '<div><div class="' . CLASSES['container'] . '">';
-  }
-}
+    global $product;
 
-if (!function_exists('tenaspace_woocommerce_main_content_wrapper_end')) {
-  function tenaspace_woocommerce_main_content_wrapper_end()
-  {
-    echo '</div></div>';
+    $link = apply_filters('woocommerce_loop_product_link', get_the_permalink(), $product);
+
+    echo '<a href="' . esc_url($link) . '" class="woocommerce-LoopProduct-link woocommerce-loop-product__link block h-full">';
   }
 }
 

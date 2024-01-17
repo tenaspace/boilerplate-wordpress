@@ -1,5 +1,16 @@
-/* single_add_to_cart_button */
+.woocommerce-pagination {
+  ul {
+    @apply row;
 
-.button.alt {
-  
+    li {
+      @apply col-auto;
+
+      .page-numbers {
+        @apply flex items-center justify-center;
+
+        &.current {
+        }
+      }
+    }
+  }
 }
