@@ -34,7 +34,7 @@ if (!function_exists('tenaspace_is_vite_dev_mode')) {
  */
 
 if (!function_exists('tenaspace_require_all_files')) {
-  function tenaspace_require_all_files($path, $deep = false, $excludes = [])
+  function tenaspace_require_all_files($path, $deep = true, $excludes = [])
   {
     foreach (glob(get_template_directory() . $path . ($deep ? '/**' : '') . '/*.php') as $filename) {
       $explode = explode('/', $filename);

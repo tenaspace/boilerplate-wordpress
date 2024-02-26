@@ -9,6 +9,7 @@ if (!function_exists('tenaspace_mail_template_contact_admin')) {
       <li>' . __('E-Mail', 'tenaspace') . ': ' . $data['email'] . '</li>
       <li>' . __('Phone number', 'tenaspace') . ': ' . $data['phoneNumber'] . '</li>
       <li>' . __('Message', 'tenaspace') . ': ' . $data['message'] . '</li>
+      <li>' . __('Referer', 'tenaspace') . ': ' . $data['referer'] . '</li>
     </ul>';
   }
 }

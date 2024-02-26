@@ -8,8 +8,8 @@ const FormContact = () => {
     actionUrl: el.getAttribute(`data-action-url`),
     fields: {
       action: el.getAttribute(`data-action`),
-      referer: el.getAttribute(`data-referer`),
       nonce: el.getAttribute(`data-nonce`),
+      referer: el.getAttribute(`data-referer`),
       fullName: ``,
       email: ``,
       phoneNumber: ``,
@@ -17,8 +17,8 @@ const FormContact = () => {
     },
     rules: {
       action: [`required`],
-      referer: [`required`],
       nonce: [`required`],
+      referer: [`required`],
       fullName: [`required`],
       email: [`required`, `email`],
       phoneNumber: [`required`, `minLength:10`, `maxLength:10`],
@@ -60,6 +60,7 @@ const FormContact = () => {
                   headers: {
                     'Content-type': `application/x-www-form-urlencoded`,
                   },
+                  cache: `no-cache`,
                   body: new URLSearchParams({ ...this.fields, token }),
                 })
                   .then((response) => response.json())

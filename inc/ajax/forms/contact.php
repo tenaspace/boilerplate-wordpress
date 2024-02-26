@@ -7,7 +7,7 @@ $ajax_nopriv = "wp_ajax_nopriv_{$action}";
 
 function form_contact()
 {
-  $response = ['success' => false];
+  $response = ['success' => true];
   $data = $_POST;
   if (isset($data['nonce']) && !empty($data['nonce']) && wp_verify_nonce($data['nonce'], $data['action'])) {
     $token = isset($data['token']) && !empty($data['token']) ? $data['token'] : '';
