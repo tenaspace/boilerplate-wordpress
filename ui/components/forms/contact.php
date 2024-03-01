@@ -12,22 +12,22 @@ $referer = wp_get_referer();
   @submit.prevent="onSubmit">
   <div>
     <input type="text" placeholder="<?php echo __('Full name', 'tenaspace'); ?> *" class="w-full border px-5 py-2"
-      x-model="fields.fullName" :class="states?.fields?.fullName?.error && 'border-red-500'" @keyup="onValidate"
-      :disabled="loading" />
+      x-model="fields.fullName" :class="states?.fields?.fullName?.error && 'border-red-500'" @change="onValidate"
+      @keyup="onValidate" :disabled="loading" />
     <p class="text-red-500" x-cloak x-show="states?.fields?.fullName?.error" x-text="states?.fields?.fullName?.error">
     </p>
   </div>
   <div>
     <input type="email" placeholder="<?php echo __('E-mail', 'tenaspace'); ?> *" class="w-full border px-5 py-2"
-      x-model="fields.email" :class="states?.fields?.email?.error && 'border-red-500'" @keyup="onValidate"
-      :disabled="loading" />
+      x-model="fields.email" :class="states?.fields?.email?.error && 'border-red-500'" @change="onValidate"
+      @keyup="onValidate" :disabled="loading" />
     <p class="text-red-500" x-cloak x-show="states?.fields?.email?.error" x-text="states?.fields?.email?.error">
     </p>
   </div>
   <div>
     <input type="tel" placeholder="<?php echo __('Phone number', 'tenaspace'); ?> *" class="w-full border px-5 py-2"
-      x-model="fields.phoneNumber" :class="states?.fields?.phoneNumber?.error && 'border-red-500'" @keyup="onValidate"
-      :disabled="loading" x-mask="9999999999" />
+      x-model="fields.phoneNumber" :class="states?.fields?.phoneNumber?.error && 'border-red-500'" @change="onValidate"
+      @keyup="onValidate" :disabled="loading" x-mask="9999999999" />
     <p class="text-red-500" x-cloak x-show="states?.fields?.phoneNumber?.error"
       x-text="states?.fields?.phoneNumber?.error">
     </p>
