@@ -1,15 +1,13 @@
 <?php
 
-$action_url = admin_url('admin-ajax.php');
 $action = 'form_contact';
 $nonce = wp_create_nonce($action);
 $referer = wp_get_referer();
 
 ?>
 
-<form novalidate class="space-y-2" x-data="formContact($el)" data-action-url="<?php echo $action_url; ?>"
-  data-action="<?php echo $action; ?>" data-nonce="<?php echo $nonce; ?>" data-referer="<?php echo $referer; ?>"
-  @submit.prevent="onSubmit">
+<form novalidate class="space-y-2" x-data="formContact($el)" data-action="<?php echo $action; ?>"
+  data-nonce="<?php echo $nonce; ?>" data-referer="<?php echo $referer; ?>" @submit.prevent="onSubmit">
   <div>
     <input type="text" placeholder="<?php echo __('Full name', 'tenaspace'); ?> *" class="w-full border px-5 py-2"
       x-model="fields.fullName" :class="states?.fields?.fullName?.error && 'border-red-500'" @change="onValidate"

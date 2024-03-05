@@ -57,12 +57,14 @@ if (!function_exists(('tenaspace_get_manifest_values'))) {
  */
 
 if (!function_exists('tenaspace_require_all_files')) {
-  function tenaspace_require_all_files($path, $excludes = [])
+  function tenaspace_require_all_files($path)
   {
-    foreach (glob(get_template_directory() . $path . '/*.php') as $filename) {
-      $explode = explode('/', $filename);
-      if (!in_array(str_replace('.php', '', end($explode)), $excludes)) {
-        require_once($filename);
+    $dir = new RecursiveDirectoryIterator(get_template_directory() . $path);
+    $iterator = new RecursiveIteratorIterator($dir);
+    foreach ($iterator as $file) {
+      $fname = $file->getFilename();
+      if (preg_match('%\.php$%', $fname)) {
+        require_once($file->getPathname());
       }
     }
   }

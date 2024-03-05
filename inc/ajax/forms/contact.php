@@ -9,7 +9,6 @@ function form_contact()
 {
   $response = [
     'success' => false,
-    'message' => __('Error occurred', 'tenaspace'),
   ];
   $data = $_POST;
   if (isset($data['nonce']) && !empty($data['nonce']) && wp_verify_nonce($data['nonce'], $data['action'])) {
@@ -38,7 +37,6 @@ function form_contact()
         $mail->send();
 
         $response['success'] = true;
-        $response['message'] = __('Successfully', 'tenaspace');
       } catch (Exception $error) {
         tenaspace_write_log($mail->ErrorInfo);
       }

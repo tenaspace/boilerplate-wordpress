@@ -66,8 +66,8 @@ const FormContact = () => {
                   .then((response) => {
                     if (response.success) {
                       el.reset()
+                    } else {
                     }
-                    console.log(response.message)
                     this.loading = false
                   })
                   .catch(() => {
