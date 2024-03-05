@@ -35,7 +35,7 @@ $referer = wp_get_referer();
       x-model="fields.message" :disabled="loading"></textarea>
   </div>
   <div>
-    <button type="submit" class="inline-block text-center bg-black text-white px-5 py-2" :disabled="loading">
+    <button type="submit" class="box-border inline-block border border-black bg-black px-6 py-2.5 text-center text-white" :disabled="loading">
       <?php echo __('Submit', 'tenaspace'); ?>
     </button>
   </div>
