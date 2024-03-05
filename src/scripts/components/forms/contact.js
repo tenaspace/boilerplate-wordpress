@@ -5,7 +5,6 @@ const iodine = new Iodine()
 
 const FormContact = () => {
   window.Alpine.data(`formContact`, (el) => ({
-    actionUrl: el.getAttribute(`data-action-url`),
     fields: {
       action: el.getAttribute(`data-action`),
       nonce: el.getAttribute(`data-nonce`),
@@ -55,7 +54,7 @@ const FormContact = () => {
             recaptcha
               .execute(this.fields.action)
               .then((token) => {
-                fetch(this.actionUrl, {
+                fetch(window.app.adminAjaxUrl, {
                   method: `POST`,
                   headers: {
                     'Content-type': `application/x-www-form-urlencoded`,
@@ -67,24 +66,19 @@ const FormContact = () => {
                   .then((response) => {
                     if (response.success) {
                       el.reset()
-                      console.log(`Submitted successfully!`)
-                    } else {
-                      console.log(`Error occurred!`)
                     }
+                    console.log(response.message)
                     this.loading = false
                   })
                   .catch(() => {
-                    console.log(`Error occurred!`)
                     this.loading = false
                   })
               })
               .catch(() => {
-                console.log(`Error occurred!`)
                 this.loading = false
               })
           })
           .catch(() => {
-            console.log(`Error occurred!`)
             this.loading = false
           })
       } else {

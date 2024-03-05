@@ -30,6 +30,29 @@ if (!function_exists('tenaspace_is_vite_dev_mode')) {
 }
 
 /**
+ * Get manifest
+ */
+
+if (!function_exists(('tenaspace_get_manifest'))) {
+  function tenaspace_get_manifest()
+  {
+    return json_decode(file_get_contents(get_template_directory() . '/dist/.vite/manifest.json'), true);
+  }
+}
+
+/**
+ * Get manifest values
+ */
+
+if (!function_exists(('tenaspace_get_manifest_values'))) {
+  function tenaspace_get_manifest_values()
+  {
+    $manifest = tenaspace_get_manifest();
+    return is_array($manifest) ? array_values($manifest) : [];
+  }
+}
+
+/**
  * Require All Files In Folder
  */
 

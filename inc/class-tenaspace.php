@@ -14,6 +14,7 @@ if (!class_exists('Tenaspace')) {
       add_action('after_setup_theme', [$this, 'setup']);
       $this->defines();
       $this->google_fonts();
+      add_action('init', [$this, 'localizes_scripts']);
       $this->scripts();
       add_filter('body_class', [$this, 'body_classes']);
       add_action('widgets_init', [$this, 'widgets']);
@@ -78,6 +79,25 @@ if (!class_exists('Tenaspace')) {
       }, 5);
     }
 
+    public function localizes_scripts()
+    {
+      $name_app = 'app';
+      $src_app = '';
+      if (tenaspace_is_vite_dev_mode()) {
+        $src_app = PUBLIC_URI . '/app.js';
+      } else {
+        $manifest = tenaspace_get_manifest();
+        if (isset($manifest['src/app.js']['file']) && !empty($manifest['src/app.js']['file'])) {
+          $src_app = PUBLIC_URI . '/' . $manifest['src/app.js']['file'];
+        }
+      }
+      wp_register_script($name_app, $src_app, [], null);
+      wp_enqueue_script($name_app);
+      wp_localize_script($name_app, $name_app, [
+        'adminAjaxUrl' => admin_url('admin-ajax.php'),
+      ]);
+    }
+
     public function scripts()
     {
       global $name_main;
@@ -96,15 +116,12 @@ if (!class_exists('Tenaspace')) {
         function get_css()
         {
           global $name_main;
-          $manifest = json_decode(file_get_contents(PUBLIC_URI . '/.vite/manifest.json'), true);
-          if (is_array($manifest)) {
-            $manifest_values = array_values($manifest);
-            if (sizeof($manifest_values) > 0) {
-              foreach ($manifest_values as $manifest_value) {
-                if (isset($manifest_value['css']) && is_array($manifest_value) && sizeof($manifest_value['css']) > 0) {
-                  foreach ($manifest_value['css'] as $key => $css) {
-                    wp_enqueue_style($name_main . '-' . $key, PUBLIC_URI . '/' . $css, [], false, 'all');
-                  }
+          $manifest_values = tenaspace_get_manifest_values();
+          if (sizeof($manifest_values) > 0) {
+            foreach ($manifest_values as $manifest_value) {
+              if (isset($manifest_value['css']) && is_array($manifest_value) && sizeof($manifest_value['css']) > 0) {
+                foreach ($manifest_value['css'] as $key => $css) {
+                  wp_enqueue_style($name_main . '-' . $key, PUBLIC_URI . '/' . $css, [], null, 'all');
                 }
               }
             }
@@ -114,15 +131,12 @@ if (!class_exists('Tenaspace')) {
         function get_js()
         {
           global $name_main;
-          $manifest = json_decode(file_get_contents(PUBLIC_URI . '/.vite/manifest.json'), true);
-          if (is_array($manifest)) {
-            $manifest_values = array_values($manifest);
-            if (sizeof($manifest_values) > 0) {
-              foreach ($manifest_values as $manifest_value) {
-                if (isset($manifest_value['css']) && is_array($manifest_value) && sizeof($manifest_value['css']) > 0) {
-                  if (isset($manifest_value['file']) && !empty($manifest_value['file'])) {
-                    echo '<script type="text/javascript" src="' . PUBLIC_URI . '/' . $manifest_value['file'] . '?ver=' . get_bloginfo('version') . '" id="' . $name_main . '-js"></script>';
-                  }
+          $manifest_values = tenaspace_get_manifest_values();
+          if (sizeof($manifest_values) > 0) {
+            foreach ($manifest_values as $manifest_value) {
+              if (isset($manifest_value['css']) && is_array($manifest_value) && sizeof($manifest_value['css']) > 0) {
+                if (isset($manifest_value['file']) && !empty($manifest_value['file'])) {
+                  echo '<script type="text/javascript" src="' . PUBLIC_URI . '/' . $manifest_value['file'] . '" id="' . $name_main . '-js"></script>';
                 }
               }
             }

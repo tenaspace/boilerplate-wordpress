@@ -7,7 +7,10 @@ $ajax_nopriv = "wp_ajax_nopriv_{$action}";
 
 function form_contact()
 {
-  $response = ['success' => true];
+  $response = [
+    'success' => false,
+    'message' => __('Error occurred', 'tenaspace'),
+  ];
   $data = $_POST;
   if (isset($data['nonce']) && !empty($data['nonce']) && wp_verify_nonce($data['nonce'], $data['action'])) {
     $token = isset($data['token']) && !empty($data['token']) ? $data['token'] : '';
@@ -33,9 +36,11 @@ function form_contact()
         $mail->Body = tenaspace_mail_template_contact_admin($data);
         $mail->addReplyTo($_ENV['EMAIL_NO_REPLY'] ?? '');
         $mail->send();
+
+        $response['success'] = true;
+        $response['message'] = __('Successfully', 'tenaspace');
       } catch (Exception $error) {
         tenaspace_write_log($mail->ErrorInfo);
-        $response['success'] = false;
       }
       $mail->clearAllRecipients();
       $mail->clearReplyTos();
@@ -56,15 +61,11 @@ function form_contact()
       $mail->clearAllRecipients();
       $mail->clearReplyTos();
       $mail->clearAttachments();
-
-      $response['success'] = true;
     } else {
       tenaspace_write_log($verify['error-codes']);
-      $response['success'] = false;
     }
   } else {
-    tenaspace_write_log(__('Nonce is invalid.', 'tenaspace'));
-    $response['success'] = false;
+    tenaspace_write_log(__('Nonce is invalid', 'tenaspace'));
   }
   wp_send_json($response);
   wp_die();
