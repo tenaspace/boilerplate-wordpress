@@ -34,9 +34,9 @@ if (!function_exists('tenaspace_is_vite_dev_mode')) {
  */
 
 if (!function_exists('tenaspace_require_all_files')) {
-  function tenaspace_require_all_files($path, $deep = true, $excludes = [])
+  function tenaspace_require_all_files($path, $excludes = [])
   {
-    foreach (glob(get_template_directory() . $path . ($deep ? '/**' : '') . '/*.php') as $filename) {
+    foreach (glob(get_template_directory() . $path . '/*.php') as $filename) {
       $explode = explode('/', $filename);
       if (!in_array(str_replace('.php', '', end($explode)), $excludes)) {
         require_once($filename);
@@ -253,8 +253,8 @@ if (!function_exists('tenaspace_get_toc_items')) {
       }
     }
     $result = array_map(function ($item) {
-      unset($item['id']);
-      unset($item['parent_id']);
+      unset ($item['id']);
+      unset ($item['parent_id']);
       return $item;
     }, array_values(array_filter($result)));
     return $result;

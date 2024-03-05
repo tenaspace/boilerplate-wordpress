@@ -15,8 +15,8 @@ require_once('inc/tenaspace-hooks.php');
 
 tenaspace_require_all_files('/mail-templates');
 
-tenaspace_require_all_files('/inc/custom-post-types', false);
-tenaspace_require_all_files('/inc/shortcodes', false);
+tenaspace_require_all_files('/inc/custom-post-types');
+tenaspace_require_all_files('/inc/shortcodes');
 tenaspace_require_all_files('/inc/ajax');
 
 if (tenaspace_is_woocommerce_activated()) {
