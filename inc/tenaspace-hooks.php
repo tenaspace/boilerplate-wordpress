@@ -87,7 +87,7 @@ if (class_exists('ACF')) {
 			return;
 		}
 		$toc_settings = get_post_meta(get_the_ID(), 'table_of_contents', true);
-		if (isset($content) && is_array($toc_settings) && sizeof($toc_settings) > 0) {
+		if (isset ($content) && is_array($toc_settings) && sizeof($toc_settings) > 0) {
 			$content = HtmlDomParser::str_get_html($content);
 			foreach ($toc_settings as $k => $v) {
 				foreach ($content->find($v) as $element) {
