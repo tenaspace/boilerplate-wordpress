@@ -1,13 +1,8 @@
 <?php
-
-if (!defined('ABSPATH')) {
-  exit;
-}
-
 use TailwindMerge\TailwindMerge;
 
-if (!class_exists('Tenaspace')) {
-  class Tenaspace
+if (!class_exists('Ts')) {
+  class Ts
   {
     public function __construct()
     {
@@ -24,21 +19,22 @@ if (!class_exists('Tenaspace')) {
     public function setup()
     {
       add_theme_support('title-tag');
-      load_theme_textdomain('tenaspace', get_template_directory() . '/languages');
+      load_theme_textdomain('ts', get_template_directory() . '/languages');
       add_theme_support('automatic-feed-links');
       add_theme_support('post-thumbnails');
       register_nav_menus([
-        'primary' => __('primary', 'tenaspace'),
+        'primary' => __('primary', 'ts'),
       ]);
       add_theme_support('widgets');
     }
 
     public function defines()
     {
+      $ts_functions = new Ts_Functions();
       $public_path = get_template_directory() . '/dist';
       $public_uri = get_template_directory_uri() . '/dist';
 
-      if (tenaspace_is_vite_dev_mode()) {
+      if ($ts_functions->is_vite_dev_mode()) {
         $vite_server_port = $_ENV['VITE_SERVER_PORT'] ?? 3000;
         $public_path = get_template_directory() . '/src';
         $public_uri = 'http://localhost:' . $vite_server_port . '/src';
@@ -62,6 +58,10 @@ if (!class_exists('Tenaspace')) {
           'extra-small' => 'text-[12px] leading-[18px] font-normal',
         ],
       ]);
+
+      define('TRANSLATION', [
+
+      ]);
     }
 
     public function google_fonts()
@@ -81,12 +81,13 @@ if (!class_exists('Tenaspace')) {
 
     public function localizes_scripts()
     {
+      $ts_functions = new Ts_Functions();
       $name_app = 'app';
       $src_app = '';
-      if (tenaspace_is_vite_dev_mode()) {
+      if ($ts_functions->is_vite_dev_mode()) {
         $src_app = PUBLIC_URI . '/app.js';
       } else {
-        $manifest = tenaspace_get_manifest();
+        $manifest = $ts_functions->get_manifest();
         if (isset($manifest['src/app.js']['file']) && !empty($manifest['src/app.js']['file'])) {
           $src_app = PUBLIC_URI . '/' . $manifest['src/app.js']['file'];
         }
@@ -95,14 +96,16 @@ if (!class_exists('Tenaspace')) {
       wp_enqueue_script($name_app);
       wp_localize_script($name_app, $name_app, [
         'adminAjaxUrl' => admin_url('admin-ajax.php'),
+        'translation' => TRANSLATION,
       ]);
     }
 
     public function scripts()
     {
+      $ts_functions = new Ts_Functions();
       global $name_main;
       $name_main = 'main';
-      if (tenaspace_is_vite_dev_mode()) {
+      if ($ts_functions->is_vite_dev_mode()) {
         function get_scripts()
         {
           global $name_main;
@@ -115,8 +118,9 @@ if (!class_exists('Tenaspace')) {
       } else {
         function get_css()
         {
+          $ts_functions = new Ts_Functions();
           global $name_main;
-          $manifest_values = tenaspace_get_manifest_values();
+          $manifest_values = $ts_functions->get_manifest_values();
           if (sizeof($manifest_values) > 0) {
             foreach ($manifest_values as $manifest_value) {
               if (isset($manifest_value['css']) && is_array($manifest_value) && sizeof($manifest_value['css']) > 0) {
@@ -130,8 +134,9 @@ if (!class_exists('Tenaspace')) {
 
         function get_js()
         {
+          $ts_functions = new Ts_Functions();
           global $name_main;
-          $manifest_values = tenaspace_get_manifest_values();
+          $manifest_values = $ts_functions->get_manifest_values();
           if (sizeof($manifest_values) > 0) {
             foreach ($manifest_values as $manifest_value) {
               if (isset($manifest_value['css']) && is_array($manifest_value) && sizeof($manifest_value['css']) > 0) {
@@ -167,13 +172,11 @@ if (!class_exists('Tenaspace')) {
 
     public function widgets()
     {
-      register_sidebar(
-        array(
-          'name' => __('test', 'tenaspace'),
-          'id' => 'test',
-          'description' => '',
-        )
-      );
+      register_sidebar([
+        'name' => __('test', 'ts'),
+        'id' => 'test',
+        'description' => '',
+      ]);
     }
 
     public function custom_blocks()
@@ -188,10 +191,10 @@ if (!class_exists('Tenaspace')) {
       function register_custom_blocks_category($categories)
       {
 
-        $categories[] = array(
+        $categories[] = [
           'slug' => 'custom-blocks',
           'title' => 'Custom blocks'
-        );
+        ];
 
         return $categories;
       }
@@ -205,6 +208,6 @@ if (!class_exists('Tenaspace')) {
   }
 }
 
-return new Tenaspace();
+return new Ts();
 
 ?>

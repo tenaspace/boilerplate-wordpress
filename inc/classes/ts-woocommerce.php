@@ -1,11 +1,7 @@
 <?php
 
-if (!defined('ABSPATH')) {
-	exit;
-}
-
-if (!class_exists('Tenaspace_WooCommerce')) {
-	class Tenaspace_WooCommerce
+if (!class_exists('Ts_WooCommerce')) {
+	class Ts_WooCommerce
 	{
 		public function __construct()
 		{
@@ -18,8 +14,8 @@ if (!class_exists('Tenaspace_WooCommerce')) {
 			add_theme_support('woocommerce');
 		}
 	}
-}
 
-return new Tenaspace_WooCommerce();
+	return new Ts_WooCommerce();
+}
 
 ?>

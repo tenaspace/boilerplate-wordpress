@@ -8,7 +8,6 @@ const FormContact = () => {
     fields: {
       action: el.getAttribute(`data-action`),
       nonce: el.getAttribute(`data-nonce`),
-      referer: el.getAttribute(`data-referer`),
       fullName: ``,
       email: ``,
       phoneNumber: ``,
@@ -17,7 +16,6 @@ const FormContact = () => {
     rules: {
       action: [`required`],
       nonce: [`required`],
-      referer: [`required`],
       fullName: [`required`],
       email: [`required`, `email`],
       phoneNumber: [`required`, `minLength:10`, `maxLength:10`],
@@ -48,6 +46,7 @@ const FormContact = () => {
       }
       this.loading = true
       this.onValidate()
+      console.log(this.states)
       if (this.states.valid) {
         load(import.meta.env.VITE_GOOLE_RECAPTCHA_SITE_KEY ?? ``)
           .then((recaptcha) => {
@@ -75,10 +74,12 @@ const FormContact = () => {
                   })
               })
               .catch(() => {
+                console.log('2')
                 this.loading = false
               })
           })
           .catch(() => {
+            console.log('1')
             this.loading = false
           })
       } else {

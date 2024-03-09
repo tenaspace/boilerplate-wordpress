@@ -3,7 +3,7 @@
   "apiVersion": 3,
   "name": "custom-blocks/test",
   "title": "test",
-  "textdomain": "tenaspace",
+  "textdomain": "ts",
   "category": "custom-blocks",
   "icon": "",
   "editorScript": "file:./index.jsx",

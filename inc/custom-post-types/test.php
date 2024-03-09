@@ -8,12 +8,12 @@ function cptui_register_my_cpts_test()
 	 */
 
 	$labels = [
-		"name" => esc_html__("Test", "tenaspace"),
-		"singular_name" => esc_html__("Test", "tenaspace"),
+		"name" => esc_html__("Test", "ts"),
+		"singular_name" => esc_html__("Test", "ts"),
 	];
 
 	$args = [
-		"label" => esc_html__("Test", "tenaspace"),
+		"label" => esc_html__("Test", "ts"),
 		"labels" => $labels,
 		"description" => "",
 		"public" => true,
