@@ -4,6 +4,7 @@ import { load } from 'recaptcha-v3'
 const iodine = new Iodine()
 
 const FormContact = () => {
+  const dict = window.app?.dictionaries?.components?.forms?.contact
   window.Alpine.data(`formContact`, (el) => ({
     fields: {
       action: el.getAttribute(`data-action`),
@@ -22,16 +23,16 @@ const FormContact = () => {
     },
     errors: {
       fullName: {
-        required: `Full name is required.`,
+        required: dict?.inputs?.fullName?.message?.required,
       },
       email: {
-        required: `E-mail is required.`,
-        email: `E-mail is not valid.`,
+        required: dict?.inputs?.email?.message?.required,
+        email: dict?.inputs?.email?.message?.pattern,
       },
       phoneNumber: {
-        required: `Phone number is required.`,
-        'minLength:10': `Phone number is not valid.`,
-        'maxLength:10': `Phone number is not valid.`,
+        required: dict?.inputs?.phoneNumber?.message?.required,
+        'minLength:10': dict?.inputs?.phoneNumber?.message?.min,
+        'maxLength:10': dict?.inputs?.phoneNumber?.message?.max,
       },
     },
     firstSubmited: false,
@@ -46,14 +47,13 @@ const FormContact = () => {
       }
       this.loading = true
       this.onValidate()
-      console.log(this.states)
       if (this.states.valid) {
         load(import.meta.env.VITE_GOOLE_RECAPTCHA_SITE_KEY ?? ``)
           .then((recaptcha) => {
             recaptcha
               .execute(this.fields.action)
               .then((token) => {
-                fetch(window.app.adminAjaxUrl, {
+                fetch(window.app?.adminAjaxUrl, {
                   method: `POST`,
                   headers: {
                     'Content-type': `application/x-www-form-urlencoded`,
@@ -65,21 +65,24 @@ const FormContact = () => {
                   .then((response) => {
                     if (response.success) {
                       el.reset()
+                      alert(dict.responses.success)
                     } else {
+                      alert(dict.responses.error)
                     }
                     this.loading = false
                   })
                   .catch(() => {
+                    alert(dict.responses.error)
                     this.loading = false
                   })
               })
               .catch(() => {
-                console.log('2')
+                alert(dict.responses.error)
                 this.loading = false
               })
           })
           .catch(() => {
-            console.log('1')
+            alert(dict.responses.error)
             this.loading = false
           })
       } else {

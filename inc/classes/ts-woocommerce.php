@@ -14,8 +14,8 @@ if (!class_exists('Ts_WooCommerce')) {
 			add_theme_support('woocommerce');
 		}
 	}
-
-	return new Ts_WooCommerce();
 }
+
+return new Ts_WooCommerce();
 
 ?>

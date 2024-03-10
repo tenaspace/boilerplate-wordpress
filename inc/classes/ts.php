@@ -6,42 +6,55 @@ if (!class_exists('Ts')) {
   {
     public function __construct()
     {
-      add_action('after_setup_theme', [$this, 'setup']);
       $this->defines();
-      $this->google_fonts();
+      add_action('after_setup_theme', [$this, 'setup']);
+      add_action('init', [$this, 'google_fonts']);
       add_action('init', [$this, 'localizes_scripts']);
-      $this->scripts();
+      add_action('init', [$this, 'scripts']);
       add_filter('body_class', [$this, 'body_classes']);
       add_action('widgets_init', [$this, 'widgets']);
       add_action('init', [$this, 'custom_blocks']);
     }
 
-    public function setup()
+    /**
+     * Get dictionaries
+     */
+
+    private function get_dictionaries($locale = '')
     {
-      add_theme_support('title-tag');
-      load_theme_textdomain('ts', get_template_directory() . '/languages');
-      add_theme_support('automatic-feed-links');
-      add_theme_support('post-thumbnails');
-      register_nav_menus([
-        'primary' => __('primary', 'ts'),
-      ]);
-      add_theme_support('widgets');
+      $current_locale = get_locale();
+      $i18n = [
+        'en_US' => require_once(get_template_directory() . '/inc/dictionaries/en-us.php'),
+        'vi' => require_once(get_template_directory() . '/inc/dictionaries/vi.php'),
+      ];
+      return empty($locale) ? $i18n[$current_locale] : (isset($i18n[$locale]) ? $i18n[$locale] : $i18n['en_US']);
+    }
+
+    /**
+     * Get public directory
+     */
+
+    private function get_public_dir() {
+      $ts_functions = new Ts_Functions();
+      $path = get_template_directory() . '/dist';
+      $uri = get_template_directory_uri() . '/dist';
+      if ($ts_functions->is_vite_dev_mode()) {
+        $vite_server_port = $_ENV['VITE_SERVER_PORT'] ?? 3000;
+        $path = get_template_directory() . '/src';
+        $uri = 'http://localhost:' . $vite_server_port . '/src';
+      }
+      return [
+        'path' => $path,
+        'uri' => $uri,
+      ];
     }
 
     public function defines()
     {
-      $ts_functions = new Ts_Functions();
-      $public_path = get_template_directory() . '/dist';
-      $public_uri = get_template_directory_uri() . '/dist';
+      $public_dir = $this->get_public_dir();
 
-      if ($ts_functions->is_vite_dev_mode()) {
-        $vite_server_port = $_ENV['VITE_SERVER_PORT'] ?? 3000;
-        $public_path = get_template_directory() . '/src';
-        $public_uri = 'http://localhost:' . $vite_server_port . '/src';
-      }
-
-      define('PUBLIC_PATH', $public_path);
-      define('PUBLIC_URI', $public_uri);
+      define('PUBLIC_PATH', $public_dir['path']);
+      define('PUBLIC_URI', $public_dir['uri']);
 
       define('CLASSES', [
         'container' => 'mx-auto w-full px-4 sm:px-10 md:px-0 md:w-[88.88888%] md:max-w-[1280px]',
@@ -59,9 +72,19 @@ if (!class_exists('Ts')) {
         ],
       ]);
 
-      define('TRANSLATION', [
+      define('DICTIONARIES', $this->get_dictionaries());
+    }
 
+    public function setup()
+    {
+      add_theme_support('title-tag');
+      load_theme_textdomain('ts', get_template_directory() . '/languages');
+      add_theme_support('automatic-feed-links');
+      add_theme_support('post-thumbnails');
+      register_nav_menus([
+        'primary' => __('primary', 'ts'),
       ]);
+      add_theme_support('widgets');
     }
 
     public function google_fonts()
@@ -96,7 +119,7 @@ if (!class_exists('Ts')) {
       wp_enqueue_script($name_app);
       wp_localize_script($name_app, $name_app, [
         'adminAjaxUrl' => admin_url('admin-ajax.php'),
-        'translation' => TRANSLATION,
+        'dictionaries' => DICTIONARIES,
       ]);
     }
 
@@ -175,7 +198,7 @@ if (!class_exists('Ts')) {
       register_sidebar([
         'name' => __('test', 'ts'),
         'id' => 'test',
-        'description' => '',
+        'description' => __('', 'ts'),
       ]);
     }
 

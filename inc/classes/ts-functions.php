@@ -96,6 +96,7 @@ if (!class_exists('Ts_Functions')) {
     public function mailer()
     {
       $mail = new PHPMailer(true);
+      $mail->CharSet = PHPMailer::CHARSET_UTF8;
       try {
         $mail->isSMTP();
         $mail->SMTPAuth = true;
@@ -113,6 +114,7 @@ if (!class_exists('Ts_Functions')) {
           $mail->Port = $_ENV['SMTP_PORT'] ?? '';
         }
       } catch (Exception $error) {
+        $this->write_log($error->errorMessage());
         $this->write_log($mail->ErrorInfo);
       }
       return $mail;
