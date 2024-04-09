@@ -1,0 +1,15 @@
+{
+  "name": "custom-blocks/test",
+  "title": "test",
+  "description": "",
+  "textdomain": "ts",
+  "category": "custom-blocks",
+  "icon": "",
+  "acf": {
+    "mode": "preview",
+    "renderTemplate": "render.php"
+  },
+  "supports": {
+    "anchor": true
+  }
+}

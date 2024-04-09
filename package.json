@@ -5,12 +5,11 @@
   "private": true,
   "scripts": {
     "delete-manifest": "npx rimraf dist/.vite/manifest.json",
-    "dev": "yarn delete-manifest && vite",
-    "build": "vite build",
-    "custom-blocks-dev": "wp-scripts start",
-    "custom-blocks-build": "wp-scripts build",
+    "custom-blocks-dev": "wp-scripts start custom-blocks/index.js",
+    "custom-blocks-build": "wp-scripts build custom-blocks/index.js",
     "imagemin-build": "node imagemin.mjs src/assets/images/**/* dist/assets/images",
-    "deploy": "yarn build && yarn custom-blocks-build && yarn imagemin-build"
+    "dev": "yarn delete-manifest && vite",
+    "build": "vite build && yarn custom-blocks-build && yarn imagemin-build"
   },
   "dependencies": {
     "@alpinejs/collapse": "^3.13.8",

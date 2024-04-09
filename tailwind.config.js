@@ -4,7 +4,8 @@ module.exports = {
     './inc/**/*.php',
     './components/**/*.php',
     './woocommerce/**/*.php',
-    './src/**/*.{php,js,ts,jsx,tsx,mdx}',
+    './custom-blocks/blocks/**/*.php',
+    './src/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
     extend: {

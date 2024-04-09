@@ -133,9 +133,13 @@ if (!class_exists('Ts')) {
           echo '<script type="module" crossorigin src="' . PUBLIC_URI . '/' . $name_main . '.js"></script>';
         }
 
-        add_action('wp_head', function () {
+        function enqueue()
+        {
           get_scripts();
-        }, 99999);
+        }
+
+        add_action('wp_head', 'enqueue', 99999);
+        add_action('admin_head', 'enqueue', 99999);
       } else {
         function get_css()
         {
@@ -162,20 +166,21 @@ if (!class_exists('Ts')) {
             foreach ($manifest_values as $manifest_value) {
               if (isset($manifest_value['css']) && is_array($manifest_value) && sizeof($manifest_value['css']) > 0) {
                 if (isset($manifest_value['file']) && !empty($manifest_value['file'])) {
-                  echo '<script type="text/javascript" src="' . PUBLIC_URI . '/' . $manifest_value['file'] . '" id="' . $name_main . '-js"></script>';
+                  wp_enqueue_script($name_main, PUBLIC_URI . '/' . $manifest_value['file'], [], null, ['in_footer' => true, 'strategy' => 'defer']);
                 }
               }
             }
           }
         }
 
-        add_action('wp_enqueue_scripts', function () {
+        function enqueue()
+        {
           get_css();
-        }, 99999);
-
-        add_action('wp_footer', function () {
           get_js();
-        }, 99999);
+        }
+
+        add_action('wp_enqueue_scripts', 'enqueue', 99999);
+        add_action('enqueue_block_editor_assets', 'enqueue', 99999);
       }
     }
 
@@ -202,7 +207,7 @@ if (!class_exists('Ts')) {
 
     public function custom_blocks()
     {
-      $blocks = glob(get_template_directory() . '/build/custom-blocks/*/');
+      $blocks = glob(get_template_directory() . '/custom-blocks/blocks/*/');
       if (isset($blocks) && is_array($blocks) && sizeof($blocks) > 0) {
         foreach ($blocks as $block) {
           register_block_type($block);
