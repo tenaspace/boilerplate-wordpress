@@ -2,6 +2,18 @@
 
 <?php get_template_part('components/breadcrumb', ''); ?>
 
+<h1>
+  <?php echo get_the_title(); ?>
+</h1>
+
 <?php get_template_part('components/forms/contact', ''); ?>
+
+<?php if (have_posts()): ?>
+  <?php while (have_posts()):
+    the_post(); ?>
+    <?php the_content(); ?>
+  <?php endwhile;
+  wp_reset_postdata(); ?>
+<?php endif; ?>
 
 <?php get_footer(); ?>
