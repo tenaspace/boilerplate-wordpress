@@ -2,7 +2,7 @@ module.exports = {
   content: [
     './*.php',
     './inc/**/*.php',
-    './ui/**/*.php',
+    './components/**/*.php',
     './woocommerce/**/*.php',
     './src/**/*.{php,js,ts,jsx,tsx,mdx}',
   ],
