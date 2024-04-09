@@ -24,8 +24,8 @@ if (!class_exists('Ts')) {
     {
       $current_locale = get_locale();
       $i18n = [
-        'en_US' => require_once(get_template_directory() . '/inc/dictionaries/en-us.php'),
-        'vi' => require_once(get_template_directory() . '/inc/dictionaries/vi.php'),
+        'en_US' => require_once (get_template_directory() . '/inc/dictionaries/en-us.php'),
+        'vi' => require_once (get_template_directory() . '/inc/dictionaries/vi.php'),
       ];
       return empty($locale) ? $i18n[$current_locale] : (isset($i18n[$locale]) ? $i18n[$locale] : $i18n['en_US']);
     }
@@ -34,7 +34,8 @@ if (!class_exists('Ts')) {
      * Get public directory
      */
 
-    private function get_public_dir() {
+    private function get_public_dir()
+    {
       $ts_functions = new Ts_Functions();
       $path = get_template_directory() . '/dist';
       $uri = get_template_directory_uri() . '/dist';
@@ -78,7 +79,6 @@ if (!class_exists('Ts')) {
     public function setup()
     {
       add_theme_support('title-tag');
-      load_theme_textdomain('ts', get_template_directory() . '/languages');
       add_theme_support('automatic-feed-links');
       add_theme_support('post-thumbnails');
       register_nav_menus([
@@ -90,13 +90,11 @@ if (!class_exists('Ts')) {
     public function google_fonts()
     {
       add_action('wp_head', function () {
+        $url = "https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&display=swap";
         ?>
-        <link rel="preload"
-          href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&display=swap" as="style"
-          onload="this.onload=null;this.rel='stylesheet'" />
+        <link rel="preload" href="<?php echo $url; ?>" as="style" onload="this.onload=null;this.rel='stylesheet'" />
         <noscript>
-          <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&display=swap"
-            rel="stylesheet" type="text/css" />
+          <link href="<?php echo $url; ?>" rel="stylesheet" type="text/css" />
         </noscript>
         <?php
       }, 5);

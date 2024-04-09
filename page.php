@@ -1,6 +1,6 @@
 <?php get_header(); ?>
 
-<?php get_template_part('ui/components/breadcrumb', ''); ?>
+<?php get_template_part('components/breadcrumb', ''); ?>
 
 <h1>
   <?php echo get_the_title(); ?>

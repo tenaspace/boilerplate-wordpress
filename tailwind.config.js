@@ -1,10 +1,10 @@
 module.exports = {
   content: [
-    `./*.php`,
-    `./inc/**/*.php`,
-    `./ui/**/*.php`,
-    `./woocommerce/**/*.php`,
-    `./src/**/*.{php,js,ts,jsx,tsx,mdx}`,
+    './*.php',
+    './inc/**/*.php',
+    './ui/**/*.php',
+    './woocommerce/**/*.php',
+    './src/**/*.{php,js,ts,jsx,tsx,mdx}',
   ],
   theme: {
     extend: {
@@ -21,14 +21,14 @@ module.exports = {
         toast: 1090,
       },
       fontFamily: {
-        'be-vietnam-pro': [`'Be Vietnam Pro', sans-serif`],
+        'be-vietnam-pro': ['"Be Vietnam Pro", sans-serif'],
       },
     },
   },
   plugins: [
-    require(`tailwind-bootstrap-grid`)({
+    require('tailwind-bootstrap-grid')({
       generateContainer: false,
-      gridGutterWidth: `0`,
+      gridGutterWidth: '0',
     }),
   ],
 }
