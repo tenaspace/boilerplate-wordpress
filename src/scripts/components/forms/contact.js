@@ -5,21 +5,21 @@ const iodine = new Iodine()
 
 const FormContact = () => {
   const dict = window.app?.dictionaries?.components?.forms?.contact
-  window.Alpine.data(`formContact`, (el) => ({
+  window.Alpine.data('formContact', (el) => ({
     fields: {
-      action: el.getAttribute(`data-action`),
-      nonce: el.getAttribute(`data-nonce`),
-      fullName: ``,
-      email: ``,
-      phoneNumber: ``,
-      message: ``,
+      action: el.getAttribute('data-action'),
+      nonce: el.getAttribute('data-nonce'),
+      fullName: '',
+      email: '',
+      phoneNumber: '',
+      message: '',
     },
     rules: {
-      action: [`required`],
-      nonce: [`required`],
-      fullName: [`required`],
-      email: [`required`, `email`],
-      phoneNumber: [`required`, `minLength:10`, `maxLength:10`],
+      action: ['required'],
+      nonce: ['required'],
+      fullName: ['required'],
+      email: ['required', 'email'],
+      phoneNumber: ['required', 'minLength:10', 'maxLength:10'],
     },
     errors: {
       fullName: {
@@ -48,17 +48,17 @@ const FormContact = () => {
       this.loading = true
       this.onValidate()
       if (this.states.valid) {
-        load(import.meta.env.VITE_GOOLE_RECAPTCHA_SITE_KEY ?? ``)
+        load(import.meta.env.VITE_GOOLE_RECAPTCHA_SITE_KEY ?? '')
           .then((recaptcha) => {
             recaptcha
               .execute(this.fields.action)
               .then((token) => {
                 fetch(window.app?.adminAjaxUrl, {
-                  method: `POST`,
+                  method: 'POST',
                   headers: {
-                    'Content-type': `application/x-www-form-urlencoded`,
+                    'Content-type': 'application/x-www-form-urlencoded',
                   },
-                  cache: `no-cache`,
+                  cache: 'no-cache',
                   body: new URLSearchParams({ ...this.fields, token }),
                 })
                   .then((response) => response.json())

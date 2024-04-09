@@ -1,12 +1,13 @@
+const glob = require('glob')
+
 module.exports = {
   content: [
-    './*.php',
     './inc/**/*.php',
     './components/**/*.php',
     './woocommerce/**/*.php',
     './custom-blocks/blocks/**/*.php',
     './src/**/*.{js,ts,jsx,tsx,mdx}',
-  ],
+  ].concat(glob.sync('./*.php')),
   theme: {
     extend: {
       zIndex: {
