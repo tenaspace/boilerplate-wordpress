@@ -3,6 +3,7 @@ use KubAT\PhpSimple\HtmlDomParser;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
+use TailwindMerge\TailwindMerge;
 
 if (!class_exists('Ts_Functions')) {
   class Ts_Functions
@@ -61,7 +62,7 @@ if (!class_exists('Ts_Functions')) {
       foreach ($iterator as $file) {
         $fname = $file->getFilename();
         if (preg_match('%\.php$%', $fname)) {
-          require_once($file->getPathname());
+          require_once ($file->getPathname());
         }
       }
     }
@@ -73,6 +74,64 @@ if (!class_exists('Ts_Functions')) {
     public function is_woocommerce_activated()
     {
       return class_exists('WooCommerce') ? true : false;
+    }
+
+    /**
+     * clsx PHP
+     */
+
+    public function clsx(...$args)
+    {
+      $classNames = [];
+
+      foreach ($args as $arg) {
+        if (is_array($arg)) {
+          foreach ($arg as $key => $value) {
+            if (is_string($key)) {
+              if (is_array($value)) {
+                $classNames = array_merge($classNames, $value);
+              } elseif ($value) {
+                $classNames[] = $key;
+              }
+            } elseif (is_string($value)) {
+              $classNames = array_merge($classNames, explode(' ', $value));
+            } elseif (is_array($value)) {
+              $classNames[] = $this->clsx($value);
+            } elseif (is_object($value)) {
+              foreach ($value as $class => $condition) {
+                if ($condition) {
+                  $classNames[] = $class;
+                }
+              }
+            }
+          }
+        } elseif (is_string($arg)) {
+          $classNames = array_merge($classNames, explode(' ', $arg));
+        }
+      }
+
+      // Remove duplicates
+      $classNames = array_unique($classNames);
+
+      return implode(' ', $classNames);
+    }
+
+    /**
+     * Tailwind Merge PHP
+     */
+
+    public function tw_merge(...$args)
+    {
+      $tw = TailwindMerge::instance();
+      return $tw->merge(...$args);
+    }
+
+    /**
+     * Tailwind Merge + clsx PHP
+     */
+
+    public function cn(...$args) {
+      return $this->tw_merge($this->clsx(...$args));
     }
 
     /**

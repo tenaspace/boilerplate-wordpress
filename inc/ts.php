@@ -1,5 +1,4 @@
 <?php
-use TailwindMerge\TailwindMerge;
 
 if (!class_exists('Ts')) {
   class Ts
@@ -56,22 +55,6 @@ if (!class_exists('Ts')) {
 
       define('PUBLIC_PATH', $public_dir['path']);
       define('PUBLIC_URI', $public_dir['uri']);
-
-      define('CLASSES', [
-        'container' => 'mx-auto w-full px-4 sm:px-10 md:px-0 md:w-[88.88888%] md:max-w-[1280px]',
-        'typography' => [
-          'h1' => 'text-[56px] leading-[64px] font-bold',
-          'h2' => 'text-[48px] leading-[56px] font-bold',
-          'h3' => 'text-[40px] leading-[48px] font-bold',
-          'h4' => 'text-[32px] leading-[40px] font-bold',
-          'h5' => 'text-[24px] leading-[32px] font-bold',
-          'h6' => 'text-[20px] leading-[26px] font-bold',
-          'large' => 'text-[18px] leading-[24px] font-medium',
-          'base' => 'text-[16px] leading-[24px] font-normal',
-          'small' => 'text-[14px] leading-[24px] font-normal',
-          'extra-small' => 'text-[12px] leading-[18px] font-normal',
-        ],
-      ]);
 
       define('DICTIONARIES', $this->get_dictionaries());
     }
@@ -186,13 +169,9 @@ if (!class_exists('Ts')) {
 
     public function body_classes($classes)
     {
-      $tw = TailwindMerge::instance();
-      $classes = [
-        $tw->merge(array_merge([
-          CLASSES['typography']['base'],
-          'font-be-vietnam-pro bg-white text-black dark:bg-white dark:text-black',
-        ], $classes))
-      ];
+      $ts_functions = new Ts_Functions();
+      $ts_typography = new Ts_Typography();
+      $classes = explode(' ', $ts_functions->cn('antialiased be-vietnam-pro', $ts_typography->default(), $classes));
       return $classes;
     }
 
@@ -207,7 +186,7 @@ if (!class_exists('Ts')) {
 
     public function custom_blocks()
     {
-      $blocks = glob(get_template_directory() . '/custom-blocks/blocks/*/');
+      $blocks = glob(get_template_directory() . '/custom-blocks/*/');
       if (isset($blocks) && is_array($blocks) && sizeof($blocks) > 0) {
         foreach ($blocks as $block) {
           register_block_type($block);

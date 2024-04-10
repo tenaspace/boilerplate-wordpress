@@ -1,6 +1,6 @@
 {
     "key": "group_66154d7552262",
-    "title": "customBlocksTest",
+    "title": "customBlockTest",
     "fields": [
         {
             "key": "field_66154d75545ac",
@@ -41,5 +41,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1712674287
+    "modified": 1712766003
 }

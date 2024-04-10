@@ -1,24 +1,33 @@
 <?php
-use TailwindMerge\TailwindMerge;
 
-$tw = TailwindMerge::instance();
 $dict = DICTIONARIES['notFound'];
+$ts_container = new Ts_Container();
+$ts_typography = new Ts_Typography();
 
 get_header('404');
 
 ?>
 
-<div class="flex w-full h-[var(--ts-window-size-height)] flex-col justify-center">
-  <div class="py-20">
-    <div class="<?php echo CLASSES['container']; ?>">
-      <div class="flex flex-col items-center justify-center">
-        <div class="<?php echo $tw->merge([CLASSES['typography']['h1'], 'text-center text-9xl mb-4']); ?>">
-          404</div>
-        <div class="<?php echo $tw->merge([CLASSES['typography']['h4'], 'text-center mb-2']); ?>"><?php echo $dict['title']; ?></div>
-        <p class="text-center mb-12"><?php echo $dict['description']; ?></p>
-        <a href="<?php echo home_url(); ?>"
-          class="box-border inline-block border border-black bg-black px-6 py-2.5 text-center text-white">
-          <span class="<?php echo CLASSES['typography']['small']; ?>"><?php echo $dict['backToHome']; ?></span>
+<div class="flex min-h-dvh flex-col items-center justify-center py-20 text-center"
+  style="min-height: var(--ts-window-size-height);">
+  <div class="<?php echo $ts_container->default(); ?>">
+    <div class="flex flex-col items-center justify-center">
+      <div class="<?php echo $ts_typography->h1('text-8xl'); ?>">
+        404
+      </div>
+      <div class="<?php echo $ts_typography->h2('mt-4'); ?>">
+        <?php echo $dict['title']; ?>
+      </div>
+      <p class="mt-2">
+        <?php echo $dict['description']; ?>
+      </p>
+      <div class="mt-12">
+        <a href="<?php echo home_url(); ?>" class="inline-flex">
+          <?php get_template_part('components/button', '', [
+            'as' => 'span',
+            'size' => 'lg',
+            'label' => $dict['backToHome'],
+          ]); ?>
         </a>
       </div>
     </div>

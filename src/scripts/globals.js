@@ -4,8 +4,9 @@ import focus from '@alpinejs/focus'
 import mask from '@alpinejs/mask'
 // import jQuery from "jquery";
 // window.$ = window.jQuery = jQuery;
-import VanillaLazyLoad from './vanilla-lazyload'
+import VanillaLazyLoad from './lib/vanilla-lazyload'
 import FormContact from './components/forms/contact'
+import CustomBlockTest from './custom-blocks/test'
 
 /**
  * Alpinejs Safari fix: https://github.com/alpinejs/alpine/discussions/1964
@@ -44,7 +45,7 @@ window.Alpine.data('app', () => ({
 }))
 
 /**
- * libs
+ * lib
  */
 
 VanillaLazyLoad()
@@ -54,6 +55,12 @@ VanillaLazyLoad()
  */
 
 FormContact()
+
+/**
+ * custom-blocks
+ */
+
+CustomBlockTest()
 
 /* That's all, stop editing! Happy publishing. */
 
