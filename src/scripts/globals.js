@@ -2,9 +2,7 @@ import Alpine from 'alpinejs'
 import collapse from '@alpinejs/collapse'
 import focus from '@alpinejs/focus'
 import mask from '@alpinejs/mask'
-// import jQuery from "jquery";
-// window.$ = window.jQuery = jQuery;
-import VanillaLazyLoad from './lib/vanilla-lazyload'
+import VanillaLazyLoad from './libraries/vanilla-lazyload'
 import FormContact from './components/forms/contact'
 import CustomBlockTest from './custom-blocks/test'
 
@@ -45,7 +43,7 @@ window.Alpine.data('app', () => ({
 }))
 
 /**
- * lib
+ * libraries
  */
 
 VanillaLazyLoad()

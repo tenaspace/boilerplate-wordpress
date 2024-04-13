@@ -6,7 +6,7 @@ $text = $fields['text'];
 ?>
 
 <?php if ($text): ?>
-  <p x-data="customBlockTest('<?php echo $text; ?>')" x-on:click="onClick">
+  <p x-data="customBlockTest('<?php echo $text; ?>')" x-on:click="handleClick">
     <?php echo $text; ?>
   </p>
 <?php endif; ?>

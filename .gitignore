@@ -52,9 +52,7 @@ Thumbs.db
 *.wmv
 
 # Add-on
-composer.lock
 package-lock.json
-yarn.lock
 
 .env
 

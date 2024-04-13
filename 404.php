@@ -23,11 +23,7 @@ get_header('404');
       </p>
       <div class="mt-12">
         <a href="<?php echo home_url(); ?>" class="inline-flex">
-          <?php get_template_part('components/button', '', [
-            'as' => 'span',
-            'size' => 'lg',
-            'label' => $dict['backToHome'],
-          ]); ?>
+          <?php echo $dict['backToHome']; ?>
         </a>
       </div>
     </div>

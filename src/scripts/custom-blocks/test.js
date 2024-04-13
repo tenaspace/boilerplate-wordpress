@@ -1,6 +1,6 @@
 const CustomBlockTest = () => {
   window.Alpine.data('customBlockTest', (text) => ({
-    onClick() {
+    handleClick() {
       console.log(text)
     },
   }))
