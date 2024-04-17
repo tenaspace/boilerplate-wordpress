@@ -1,3 +1,0 @@
-img:not([src]):not([srcset]) {
-  @apply invisible;
-}
