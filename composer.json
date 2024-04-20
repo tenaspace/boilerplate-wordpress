@@ -1,0 +1,14 @@
+{
+    "require": {
+        "kub-at/php-simple-html-dom-parser": "^1.9",
+        "vlucas/phpdotenv": "^5.6",
+        "google/recaptcha": "^1.3",
+        "phpmailer/phpmailer": "^6.9",
+        "gehrisandro/tailwind-merge-php": "^1.1"
+    },
+    "config": {
+        "platform": {
+            "php": "8.1"
+        }
+    }
+}

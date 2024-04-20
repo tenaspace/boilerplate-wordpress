@@ -1,0 +1,11 @@
+.editor-styles-wrapper {
+  @apply !px-5;
+
+  .wp-block {
+    @apply max-w-full font-be-vietnam-pro text-base leading-7;
+
+    &.wp-block-post-title {
+      @apply text-4xl font-extrabold tracking-tight;
+    }
+  }
+}

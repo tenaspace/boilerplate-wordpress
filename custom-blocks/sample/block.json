@@ -1,0 +1,14 @@
+{
+  "name": "custom-blocks/sample",
+  "title": "Sample",
+  "description": "",
+  "category": "custom-blocks",
+  "icon": "",
+  "acf": {
+    "mode": "preview",
+    "renderTemplate": "render.php"
+  },
+  "supports": {
+    "anchor": true
+  }
+}
