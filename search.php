@@ -1,6 +1,6 @@
 <?php get_header(); ?>
 
-<?php get_template_part('components/breadcrumb', ''); ?>
+<?php // get_template_part('components/breadcrumb', '', ['list' => [['label' => 'Sample components']]]); ?>
 
 <div>
   Search keywords:

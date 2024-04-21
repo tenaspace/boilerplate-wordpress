@@ -6,6 +6,9 @@ return [
     'backToHome' => 'Back to home page',
   ],
   'components' => [
+    'breadcrumb' => [
+      'home' => 'Home'
+    ],
     'forms' => [
       'sample' => [
         'inputs' => [

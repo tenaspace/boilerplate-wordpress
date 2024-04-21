@@ -6,6 +6,9 @@ return [
     'backToHome' => 'Quay về trang chủ',
   ],
   'components' => [
+    'breadcrumb' => [
+      'home' => 'Trang chủ'
+    ],
     'forms' => [
       'sample' => [
         'inputs' => [
