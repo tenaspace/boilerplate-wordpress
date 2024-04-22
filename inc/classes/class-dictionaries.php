@@ -12,33 +12,22 @@ class Dictionaries
   protected function __construct()
   {
     $this->i18n = [
-      'en_US' => get_template_directory() . '/inc/dictionaries/en-us.php',
-      'vi' => get_template_directory() . '/inc/dictionaries/vi.php',
+      'en_US' => require_once (get_template_directory() . '/inc/dictionaries/en-us.php'),
+      'vi' => require_once (get_template_directory() . '/inc/dictionaries/vi.php'),
     ];
   }
 
-  private function create_i18n()
-  {
-    $result = [];
-    foreach ($this->i18n as $locale => $path) {
-      if (file_exists($path)) {
-        $result[$locale] = require_once ($path);
-      }
-    }
-    return $result;
-  }
-
-  private function get_i18n_by_locale($i18n, $locale = '')
+  private function get_i18n_by_locale($i18n = [], $locale = '')
   {
     $result = '';
     if (isset($i18n) && is_array($i18n) && sizeof((array) $i18n) > 0) {
       if (isset($locale) && !empty($locale)) {
-        if (isset($i18n[$locale]) && is_array($i18n[$locale]) && sizeof((array) $i18n[$locale]) > 0) {
+        if (isset($i18n[$locale])) {
           $result = $i18n[$locale];
         }
       } else {
         $current_locale = get_locale();
-        if (isset($i18n[$current_locale]) && is_array($i18n[$current_locale]) && sizeof((array) $i18n[$current_locale]) > 0) {
+        if (isset($i18n[$current_locale])) {
           $result = $i18n[$current_locale];
         }
       }
@@ -46,7 +35,7 @@ class Dictionaries
     return $result;
   }
 
-  private function get_i18n_by_scope($i18n, $scope = '')
+  private function get_i18n_by_scope($i18n = [], $scope = '')
   {
     $result = '';
     if (isset($i18n) && is_array($i18n) && sizeof((array) $i18n) > 0) {
@@ -80,7 +69,7 @@ class Dictionaries
   {
     $locale = isset($args['locale']) ? $args['locale'] : '';
     $scope = isset($args['scope']) ? $args['scope'] : '';
-    $i18n = $this->get_i18n_by_scope($this->get_i18n_by_locale($this->create_i18n(), $locale), $scope);
+    $i18n = $this->get_i18n_by_scope($this->get_i18n_by_locale($this->i18n, $locale), $scope);
     return function ($scope = '') use ($i18n) {
       if (isset ($scope) && !empty ($scope)) {
         return $this->get_i18n_by_scope($i18n, $scope);

@@ -5,7 +5,7 @@ use TS\Inc\UI;
 
 $utils = Utils::instance();
 $ui = UI::instance();
-$dict = Dictionaries::instance()->get_scoped_i18n(['scope' => 'notFound']);
+$dict = Dictionaries::instance()->get_scoped_i18n(['scope' => 'pages.notFound']);
 
 get_header('404');
 ?>

@@ -1,10 +1,16 @@
 <?php
 return [
-  'notFound' => [
-    'title' => 'OOOps! Không tìm thấy nội dung này',
-    'description' => 'Xin lỗi vì sự bất tiện này! Vui lòng quay về trang chủ để tiếp tục điều hướng.',
-    'backToHome' => 'Quay về trang chủ',
+  'pages' => [
+    'notFound' => [
+      'title' => 'OOOps! Không tìm thấy nội dung này',
+      'description' => 'Xin lỗi vì sự bất tiện này! Vui lòng quay về trang chủ để tiếp tục điều hướng.',
+      'backToHome' => 'Quay về trang chủ',
+    ],
+    'search' => [
+      'searchForKeywords' => 'Tìm kiếm cho từ khóa',
+    ],
   ],
+  'templates' => [],
   'components' => [
     'breadcrumb' => [
       'home' => 'Trang chủ'

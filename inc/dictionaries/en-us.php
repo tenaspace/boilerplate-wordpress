@@ -1,13 +1,19 @@
 <?php
 return [
-  'notFound' => [
-    'title' => 'OOOps! Page not found',
-    'description' => 'Sorry about that! Please visit our home page to get where you need to go.',
-    'backToHome' => 'Back to home page',
+  'pages' => [
+    'notFound' => [
+      'title' => 'OOOps! Page not found',
+      'description' => 'Sorry about that! Please visit our home page to get where you need to go.',
+      'backToHome' => 'Back to home page',
+    ],
+    'search' => [
+      'searchForKeywords' => 'Search for keywords',
+    ],
   ],
+  'templates' => [],
   'components' => [
     'breadcrumb' => [
-      'home' => 'Home'
+      'home' => 'Home',
     ],
     'forms' => [
       'sample' => [

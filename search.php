@@ -1,10 +1,15 @@
-<?php get_header(); ?>
+<?php
+use TS\Inc\Dictionaries;
+
+$dict = Dictionaries::instance()->get_scoped_i18n(['scope' => 'pages.search']);
+
+get_header();
+?>
 
 <?php // TODO get_template_part('components/breadcrumb', '', ['list' => [['label' => 'Sample components']]]); ?>
 
 <div>
-  Search keywords:
-  <?php echo esc_html(get_search_query()); ?>
+  <?php echo $dict('searchForKeywords'); ?>: <?php echo esc_html(get_search_query()); ?>
 </div>
 
 <?php echo get_the_archive_description(); ?>

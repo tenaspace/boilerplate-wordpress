@@ -2,7 +2,6 @@
 namespace TS\Inc;
 
 use TS\Inc\Traits\Singleton;
-use TS\Inc\Utils;
 
 class UI
 {

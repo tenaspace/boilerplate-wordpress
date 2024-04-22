@@ -2,7 +2,6 @@
 namespace TS\Inc;
 
 use TS\Inc\Traits\Singleton;
-use TS\Inc\Utils;
 
 class Enqueue_Scripts
 {
@@ -19,12 +18,13 @@ class Enqueue_Scripts
   protected function set_hooks()
   {
     $utils = Utils::instance();
+    add_action('wp_enqueue_scripts', [$this, 'localizes_script_app'], 99998);
     if ($utils->is_vite_dev_mode()) {
       add_action('wp_head', [$this, 'scripts'], 99999);
       add_action('admin_head', [$this, 'scripts'], 99999);
     } else {
       add_action('wp_enqueue_scripts', [$this, 'scripts'], 99999);
-      // add_action('enqueue_block_editor_assets', [$this, 'scripts'], 99999);
+      add_action('enqueue_block_editor_assets', [$this, 'scripts'], 99999);
     }
   }
 
@@ -40,7 +40,7 @@ class Enqueue_Scripts
        * CSS
        */
 
-      if (sizeof((array) $manifest_values) > 0) {
+      if (isset($manifest_values) && is_array($manifest_values) && sizeof((array) $manifest_values) > 0) {
         foreach ($manifest_values as $manifest_value) {
           if (isset($manifest_value['css']) && is_array($manifest_value) && sizeof((array) $manifest_value['css']) > 0) {
             foreach ($manifest_value['css'] as $key => $css) {
@@ -54,7 +54,7 @@ class Enqueue_Scripts
        * JS
        */
 
-      if (sizeof((array) $manifest_values) > 0) {
+      if (isset($manifest_values) && is_array($manifest_values) && sizeof((array) $manifest_values) > 0) {
         foreach ($manifest_values as $manifest_value) {
           if (isset($manifest_value['css']) && is_array($manifest_value) && sizeof((array) $manifest_value['css']) > 0) {
             if (isset($manifest_value['file']) && !empty($manifest_value['file'])) {
