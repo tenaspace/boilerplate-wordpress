@@ -15,9 +15,11 @@ class Utils
 {
   use Singleton;
 
+  private $vite_manifest_path;
+
   protected function __construct()
   {
-
+    $this->vite_manifest_path = '/dist/.vite/manifest.json';
   }
 
   /**
@@ -41,7 +43,7 @@ class Utils
 
   public function is_vite_dev_mode()
   {
-    return !file_exists(get_template_directory() . '/dist/.vite/manifest.json');
+    return !file_exists(get_template_directory() . $this->vite_manifest_path);
   }
 
   /**
@@ -70,7 +72,7 @@ class Utils
 
   public function get_manifest()
   {
-    return json_decode(file_get_contents(get_template_directory() . '/dist/.vite/manifest.json'), true);
+    return json_decode(file_get_contents(get_template_directory() . $this->vite_manifest_path), true);
   }
 
   /**
