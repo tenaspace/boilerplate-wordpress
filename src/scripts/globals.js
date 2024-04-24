@@ -3,7 +3,7 @@ import collapse from '@alpinejs/collapse'
 import focus from '@alpinejs/focus'
 import mask from '@alpinejs/mask'
 import VanillaLazyLoad from './libraries/vanilla-lazyload'
-// import CustomBlockSample from './custom-blocks/sample'
+import CustomBlockSample from './custom-blocks/sample'
 
 /**
  * Alpinejs Safari fix: https://github.com/alpinejs/alpine/discussions/1964
@@ -51,7 +51,7 @@ VanillaLazyLoad()
  * Custom blocks
  */
 
-// CustomBlockSample()
+CustomBlockSample()
 
 /* That's all, stop editing! Happy publishing. */
 
