@@ -1,6 +1,6 @@
 <?php get_header(); ?>
 
-<?php // TODO get_template_part('components/breadcrumb', '', ['list' => [['label' => 'Sample components']]]); ?>
+<?php get_template_part('components/breadcrumb', ''); ?>
 
 <h1>
   <?php echo get_the_archive_title(); ?>
