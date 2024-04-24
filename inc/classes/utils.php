@@ -2,8 +2,6 @@
 namespace TS\Inc;
 
 use TS\Inc\Traits\Singleton;
-use RecursiveDirectoryIterator;
-use RecursiveIteratorIterator;
 use TailwindMerge\TailwindMerge;
 use ReCaptcha\ReCaptcha;
 use PHPMailer\PHPMailer\PHPMailer;
@@ -28,6 +26,9 @@ class Utils
 
   public function write_log($log)
   {
+    if (!(isset($log))) {
+      return;
+    }
     if (WP_DEBUG === true) {
       if (is_array($log) || is_object($log)) {
         error_log(print_r($log, true));
@@ -50,19 +51,22 @@ class Utils
    * Require All Files In Folder
    */
 
-  public function require_all_files($path)
+  public function require_all_files(string $path)
   {
+    if (!(isset($path) && !empty($path))) {
+      return;
+    }
     try {
-      $dir = new RecursiveDirectoryIterator(get_template_directory() . $path);
-      $iterator = new RecursiveIteratorIterator($dir);
+      $dir = new \RecursiveDirectoryIterator(get_template_directory() . $path);
+      $iterator = new \RecursiveIteratorIterator($dir);
       foreach ($iterator as $file) {
         $fname = $file->getFilename();
         if (preg_match('%\.php$%', $fname)) {
           require_once ($file->getPathname());
         }
       }
-    } catch (\Throwable $th) {
-      //throw $th;
+    } catch (\Exception $error) {
+      $this->write_log($error->getMessage());
     }
   }
 
@@ -82,7 +86,10 @@ class Utils
   public function get_manifest_values()
   {
     $manifest = $this->get_manifest();
-    return is_array($manifest) ? array_values($manifest) : [];
+    if (!(isset($manifest) && is_array($manifest) && sizeof((array) $manifest) > 0)) {
+      return;
+    }
+    return array_values($manifest);
   }
 
   /**
@@ -91,38 +98,35 @@ class Utils
 
   public function clsx(...$args)
   {
-    $classNames = [];
-
+    $class = [];
     foreach ($args as $arg) {
       if (is_array($arg)) {
         foreach ($arg as $key => $value) {
           if (is_string($key)) {
             if (is_array($value)) {
-              $classNames = array_merge($classNames, $value);
+              $class = array_merge($class, $value);
             } elseif ($value) {
-              $classNames[] = $key;
+              $class[] = $key;
             }
           } elseif (is_string($value)) {
-            $classNames = array_merge($classNames, explode(' ', $value));
+            $class = array_merge($class, explode(' ', $value));
           } elseif (is_array($value)) {
-            $classNames[] = $this->clsx($value);
+            $class[] = $this->clsx($value);
           } elseif (is_object($value)) {
             foreach ($value as $class => $condition) {
               if ($condition) {
-                $classNames[] = $class;
+                $class[] = $class;
               }
             }
           }
         }
       } elseif (is_string($arg)) {
-        $classNames = array_merge($classNames, explode(' ', $arg));
+        $class = array_merge($class, explode(' ', $arg));
       }
     }
-
     // Remove duplicates
-    $classNames = array_unique($classNames);
-
-    return implode(' ', $classNames);
+    $class = array_unique($class);
+    return implode(' ', $class);
   }
 
   /**
@@ -159,15 +163,18 @@ class Utils
 
   public function is_woocommerce_activated()
   {
-    return class_exists('WooCommerce') ? true : false;
+    return class_exists('WooCommerce');
   }
 
   /**
    * Verify reCAPTCHA v3
    */
 
-  public function recaptcha_verify($token, $action)
+  public function recaptcha_verify(string $token, string $action)
   {
+    if (!(isset($token) && !empty($token) && isset($action) && !empty($action))) {
+      return;
+    }
     $recaptcha = new ReCaptcha($_ENV['GOOLE_RECAPTCHA_SECRET_KEY'] ?? '');
     $verify = $recaptcha->setExpectedHostname($_SERVER['SERVER_NAME'])
       ->setExpectedAction($action)
@@ -211,21 +218,47 @@ class Utils
    * Limit word
    */
 
-  public function limit_words($string, $limit = 25)
+  public function limit_words(string $text, int $limit = 25)
   {
-    return preg_replace('/((\w+\W*){' . ($limit - 1) . '}(\w+))(.*)/', '${1}', $string) . ((str_word_count($string) > $limit) ? '...' : '');
+    if (!(isset($text) && !empty($text))) {
+      return;
+    }
+    return preg_replace('/((\w+\W*){' . ($limit - 1) . '}(\w+))(.*)/', '${1}', $text) . ((str_word_count($text) > $limit) ? '...' : '');
+  }
+
+  /**
+   * Create nav menu
+   */
+
+  private function create_nav_menu(string $location)
+  {
+    if (!(isset($location) && !empty($location))) {
+      return;
+    }
+    $locations = get_nav_menu_locations();
+    if (!(isset($locations[$location]) && !empty($locations[$location]))) {
+      return;
+    }
+    $result = wp_get_nav_menu_items($locations[$location]);
+    if (!(isset($result) && is_array($result) && sizeof((array) $result) > 0)) {
+      return;
+    }
+    return $result;
   }
 
   /**
    * Get nav menu items
    */
 
-  public function get_nav_menu_items(array &$nav_menu_items, $parent_id = 0)
+  private function get_nav_menu_items(array &$items, int $parent_id = 0)
   {
+    if (!(isset($items) && is_array($items) && sizeof((array) $items) > 0)) {
+      return;
+    }
     $result = [];
-    foreach ($nav_menu_items as &$item) {
+    foreach ($items as &$item) {
       if ($item->menu_item_parent == $parent_id) {
-        $children = $this->get_nav_menu_items($nav_menu_items, $item->ID);
+        $children = $this->get_nav_menu_items($items, $item->ID);
         if ($children) {
           $item->children = $children;
         }
@@ -233,94 +266,102 @@ class Utils
         unset($item);
       }
     }
-    $result = array_values(array_filter($result));
-    return $result;
+    return array_values(array_filter($result));
   }
 
   /**
    * Get nav menu
    */
 
-  public function get_nav_menu($theme_location)
+  public function get_nav_menu(string $location)
   {
-    $items = wp_get_nav_menu_items($theme_location);
-    return $items ? $this->get_nav_menu_items($items) : [];
+    $items = $this->create_nav_menu($location);
+    if (!(isset($items) && is_array($items) && sizeof((array) $items) > 0)) {
+      return;
+    }
+    return $this->get_nav_menu_items($items);
   }
 
   /**
    * Get attachment ID by URL
    */
 
-  public function get_attachment_id_by_url($url)
+  public function get_attachment_id_by_url(string $url)
   {
-    $url = preg_replace('/-\d+[Xx]\d+\./', '.', $url);
-    return attachment_url_to_postid($url);
+    if (!(isset($url) && !empty($url))) {
+      return 0;
+    }
+    return attachment_url_to_postid(preg_replace('/-\d+[Xx]\d+\./', '.', $url));
   }
 
   /**
-   * Table of contents
+   * Create table of contents
    */
 
-  public function get_table_of_contents($post_id)
+  private function create_table_of_contents(bool|int $post_id)
   {
     if (!$post_id) {
       return;
     }
-    $content = HtmlDomParser::str_get_html(str_replace(']]>', ']]&gt;', apply_filters('the_content', get_the_content($post_id))));
+    if (!class_exists('ACF')) {
+      return;
+    }
+    $the_content = HtmlDomParser::str_get_html(str_replace(']]>', ']]&gt;', apply_filters('the_content', get_the_content($post_id))));
+    $heading_tags_setting = get_post_meta($post_id, 'table_of_contents', true);
+    if (!(isset($the_content) && !empty($the_content) && is_array($heading_tags_setting) && sizeof((array) $heading_tags_setting) > 0)) {
+      return;
+    }
+    $heading_tags = [];
+    foreach ($heading_tags_setting as $heading_tag) {
+      if ($the_content->find($heading_tag)) {
+        array_push($heading_tags, $heading_tag);
+      }
+    }
+    if (!(isset($heading_tags) && is_array($heading_tags) && sizeof((array) $heading_tags) > 0)) {
+      return;
+    }
     $result = [];
-    if (class_exists('ACF')) {
-      $toc_settings = get_post_meta($post_id, 'table_of_contents', true);
-      if (isset($content) && is_array($toc_settings) && sizeof((array) $toc_settings) > 0) {
-        $heading_tags = [];
-        foreach ($toc_settings as $k => $v) {
-          if ($content->find($v)) {
-            array_push($heading_tags, $v);
-          }
-        }
-        if (is_array($heading_tags) && sizeof((array) $heading_tags) > 0) {
-          $heading_tags_shift = $heading_tags;
-          array_shift($heading_tags_shift);
-          foreach ($content->find($heading_tags[0]) as $k => $v) {
-            $current[$heading_tags[0]] = $k;
-            $parent_id = 0;
-            array_push($result, [
-              'id' => $v->tag . '-' . $k,
-              'tag' => $v->tag,
-              'text' => trim($v->plaintext),
-              'hash' => sanitize_title(trim($v->plaintext)),
-              'uri' => rtrim(str_replace(home_url(), '', get_the_permalink($post_id)), '/'),
-              'url' => rtrim(get_the_permalink($post_id), '/') . '#' . sanitize_title(trim($v->plaintext)),
-              'parent_id' => $parent_id,
-            ]);
-            if (is_array($heading_tags) && sizeof((array) $heading_tags) > 1) {
-              $prev_tag = $v->tag;
-              while (($v = $v->next_sibling()) && strcmp($v->tag, $heading_tags[0]) !== 0) {
-                foreach ($heading_tags_shift as $key => $value) {
-                  if (strcmp($v->tag, $value) == 0) {
-                    if (strcmp($value, $prev_tag) == 0) {
-                      $parent_id = $result[array_key_last($result)]['parent_id'];
-                    } else {
-                      if (array_search($value, $heading_tags) > array_search($prev_tag, $heading_tags)) {
-                        $current[$value] = 0;
-                        $parent_id = $result[array_key_last($result)]['id'];
-                      } else {
-                        $parent_id = $result[array_search($result[array_key_last($result)]['parent_id'], array_column($result, 'id'))]['parent_id'];
-                      }
-                    }
-                    array_push($result, [
-                      'id' => $value . '-' . $current[$value],
-                      'tag' => $value,
-                      'text' => trim($v->plaintext),
-                      'hash' => sanitize_title(trim($v->plaintext)),
-                      'uri' => rtrim(str_replace(home_url(), '', get_the_permalink($post_id)), '/'),
-                      'url' => rtrim(get_the_permalink($post_id), '/') . '#' . sanitize_title(trim($v->plaintext)),
-                      'parent_id' => $parent_id,
-                    ]);
-                    $current[$value] += 1;
-                    $prev_tag = $value;
-                  }
+    $heading_tags_shift = $heading_tags;
+    array_shift($heading_tags_shift);
+    $current = [];
+    foreach ($the_content->find($heading_tags[0]) as $key => $node) {
+      $current[$heading_tags[0]] = $key;
+      $parent_id = 0;
+      array_push($result, [
+        'id' => $node->tag . '-' . $key,
+        'tag' => $node->tag,
+        'text' => trim($node->plaintext),
+        'hash' => sanitize_title(trim($node->plaintext)),
+        'uri' => ltrim(rtrim(str_replace(home_url(), '', get_the_permalink($post_id)), '/'), '/'),
+        'url' => rtrim(get_the_permalink($post_id), '/') . '#' . sanitize_title(trim($node->plaintext)),
+        'parent_id' => $parent_id,
+      ]);
+      if (sizeof((array) $heading_tags) > 1) {
+        $prev_tag = $node->tag;
+        while (($node = $node->next_sibling()) && strcmp($node->tag, $heading_tags[0]) !== 0) {
+          foreach ($heading_tags_shift as $node_shift) {
+            if (strcmp($node->tag, $node_shift) == 0) {
+              if (strcmp($node_shift, $prev_tag) == 0) {
+                $parent_id = $result[array_key_last($result)]['parent_id'];
+              } else {
+                if (array_search($node_shift, $heading_tags) > array_search($prev_tag, $heading_tags)) {
+                  $current[$node_shift] = 0;
+                  $parent_id = $result[array_key_last($result)]['id'];
+                } else {
+                  $parent_id = $result[array_search($result[array_key_last($result)]['parent_id'], array_column($result, 'id'))]['parent_id'];
                 }
               }
+              array_push($result, [
+                'id' => $node_shift . '-' . $current[$node_shift],
+                'tag' => $node_shift,
+                'text' => trim($node->plaintext),
+                'hash' => sanitize_title(trim($node->plaintext)),
+                'uri' => ltrim(rtrim(str_replace(home_url(), '', get_the_permalink($post_id)), '/'), '/'),
+                'url' => rtrim(get_the_permalink($post_id), '/') . '#' . sanitize_title(trim($node->plaintext)),
+                'parent_id' => $parent_id,
+              ]);
+              $current[$node_shift] += 1;
+              $prev_tag = $node_shift;
             }
           }
         }
@@ -329,15 +370,19 @@ class Utils
     return $result;
   }
 
-  public function get_toc_items(array &$toc, $parent_id = 0)
+  /**
+   * Get table of contents items
+   */
+
+  private function get_table_of_contents_items(array &$items, $parent_id = 0)
   {
-    if (!$toc) {
+    if (!(isset($items) && is_array($items) && sizeof((array) $items) > 0)) {
       return;
     }
     $result = [];
-    foreach ($toc as $key => &$item) {
+    foreach ($items as $key => &$item) {
       if ($item['parent_id'] === $parent_id) {
-        $children = $this->get_toc_items($toc, $item['id']);
+        $children = $this->get_table_of_contents_items($items, $item['id']);
         if ($children) {
           $item['children'] = $children;
         }
@@ -353,10 +398,17 @@ class Utils
     return $result;
   }
 
-  public function get_toc($post_id)
+  /**
+   * Get table of contents
+   */
+
+  public function get_table_of_contents(bool|int $post_id)
   {
-    $items = $this->get_table_of_contents($post_id);
-    return is_array($items) && sizeof((array) $items) > 0 ? $this->get_toc_items($items) : [];
+    $items = $this->create_table_of_contents($post_id);
+    if (!(isset($items) && is_array($items) && sizeof((array) $items) > 0)) {
+      return;
+    }
+    return $this->get_table_of_contents_items($items);
   }
 }
 ?>

@@ -13,7 +13,7 @@ trait Singleton
 
   }
 
-  final public static function instance()
+  final public static function instance(): self
   {
     static $instance = [];
 
