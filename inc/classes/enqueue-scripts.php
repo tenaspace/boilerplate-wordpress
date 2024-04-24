@@ -27,7 +27,15 @@ class Enqueue_Scripts
     add_action('wp_enqueue_scripts', [$this, 'localizes_script_app'], 99998);
     if ($utils->is_vite_dev_mode()) {
       add_action('wp_head', [$this, 'scripts'], 99999);
-      add_action('admin_head', [$this, 'scripts'], 99999);
+      add_action('admin_head', function () {
+        global $pagenow;
+        if ($pagenow === 'post.php' || $pagenow === 'post-new.php') {
+          $post_type = isset ($_GET['post_type']) ? $_GET['post_type'] : 'post';
+          if ($post_type !== 'acf-field-group') { // Exclude ACF settings page
+            $this->scripts();
+          }
+        }
+      }, 99999);
     } else {
       add_action('wp_enqueue_scripts', [$this, 'scripts'], 99999);
       add_action('enqueue_block_editor_assets', [$this, 'scripts'], 99999);
