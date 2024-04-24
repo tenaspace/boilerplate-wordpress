@@ -33,8 +33,8 @@ window.Alpine.data('app', () => ({
     height: '0px',
   },
   useWindowSize() {
-    this.windowSize.width = `${window.innerWidth}px`
-    this.windowSize.height = `${window.innerHeight}px`
+    this.windowSize.width = `${window.innerWidth || document.documentElement.clientWidth}px`
+    this.windowSize.height = `${window.innerHeight || document.documentElement.clientHeight}px`
   },
   init() {
     this.useWindowSize()

@@ -29,7 +29,7 @@ function autoloader($resource = '')
     switch ($path[1]) {
       case 'traits':
         $directory = 'inc/traits';
-        $file_name = sprintf('trait-%s', trim(strtolower($path[2])));
+        $file_name = sprintf('%s', trim(strtolower($path[2])));
         break;
       case 'init':
         $directory = 'inc';
@@ -37,7 +37,7 @@ function autoloader($resource = '')
         break;
       default:
         $directory = 'inc/classes';
-        $file_name = sprintf('class-%s', trim(strtolower($path[1])));
+        $file_name = sprintf('%s', trim(strtolower($path[1])));
         break;
     }
     $resource_path = sprintf('%s/%s/%s.php', get_template_directory(), $directory, $file_name);
