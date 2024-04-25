@@ -8,4 +8,4 @@ add_shortcode('sample', function () {
   ob_end_clean();
   return $template;
 });
-*/ ?>
+?>

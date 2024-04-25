@@ -38,4 +38,4 @@ if (!function_exists('cptui_register_my_cpts_sample')) {
 
 	add_action('init', 'cptui_register_my_cpts_sample');
 }
-*/ ?>
+?>

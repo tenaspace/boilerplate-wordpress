@@ -3,6 +3,7 @@ import collapse from '@alpinejs/collapse'
 import focus from '@alpinejs/focus'
 import mask from '@alpinejs/mask'
 import VanillaLazyLoad from './libraries/vanilla-lazyload'
+// import FormSample from './components/forms/sample'
 import CustomBlockSample from './custom-blocks/sample'
 
 /**
@@ -46,6 +47,12 @@ window.Alpine.data('app', () => ({
  */
 
 VanillaLazyLoad()
+
+/**
+ * Components
+ */
+
+// FormSample();
 
 /**
  * Custom blocks
