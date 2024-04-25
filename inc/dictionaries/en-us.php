@@ -31,12 +31,12 @@ return [
               'pattern' => 'E-Mail is not valid.',
             ],
           ],
-          'phoneNumber' => [
-            'label' => 'Phone number',
+          'telephone' => [
+            'label' => 'Telephone',
             'message' => [
-              'required' => 'Phone number is required.',
-              'min' => 'Phone number is not valid.',
-              'max' => 'Phone number is not valid.',
+              'required' => 'Telephone is required.',
+              'min' => 'Telephone is not valid.',
+              'max' => 'Telephone is not valid.',
             ],
           ],
           'message' => [

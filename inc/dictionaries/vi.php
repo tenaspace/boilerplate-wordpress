@@ -31,7 +31,7 @@ return [
               'pattern' => 'E-Mail không hợp lệ.',
             ],
           ],
-          'phoneNumber' => [
+          'telephone' => [
             'label' => 'Số điện thoại',
             'message' => [
               'required' => 'Số điện thoại là bắt buộc.',
