@@ -283,18 +283,6 @@ class Utils
   }
 
   /**
-   * Get attachment ID by URL
-   */
-
-  public function get_attachment_id_by_url(string $url)
-  {
-    if (!(isset($url) && !empty($url))) {
-      return 0;
-    }
-    return attachment_url_to_postid(preg_replace('/-\d+[Xx]\d+\./', '.', $url));
-  }
-
-  /**
    * Create table of contents
    */
 
