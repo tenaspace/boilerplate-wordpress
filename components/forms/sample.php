@@ -7,5 +7,7 @@ $ui = UI::instance();
 ?>
 
 <form x-data="formSample($el)" novalidate class='space-y-4'>
-  <button type="submit" class="<?php echo $ui->button(); ?>"><?php echo $dict('submit.label'); ?></button>
+  <div className='pt-4'>
+    <button type="submit" class="<?php echo $ui->button(); ?>"><?php echo $dict('submit.label'); ?></button>
+  </div>
 </form>
