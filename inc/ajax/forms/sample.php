@@ -15,4 +15,4 @@ if (!function_exists($action)) {
   add_action("wp_ajax_{$action}", $action);
   add_action("wp_ajax_nopriv_{$action}", $action);
 }
-?>
+*/ ?>

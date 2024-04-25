@@ -32,4 +32,4 @@ if (!function_exists('cptui_register_my_taxes_sample')) {
   }
   add_action('init', 'cptui_register_my_taxes_sample');
 }
-?>
+*/ ?>
