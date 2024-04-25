@@ -35,8 +35,6 @@ return [
             'label' => 'Telephone',
             'message' => [
               'required' => 'Telephone is required.',
-              'min' => 'Telephone is not valid.',
-              'max' => 'Telephone is not valid.',
             ],
           ],
           'message' => [

@@ -35,8 +35,6 @@ return [
             'label' => 'Số điện thoại',
             'message' => [
               'required' => 'Số điện thoại là bắt buộc.',
-              'min' => 'Số điện thoại không hợp lệ.',
-              'max' => 'Số điện thoại không hợp lệ.',
             ],
           ],
           'message' => [
