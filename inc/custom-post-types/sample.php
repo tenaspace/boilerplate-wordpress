@@ -3,19 +3,19 @@ if (!function_exists('cptui_register_my_cpts_sample')) {
 	function cptui_register_my_cpts_sample()
 	{
 		$labels = [
-			'name' => esc_html__('Sample', 'ts'),
+			'name' => esc_html__('Samples', 'ts'),
 			'singular_name' => esc_html__('Sample', 'ts'),
 		];
 
 		$args = [
-			'label' => esc_html__('Sample', 'ts'),
+			'label' => esc_html__('Samples', 'ts'),
 			'labels' => $labels,
 			'description' => '',
 			'public' => true,
 			'publicly_queryable' => true,
 			'show_ui' => true,
 			'show_in_rest' => true,
-			'rest_base' => '',
+			'rest_base' => 'samples',
 			'rest_controller_class' => 'WP_REST_Posts_Controller',
 			'rest_namespace' => 'wp/v2',
 			'has_archive' => false,
