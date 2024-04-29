@@ -6,7 +6,6 @@ if (!function_exists('cptui_register_my_taxes_sample')) {
       'name' => esc_html__('Sample taxonomies', 'ts'),
       'singular_name' => esc_html__('Sample taxonomy', 'ts'),
     ];
-
     $args = [
       'label' => esc_html__('Sample taxonomies', 'ts'),
       'labels' => $labels,

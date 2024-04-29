@@ -6,7 +6,6 @@ if (!function_exists('cptui_register_my_cpts_sample')) {
 			'name' => esc_html__('Samples', 'ts'),
 			'singular_name' => esc_html__('Sample', 'ts'),
 		];
-
 		$args = [
 			'label' => esc_html__('Samples', 'ts'),
 			'labels' => $labels,
@@ -32,10 +31,8 @@ if (!function_exists('cptui_register_my_cpts_sample')) {
 			'supports' => ['title', 'editor', 'thumbnail', 'author', 'page-attributes'],
 			'show_in_graphql' => false,
 		];
-
 		register_post_type('sample', $args);
 	}
-
 	add_action('init', 'cptui_register_my_cpts_sample');
 }
 */ ?>
