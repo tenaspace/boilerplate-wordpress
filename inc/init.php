@@ -11,7 +11,6 @@ class Init
   {
     $this->set_hooks();
     $this->defines();
-    Dictionaries::instance();
     Nav_Menus::instance();
     Widgets::instance();
     Fonts::instance();

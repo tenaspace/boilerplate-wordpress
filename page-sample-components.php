@@ -9,7 +9,7 @@ get_header();
 <div class='py-10 lg:py-20'>
   <div class="<?php echo $ui->container(); ?>">
     <div class='space-y-8 lg:space-y-10'>
-      <?php get_template_part('components/breadcrumb', '', ['list' => [['label' => 'Sample components']]]); ?>
+      <?php get_template_part('components/breadcrumb', ''); ?>
       <div class='space-y-2.5 lg:space-y-5'>
         <h1 class="<?php echo $ui->typography('h1'); ?>">Lorem ipsum</h1>
         <h2 class="<?php echo $ui->typography('h2'); ?>">Lorem ipsum</h2>

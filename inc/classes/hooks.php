@@ -51,10 +51,10 @@ class Hooks
      * The menu
      */
 
-    add_filter('wp_get_nav_menu_items', function ($items, $menu, $args) {
+    add_filter('wp_get_nav_menu_items', function ($items) {
       _wp_menu_item_classes_by_context($items);
       return $items;
-    }, 10, 3);
+    }, 10, 1);
 
     /**
      * The archive - title

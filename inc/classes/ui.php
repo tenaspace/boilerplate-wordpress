@@ -16,7 +16,7 @@ class UI
    * Container
    */
 
-  public function container($variant = 'default')
+  public function container(string $variant = 'default')
   {
     $utils = Utils::instance();
 
@@ -32,7 +32,7 @@ class UI
    * Typography
    */
 
-  public function typography($variant = 'default')
+  public function typography(string $variant = 'default')
   {
     $variants = [
       'default' => 'text-base leading-7',
@@ -55,7 +55,7 @@ class UI
    * Button
    */
 
-  public function button($variant = 'default', $size = 'default')
+  public function button(string $variant = 'default', string $size = 'default')
   {
     $utils = Utils::instance();
 

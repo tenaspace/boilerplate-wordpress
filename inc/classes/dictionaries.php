@@ -17,7 +17,7 @@ class Dictionaries
     ];
   }
 
-  private function get_i18n_by_locale($i18n = [], $locale = '')
+  private function get_i18n_by_locale(array $i18n = [], string $locale = '')
   {
     $result = '';
     if (isset($i18n) && is_array($i18n) && sizeof((array) $i18n) > 0) {
@@ -35,7 +35,7 @@ class Dictionaries
     return $result;
   }
 
-  private function get_i18n_by_scope($i18n = [], $scope = '')
+  private function get_i18n_by_scope(array $i18n = [], string $scope = '')
   {
     $result = '';
     if (isset($i18n) && is_array($i18n) && sizeof((array) $i18n) > 0) {
@@ -65,12 +65,15 @@ class Dictionaries
     return $result;
   }
 
-  final public function get_scoped_i18n($args = [])
+  final public function get_scoped_i18n(array $args = [])
   {
-    $locale = isset($args['locale']) ? $args['locale'] : '';
-    $scope = isset($args['scope']) ? $args['scope'] : '';
-    $i18n = $this->get_i18n_by_scope($this->get_i18n_by_locale($this->i18n, $locale), $scope);
-    return function ($scope = '') use ($i18n) {
+    $defaults = [
+      'locale' => '',
+      'scope' => '',
+    ];
+    $args = wp_parse_args($args, $defaults);
+    $i18n = $this->get_i18n_by_scope($this->get_i18n_by_locale($this->i18n, $args['locale']), $args['scope']);
+    return function (string $scope = '') use ($i18n) {
       if (isset ($scope) && !empty ($scope)) {
         return $this->get_i18n_by_scope($i18n, $scope);
       } else {

@@ -11,10 +11,10 @@ return [
     ],
   ],
   'templates' => [],
+  'breadcrumb' => [
+    'home' => 'Home',
+  ],
   'components' => [
-    'breadcrumb' => [
-      'home' => 'Home',
-    ],
     'forms' => [
       'sample' => [
         'inputs' => [

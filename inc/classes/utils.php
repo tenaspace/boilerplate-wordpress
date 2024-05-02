@@ -398,5 +398,46 @@ class Utils
     }
     return $this->get_table_of_contents_items($items);
   }
+
+  /**
+   * Get breadcrumb
+   */
+
+  public function get_breadcrumb()
+  {
+    $dict = Dictionaries::instance()->get_scoped_i18n(['scope' => 'breadcrumb']);
+    $result = [
+      [
+        'link' => home_url(),
+        'label' => $dict('home'),
+      ]
+    ];
+    if (is_page()) {
+      array_push($result, [
+        'link' => '',
+        'label' => get_the_title(),
+      ]);
+    }
+    if (is_single()) {
+      $post_type = get_post_type(get_queried_object());
+      if ($post_type === 'post') {
+        $categories = get_the_category();
+        if (isset($categories) && is_array($categories) && sizeof((array) $categories) > 0) {
+          foreach ($categories as $category) {
+            array_push($result, [
+              'link' => get_category_link($category->term_id),
+              'label' => $category->name,
+            ]);
+          }
+        }
+      }
+      array_push($result, [
+        'link' => '',
+        'label' => get_the_title(),
+      ]);
+    }
+    // TODO
+    return $result;
+  }
 }
 ?>

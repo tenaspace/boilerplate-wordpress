@@ -11,10 +11,10 @@ return [
     ],
   ],
   'templates' => [],
+  'breadcrumb' => [
+    'home' => 'Trang chủ'
+  ],
   'components' => [
-    'breadcrumb' => [
-      'home' => 'Trang chủ'
-    ],
     'forms' => [
       'sample' => [
         'inputs' => [
