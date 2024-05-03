@@ -421,13 +421,36 @@ class Utils
           if (isset($categories) && is_array($categories) && sizeof((array) $categories) > 0) {
             foreach ($categories as $category) {
               array_push($result, [
-                'link' => get_category_link($category->term_id),
+                'link' => esc_url(get_category_link($category->term_id)),
                 'label' => $category->name,
               ]);
             }
           }
         } else {
-
+          // TODO
+          $object_taxonomies = get_object_taxonomies($post_type);
+          if ($object_taxonomies) {
+            $taxonomy = $object_taxonomies[0]; // Assuming only one hierarchical taxonomy is used
+            $terms = get_the_terms($queried_object_id, $taxonomy);
+            if (isset($terms) && is_array($terms) && sizeof((array) $terms) > 0) {
+              $term = array_shift($terms);
+              $ancestors = get_ancestors($term->term_id, $taxonomy, 'taxonomy');
+              $ancestors = array_reverse($ancestors);
+              if (isset($ancestors) && is_array($ancestors) && sizeof((array) $ancestors) > 0) {
+                foreach ($ancestors as $ancestor_id) {
+                  $ancestor = get_term($ancestor_id, $taxonomy);
+                  array_push($result, [
+                    'link' => esc_url(get_term_link($ancestor->term_id, $ancestor->taxonomy)),
+                    'label' => $ancestor->name,
+                  ]);
+                }
+              }
+              array_push($result, [
+                'link' => esc_url(get_term_link($term->term_id, $term->taxonomy)),
+                'label' => $term->name,
+              ]);
+            }
+          }
         }
       }
       array_push($result, [
@@ -436,9 +459,23 @@ class Utils
       ]);
     }
     if (is_archive()) {
+      $term = get_queried_object();
+      if ($term->parent) {
+        $ancestors = get_ancestors($term->term_id, $term->taxonomy);
+        $ancestors = array_reverse($ancestors);
+        if (isset($ancestors) && is_array($ancestors) && sizeof((array) $ancestors) > 0) {
+          foreach ($ancestors as $ancestor_id) {
+            $ancestor = get_term($ancestor_id, $term->taxonomy);
+            array_push($result, [
+              'link' => esc_url(get_term_link($ancestor->term_id, $ancestor->taxonomy)),
+              'label' => $ancestor->name,
+            ]);
+          }
+        }
+      }
       array_push($result, [
         'link' => '',
-        'label' => get_the_archive_title(),
+        'label' => $term->name,
       ]);
     }
     if (is_search()) {
@@ -450,7 +487,7 @@ class Utils
     if (is_404()) {
       array_push($result, [
         'link' => '',
-        'label' => $dict('notFound') . ': ' . get_search_query(),
+        'label' => $dict('notFound'),
       ]);
     }
     return $result;
