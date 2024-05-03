@@ -413,7 +413,7 @@ class Utils
       ]
     ];
     $is_woocommerce = $this->is_woocommerce_activated() && is_woocommerce();
-    if ($is_woocommerce && (is_product() || is_product_category() || is_product_tag() || is_product_taxonomy())) {
+    if ($is_woocommerce && (is_product() || is_product_taxonomy())) {
       array_push($result, [
         'link' => esc_url(get_permalink(wc_get_page_id('shop'))),
         'label' => get_the_title(wc_get_page_id('shop')),
