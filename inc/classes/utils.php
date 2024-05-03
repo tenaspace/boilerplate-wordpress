@@ -421,8 +421,8 @@ class Utils
     }
     if (is_singular()) {
       $queried_object = get_queried_object();
+      $post_type = get_post_type($queried_object);
       if (is_single()) {
-        $post_type = get_post_type($queried_object);
         $object_taxonomies = get_object_taxonomies($post_type);
         if ($object_taxonomies) {
           $taxonomy = $object_taxonomies[0]; // Assuming only one hierarchical taxonomy is used
