@@ -435,7 +435,12 @@ class Utils
         'label' => get_the_title(),
       ]);
     }
-
+    if (is_archive()) {
+      array_push($result, [
+        'link' => '',
+        'label' => get_the_archive_title(),
+      ]);
+    }
     if (is_search()) {
       array_push($result, [
         'link' => '',
