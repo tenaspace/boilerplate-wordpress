@@ -412,23 +412,22 @@ class Utils
         'label' => $dict('home'),
       ]
     ];
-    if (is_page()) {
-      array_push($result, [
-        'link' => '',
-        'label' => get_the_title(),
-      ]);
-    }
-    if (is_single()) {
-      $post_type = get_post_type(get_queried_object());
-      if ($post_type === 'post') {
-        $categories = get_the_category();
-        if (isset($categories) && is_array($categories) && sizeof((array) $categories) > 0) {
-          foreach ($categories as $category) {
-            array_push($result, [
-              'link' => get_category_link($category->term_id),
-              'label' => $category->name,
-            ]);
+    if (is_singular()) {
+      if (is_single()) {
+        $queried_object_id = get_queried_object_id();
+        $post_type = get_post_type($queried_object_id);
+        if ($post_type === 'post') {
+          $categories = get_the_category();
+          if (isset($categories) && is_array($categories) && sizeof((array) $categories) > 0) {
+            foreach ($categories as $category) {
+              array_push($result, [
+                'link' => get_category_link($category->term_id),
+                'label' => $category->name,
+              ]);
+            }
           }
+        } else {
+
         }
       }
       array_push($result, [
@@ -436,7 +435,19 @@ class Utils
         'label' => get_the_title(),
       ]);
     }
-    // TODO
+
+    if (is_search()) {
+      array_push($result, [
+        'link' => '',
+        'label' => $dict('searchForKeywords') . ': ' . get_search_query(),
+      ]);
+    }
+    if (is_404()) {
+      array_push($result, [
+        'link' => '',
+        'label' => $dict('notFound') . ': ' . get_search_query(),
+      ]);
+    }
     return $result;
   }
 }

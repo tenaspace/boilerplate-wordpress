@@ -12,7 +12,9 @@ return [
   ],
   'templates' => [],
   'breadcrumb' => [
-    'home' => 'Trang chủ'
+    'home' => 'Trang chủ',
+    'searchForKeywords' => 'Tìm kiếm cho từ khóa',
+    'notFound' => 'Không tìm thấy nội dung này',
   ],
   'components' => [
     'forms' => [

@@ -13,6 +13,8 @@ return [
   'templates' => [],
   'breadcrumb' => [
     'home' => 'Home',
+    'searchForKeywords' => 'Search for keywords',
+    'notFound' => 'Page not found',
   ],
   'components' => [
     'forms' => [
