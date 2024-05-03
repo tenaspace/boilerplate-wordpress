@@ -412,53 +412,53 @@ class Utils
         'label' => $dict('home'),
       ]
     ];
+    $is_woocommerce = $this->is_woocommerce_activated() && is_woocommerce();
+    if ($is_woocommerce && (is_product() || is_product_category() || is_product_tag() || is_product_taxonomy())) {
+      array_push($result, [
+        'link' => esc_url(get_permalink(wc_get_page_id('shop'))),
+        'label' => get_the_title(wc_get_page_id('shop')),
+      ]);
+    }
     if (is_singular()) {
+      $queried_object = get_queried_object();
       if (is_single()) {
-        $queried_object_id = get_queried_object_id();
-        $post_type = get_post_type($queried_object_id);
-        if ($post_type === 'post') {
-          $categories = get_the_category();
-          if (isset($categories) && is_array($categories) && sizeof((array) $categories) > 0) {
-            foreach ($categories as $category) {
-              array_push($result, [
-                'link' => esc_url(get_category_link($category->term_id)),
-                'label' => $category->name,
-              ]);
-            }
+        $post_type = get_post_type($queried_object);
+        $object_taxonomies = get_object_taxonomies($post_type);
+        if ($object_taxonomies) {
+          $taxonomy = $object_taxonomies[0]; // Assuming only one hierarchical taxonomy is used
+          if ($post_type === 'post') {
+            $taxonomy = 'category';
           }
-        } else {
-          // TODO
-          $object_taxonomies = get_object_taxonomies($post_type);
-          if ($object_taxonomies) {
-            $taxonomy = $object_taxonomies[0]; // Assuming only one hierarchical taxonomy is used
-            $terms = get_the_terms($queried_object_id, $taxonomy);
-            if (isset($terms) && is_array($terms) && sizeof((array) $terms) > 0) {
-              $term = array_shift($terms);
-              $ancestors = get_ancestors($term->term_id, $taxonomy, 'taxonomy');
-              $ancestors = array_reverse($ancestors);
-              if (isset($ancestors) && is_array($ancestors) && sizeof((array) $ancestors) > 0) {
-                foreach ($ancestors as $ancestor_id) {
-                  $ancestor = get_term($ancestor_id, $taxonomy);
-                  array_push($result, [
-                    'link' => esc_url(get_term_link($ancestor->term_id, $ancestor->taxonomy)),
-                    'label' => $ancestor->name,
-                  ]);
-                }
+          if ($is_woocommerce) {
+            $taxonomy = 'product_cat';
+          }
+          $terms = get_the_terms($queried_object, $taxonomy);
+          if (isset($terms) && is_array($terms) && sizeof((array) $terms) > 0) {
+            $term = array_shift($terms);
+            $ancestors = get_ancestors($term->term_id, $taxonomy, 'taxonomy');
+            $ancestors = array_reverse($ancestors);
+            if (isset($ancestors) && is_array($ancestors) && sizeof((array) $ancestors) > 0) {
+              foreach ($ancestors as $ancestor_id) {
+                $ancestor = get_term($ancestor_id, $taxonomy);
+                array_push($result, [
+                  'link' => esc_url(get_term_link($ancestor->term_id, $ancestor->taxonomy)),
+                  'label' => $ancestor->name,
+                ]);
               }
-              array_push($result, [
-                'link' => esc_url(get_term_link($term->term_id, $term->taxonomy)),
-                'label' => $term->name,
-              ]);
             }
+            array_push($result, [
+              'link' => esc_url(get_term_link($term->term_id, $term->taxonomy)),
+              'label' => $term->name,
+            ]);
           }
         }
       }
       array_push($result, [
         'link' => '',
-        'label' => get_the_title(),
+        'label' => $queried_object->post_title,
       ]);
     }
-    if (is_archive()) {
+    if (is_archive() || ($is_woocommerce && is_product_taxonomy())) {
       $term = get_queried_object();
       if ($term->parent) {
         $ancestors = get_ancestors($term->term_id, $term->taxonomy);
