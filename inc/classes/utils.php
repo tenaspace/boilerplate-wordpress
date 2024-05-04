@@ -422,6 +422,13 @@ class Utils
     if (is_singular()) {
       $queried_object = get_queried_object();
       $post_type = get_post_type($queried_object);
+      $post_type_object = get_post_type_object($post_type);
+      if ($post_type_object->has_archive) {
+        array_push($result, [
+          'link' => get_post_type_archive_link($post_type),
+          'label' => $post_type_object->label,
+        ]);
+      }
       if (is_single()) {
         $object_taxonomies = get_object_taxonomies($post_type);
         if ($object_taxonomies) {
@@ -475,7 +482,7 @@ class Utils
       }
       array_push($result, [
         'link' => '',
-        'label' => $term->name,
+        'label' => get_the_archive_title(),
       ]);
     }
     if (is_search()) {
