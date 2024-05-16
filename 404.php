@@ -11,7 +11,7 @@ get_header('404');
 ?>
 
 <div class="flex min-h-[var(--ts-window-size-height)] flex-col items-center justify-center py-10 text-center lg:py-20">
-  <div class="<?php echo $ui->container(); ?>">
+  <div class="<?php echo $ui->container('default'); ?>">
     <div class="flex flex-col items-center justify-center">
       <div class="<?php echo $utils->cn($ui->typography('h1'), 'text-8xl font-bold'); ?>">
         404

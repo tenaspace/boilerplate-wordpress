@@ -45,7 +45,7 @@ class Init
     $utils = Utils::instance();
     $path = get_template_directory() . '/dist';
     if ($utils->is_vite_dev_mode()) {
-      $path = get_template_directory() . '/src';
+      $path = get_template_directory() . '/resources';
     }
     return $path;
   }
@@ -55,9 +55,9 @@ class Init
     $utils = Utils::instance();
     $uri = get_template_directory_uri() . '/dist';
     if ($utils->is_vite_dev_mode()) {
-      $vite_server_port = $_ENV['VITE_SERVER_PORT'] ? $_ENV['VITE_SERVER_PORT'] : 3000;
-      $vite_server_origin = $_ENV['VITE_SERVER_ORIGIN'] ? $_ENV['VITE_SERVER_ORIGIN'] : 'http://localhost';
-      $uri = $vite_server_origin . ':' . $vite_server_port . '/src';
+      $vite_server_port = isset($_ENV['VITE_SERVER_PORT']) && $_ENV['VITE_SERVER_PORT'] ? $_ENV['VITE_SERVER_PORT'] : 3000;
+      $vite_server_origin = isset($_ENV['VITE_SERVER_ORIGIN']) && $_ENV['VITE_SERVER_ORIGIN'] ? $_ENV['VITE_SERVER_ORIGIN'] : 'http://localhost';
+      $uri = $vite_server_origin . ':' . $vite_server_port . '/resources';
     }
     return $uri;
   }

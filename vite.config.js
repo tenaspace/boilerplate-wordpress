@@ -5,8 +5,8 @@ import path from 'path'
 
 let rollupOptions = {
   input: {
-    main: normalizePath(path.resolve(__dirname, './src/main.js')),
-    app: normalizePath(path.resolve(__dirname, './src/app.js')),
+    main: normalizePath(path.resolve(__dirname, './resources/main.js')),
+    app: normalizePath(path.resolve(__dirname, './resources/app.js')),
   },
 }
 
@@ -18,7 +18,7 @@ export default ({ mode }) => {
       viteStaticCopy({
         targets: [
           {
-            src: 'src/assets',
+            src: 'resources/assets',
             dest: '',
           },
         ],

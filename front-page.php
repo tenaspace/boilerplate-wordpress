@@ -6,11 +6,16 @@ $ui = UI::instance();
 get_header();
 ?>
 
-<div class='py-10 lg:py-20'>
-  <div class="<?php echo $ui->container(); ?>">
-    <div class='space-y-8 lg:space-y-10'>
-      <?php get_template_part('components/breadcrumb', ''); ?>
-      <div class='space-y-2.5 lg:space-y-5'>
+<?php if (have_posts()): ?>
+  <?php while (have_posts()):
+    the_post(); ?>
+    <div>
+      <div class="<?php echo $ui->container('default'); ?>">
+        <?php get_template_part('components/breadcrumb', ''); ?>
+      </div>
+    </div>
+    <div>
+      <div class="<?php echo $ui->container('default'); ?>">
         <h1 class="<?php echo $ui->typography('h1'); ?>">Lorem ipsum</h1>
         <h2 class="<?php echo $ui->typography('h2'); ?>">Lorem ipsum</h2>
         <h3 class="<?php echo $ui->typography('h3'); ?>">Lorem ipsum</h3>
@@ -24,18 +29,17 @@ get_header();
           <code class="<?php echo $ui->typography('inline-code'); ?>">Lorem ipsum</code>
         </p>
       </div>
-      <div class='max-w-lg'>
-        <?php get_template_part('components/forms/sample', ''); ?>
+    </div>
+    <div>
+      <div class="<?php echo $ui->container('default'); ?>">
+        <div class='max-w-lg'>
+          <?php get_template_part('components/forms/sample', ''); ?>
+        </div>
       </div>
     </div>
-  </div>
-  <?php if (have_posts()): ?>
-    <?php while (have_posts()):
-      the_post(); ?>
-      <?php the_content(); ?>
-    <?php endwhile;
-    wp_reset_postdata(); ?>
-  <?php endif; ?>
-</div>
+    <?php the_content(); ?>
+  <?php endwhile;
+  wp_reset_postdata(); ?>
+<?php endif; ?>
 
 <?php get_footer(); ?>

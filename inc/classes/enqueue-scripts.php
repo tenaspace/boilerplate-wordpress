@@ -75,8 +75,8 @@ class Enqueue_Scripts
     } else {
       $manifest = $utils->get_manifest();
       if ($manifest) {
-        if (isset($manifest['src/' . $this->name_app . '.js']['file']) && !empty($manifest['src/' . $this->name_app . '.js']['file'])) {
-          $src = PUBLIC_URI . '/' . $manifest['src/' . $this->name_app . '.js']['file'];
+        if (isset($manifest['resources/' . $this->name_app . '.js']['file']) && !empty($manifest['resources/' . $this->name_app . '.js']['file'])) {
+          $src = PUBLIC_URI . '/' . $manifest['resources/' . $this->name_app . '.js']['file'];
         }
       }
     }

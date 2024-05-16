@@ -8,7 +8,7 @@ module.exports = {
     './templates/**/*.php',
     './custom-blocks/**/*.php',
     './woocommerce/**/*.php',
-    './src/**/*.{js,ts,jsx,tsx,mdx}',
+    './resources/**/*.{js,ts,jsx,tsx,mdx}',
   ].concat(glob.sync('./*.php')),
   prefix: '',
   theme: {
