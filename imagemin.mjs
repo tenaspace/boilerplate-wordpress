@@ -1,15 +1,16 @@
 import imagemin from '@ixkaito/imagemin'
 import imageminJpegtran from 'imagemin-jpegtran'
-import imageminOptipng from 'imagemin-optipng'
+import imageminPngquant from 'imagemin-pngquant'
 
-const input = process.argv[2]
-const dest = process.argv[3]
-
-if (!input) throw new Error()
 ;(async () => {
-  const files = await imagemin([input], {
-    destination: dest,
-    plugins: [imageminJpegtran(), imageminOptipng()],
+  const files = await imagemin(['src/assets/images/**/*.{jpg,png}'], {
+    destination: 'dist/assets/images',
+    plugins: [
+      imageminJpegtran(),
+      imageminPngquant({
+        quality: [0.6, 0.8],
+      }),
+    ],
   })
   console.log(`${files.length} images minified.`)
 })()

@@ -16,16 +16,8 @@ class Fonts
   {
     add_action('wp_head', [$this, 'google_fonts'], 5);
     add_action('wp_head', [$this, 'local_fonts'], 5);
-    add_action('admin_head', function () {
-      global $pagenow;
-      if ($pagenow === 'post.php' || $pagenow === 'post-new.php') {
-        $post_type = isset ($_GET['post_type']) ? $_GET['post_type'] : 'post';
-        if ($post_type !== 'acf-field-group') { // Exclude ACF settings page
-          $this->google_fonts();
-          $this->local_fonts();
-        }
-      }
-    }, 99999);
+    add_action('admin_head', [$this, 'google_fonts'], 5);
+    add_action('admin_head', [$this, 'local_fonts'], 5);
   }
 
   public function google_fonts()

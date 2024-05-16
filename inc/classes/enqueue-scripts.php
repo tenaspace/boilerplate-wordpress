@@ -23,49 +23,22 @@ class Enqueue_Scripts
 
   protected function set_hooks()
   {
-    $utils = Utils::instance();
+    add_action('wp_enqueue_scripts', [$this, 'scripts'], 99999);
+    add_action('enqueue_block_editor_assets', [$this, 'scripts'], 99999);
     add_action('wp_enqueue_scripts', [$this, 'localizes_script_app'], 99998);
-    if ($utils->is_vite_dev_mode()) {
-      add_action('wp_head', [$this, 'scripts'], 99999);
-      add_action('admin_head', function () {
-        global $pagenow;
-        if ($pagenow === 'post.php' || $pagenow === 'post-new.php') {
-          $post_type = isset ($_GET['post_type']) ? $_GET['post_type'] : 'post';
-          if ($post_type !== 'acf-field-group') { // Exclude ACF settings page
-            $this->scripts();
-          }
-        }
-      }, 99999);
-    } else {
-      add_action('wp_enqueue_scripts', [$this, 'scripts'], 99999);
-      add_action('enqueue_block_editor_assets', [$this, 'scripts'], 99999);
-    }
-  }
-
-  public function localizes_script_app()
-  {
-    $utils = Utils::instance();
-    $src = '';
-    if ($utils->is_vite_dev_mode()) {
-      $src = PUBLIC_URI . '/' . $this->name_app . '.js';
-    } else {
-      $manifest = $utils->get_manifest();
-      if ($manifest) {
-        if (isset($manifest['src/' . $this->name_app . '.js']['file']) && !empty($manifest['src/' . $this->name_app . '.js']['file'])) {
-          $src = PUBLIC_URI . '/' . $manifest['src/' . $this->name_app . '.js']['file'];
-        }
-      }
-    }
-    wp_register_script($this->name_app, $src, [], null);
-    wp_enqueue_script($this->name_app);
-    wp_localize_script($this->name_app, $this->name_app, $this->l10n_app);
   }
 
   public function scripts()
   {
     $utils = Utils::instance();
     if ($utils->is_vite_dev_mode()) {
-      echo '<script type="module" crossorigin src="' . PUBLIC_URI . '/' . $this->name_main . '.js"></script>';
+      wp_enqueue_script($this->name_main, PUBLIC_URI . '/' . $this->name_main . '.js', [], null, []);
+      add_filter('script_loader_tag', function ($tag, $handle, $src) {
+        if ($this->name_main === $handle) {
+          $tag = '<script type="module" crossorigin id="' . $handle . '" src="' . $src . '"></script>';
+        }
+        return $tag;
+      }, 10, 3);
     } else {
       $manifest_values = $utils->get_manifest_values();
       if (isset($manifest_values) && is_array($manifest_values) && sizeof((array) $manifest_values) > 0) {
@@ -90,6 +63,25 @@ class Enqueue_Scripts
         }
       }
     }
+  }
+
+  public function localizes_script_app()
+  {
+    $utils = Utils::instance();
+    $src = '';
+    if ($utils->is_vite_dev_mode()) {
+      $src = PUBLIC_URI . '/' . $this->name_app . '.js';
+    } else {
+      $manifest = $utils->get_manifest();
+      if ($manifest) {
+        if (isset($manifest['src/' . $this->name_app . '.js']['file']) && !empty($manifest['src/' . $this->name_app . '.js']['file'])) {
+          $src = PUBLIC_URI . '/' . $manifest['src/' . $this->name_app . '.js']['file'];
+        }
+      }
+    }
+    wp_register_script($this->name_app, $src, [], null);
+    wp_enqueue_script($this->name_app);
+    wp_localize_script($this->name_app, $this->name_app, $this->l10n_app);
   }
 }
 ?>
