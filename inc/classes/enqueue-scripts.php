@@ -25,6 +25,7 @@ class Enqueue_Scripts
   {
     add_action('wp_enqueue_scripts', [$this, 'localizes_script_app'], 99998);
     add_action('wp_enqueue_scripts', [$this, 'scripts'], 99999);
+    add_action('enqueue_block_editor_assets', [$this, 'localizes_script_app'], 99998);
     add_action('enqueue_block_editor_assets', [$this, 'scripts'], 99999);
   }
 
@@ -35,7 +36,7 @@ class Enqueue_Scripts
       wp_enqueue_script($this->name_main, PUBLIC_URI . '/' . $this->name_main . '.js', [], null, []);
       add_filter('script_loader_tag', function ($tag, $handle, $src) {
         if ($this->name_main === $handle) {
-          $tag = '<script type="module" crossorigin id="' . $handle . '" src="' . $src . '"></script>';
+          $tag = '<script type="module" crossorigin id="' . $handle . '-js" src="' . $src . '"></script>';
         }
         return $tag;
       }, 10, 3);
