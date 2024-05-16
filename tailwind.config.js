@@ -15,6 +15,7 @@ module.exports = {
     extend: {
       fontFamily: {
         'be-vietnam-pro': ['"Be Vietnam Pro", sans-serif'],
+        sample: ['"Sample"'],
       },
     },
   },
