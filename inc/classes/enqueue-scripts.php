@@ -23,9 +23,9 @@ class Enqueue_Scripts
 
   protected function set_hooks()
   {
+    add_action('wp_enqueue_scripts', [$this, 'localizes_script_app'], 99998);
     add_action('wp_enqueue_scripts', [$this, 'scripts'], 99999);
     add_action('enqueue_block_editor_assets', [$this, 'scripts'], 99999);
-    add_action('wp_enqueue_scripts', [$this, 'localizes_script_app'], 99998);
   }
 
   public function scripts()
