@@ -24,12 +24,12 @@ class Enqueue_Scripts
   protected function set_hooks()
   {
     add_action('wp_enqueue_scripts', [$this, 'localizes_script_app'], 99998);
-    add_action('wp_enqueue_scripts', [$this, 'scripts'], 99999);
+    add_action('wp_enqueue_scripts', [$this, 'enqueue_scripts'], 99999);
     add_action('enqueue_block_editor_assets', [$this, 'localizes_script_app'], 99998);
-    add_action('enqueue_block_editor_assets', [$this, 'scripts'], 99999);
+    add_action('enqueue_block_editor_assets', [$this, 'enqueue_scripts'], 99999);
   }
 
-  public function scripts()
+  public function enqueue_scripts()
   {
     $utils = Utils::instance();
     if ($utils->is_vite_dev_mode()) {
