@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "gehrisandro/tailwind-merge-php",
-            "version": "v1.1.0",
+            "version": "v1.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/gehrisandro/tailwind-merge-php.git",
-                "reference": "781bb3add8a08de048225542ae993c61cfeb34c0"
+                "reference": "56800321286688b585952dbd859d9324b1d2cf31"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/gehrisandro/tailwind-merge-php/zipball/781bb3add8a08de048225542ae993c61cfeb34c0",
-                "reference": "781bb3add8a08de048225542ae993c61cfeb34c0",
+                "url": "https://api.github.com/repos/gehrisandro/tailwind-merge-php/zipball/56800321286688b585952dbd859d9324b1d2cf31",
+                "reference": "56800321286688b585952dbd859d9324b1d2cf31",
                 "shasum": ""
             },
             "require": {
@@ -32,7 +32,7 @@
                 "pestphp/pest-plugin-mock": "^2.0.0",
                 "pestphp/pest-plugin-type-coverage": "^2.8",
                 "phpstan/phpstan": "^1.10.55",
-                "rector/rector": "^0.19",
+                "rector/rector": "^1.0.5",
                 "symfony/var-dumper": "^6.4.2"
             },
             "type": "library",
@@ -63,7 +63,7 @@
             ],
             "support": {
                 "issues": "https://github.com/gehrisandro/tailwind-merge-php/issues",
-                "source": "https://github.com/gehrisandro/tailwind-merge-php/tree/v1.1.0"
+                "source": "https://github.com/gehrisandro/tailwind-merge-php/tree/v1.1.1"
             },
             "funding": [
                 {
@@ -71,7 +71,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-01-10T20:54:41+00:00"
+            "time": "2024-05-16T19:48:35+00:00"
         },
         {
             "name": "google/recaptcha",
@@ -779,5 +779,5 @@
     "platform-overrides": {
         "php": "8.1"
     },
-    "plugin-api-version": "2.3.0"
+    "plugin-api-version": "2.6.0"
 }
