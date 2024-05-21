@@ -406,12 +406,7 @@ class Utils
   public function get_breadcrumb()
   {
     $dict = Dictionaries::instance()->get_scoped_i18n(['scope' => 'breadcrumb']);
-    $result = [
-      [
-        'link' => home_url(),
-        'label' => $dict('home'),
-      ]
-    ];
+    $result = [];
     $is_woocommerce = $this->is_woocommerce_activated() && is_woocommerce();
     if ($is_woocommerce && (is_product() || is_product_taxonomy())) {
       array_push($result, [

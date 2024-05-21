@@ -1,5 +1,10 @@
 <?php
 return [
+  'themes' => [
+    'light' => 'Sáng',
+    'dark' => 'Tối',
+    'system' => 'Hệ thống',
+  ],
   'pages' => [
     'notFound' => [
       'title' => 'OOOps! Không tìm thấy nội dung này',

@@ -1,5 +1,10 @@
 <?php
 return [
+  'themes' => [
+    'light' => 'Light',
+    'dark' => 'Dark',
+    'system' => 'System',
+  ],
   'pages' => [
     'notFound' => [
       'title' => 'OOOps! Page not found',

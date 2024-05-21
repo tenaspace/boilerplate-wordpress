@@ -11,7 +11,7 @@ get_header();
     the_post(); ?>
     <div>
       <div class="<?php echo $ui->container('default'); ?>">
-        <?php get_template_part('components/breadcrumb', ''); ?>
+        <?php get_template_part('components/breadcrumb', '', ['list' => [['label' => 'Sample']]]); ?>
       </div>
     </div>
     <div>
@@ -28,6 +28,11 @@ get_header();
         <p>
           <code class="<?php echo $ui->typography('inline-code'); ?>">Lorem ipsum</code>
         </p>
+      </div>
+    </div>
+    <div>
+      <div class="<?php echo $ui->container('default'); ?>">
+        <?php get_template_part('components/theme-switcher', ''); ?>
       </div>
     </div>
     <div>

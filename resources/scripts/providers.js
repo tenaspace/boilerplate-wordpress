@@ -3,13 +3,16 @@ const Providers = () => {
     windowSize: {
       width: '0px',
       height: '0px',
-    },
-    useWindowSize() {
-      this.windowSize.width = `${window.innerWidth || document.documentElement.clientWidth}px`
-      this.windowSize.height = `${window.innerHeight || document.documentElement.clientHeight}px`
+      set() {
+        this.width = `${window.innerWidth || document.documentElement.clientWidth}px`
+        this.height = `${window.innerHeight || document.documentElement.clientHeight}px`
+      },
+      init() {
+        this.set()
+      },
     },
     init() {
-      this.useWindowSize()
+      this.windowSize.init()
     },
   }))
 }
