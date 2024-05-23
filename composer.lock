@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "gehrisandro/tailwind-merge-php",
-            "version": "v1.1.1",
+            "version": "v1.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/gehrisandro/tailwind-merge-php.git",
-                "reference": "56800321286688b585952dbd859d9324b1d2cf31"
+                "reference": "dc11b9d4a625dd5be885900e5ef14c3efa260277"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/gehrisandro/tailwind-merge-php/zipball/56800321286688b585952dbd859d9324b1d2cf31",
-                "reference": "56800321286688b585952dbd859d9324b1d2cf31",
+                "url": "https://api.github.com/repos/gehrisandro/tailwind-merge-php/zipball/dc11b9d4a625dd5be885900e5ef14c3efa260277",
+                "reference": "dc11b9d4a625dd5be885900e5ef14c3efa260277",
                 "shasum": ""
             },
             "require": {
@@ -63,7 +63,7 @@
             ],
             "support": {
                 "issues": "https://github.com/gehrisandro/tailwind-merge-php/issues",
-                "source": "https://github.com/gehrisandro/tailwind-merge-php/tree/v1.1.1"
+                "source": "https://github.com/gehrisandro/tailwind-merge-php/tree/v1.1.2"
             },
             "funding": [
                 {
@@ -71,7 +71,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-05-16T19:48:35+00:00"
+            "time": "2024-05-21T17:32:42+00:00"
         },
         {
             "name": "google/recaptcha",
@@ -779,5 +779,5 @@
     "platform-overrides": {
         "php": "8.1"
     },
-    "plugin-api-version": "2.6.0"
+    "plugin-api-version": "2.3.0"
 }
