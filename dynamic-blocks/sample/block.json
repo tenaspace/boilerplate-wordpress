@@ -1,8 +1,8 @@
 {
-  "name": "custom-blocks/sample",
+  "name": "dynamic-blocks/sample",
   "title": "Sample",
   "description": "",
-  "category": "custom-blocks",
+  "category": "dynamic-blocks",
   "icon": "",
   "acf": {
     "mode": "preview",

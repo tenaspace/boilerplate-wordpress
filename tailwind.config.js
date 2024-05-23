@@ -6,7 +6,7 @@ module.exports = {
     './inc/**/*.php',
     './components/**/*.php',
     './templates/**/*.php',
-    './custom-blocks/**/*.php',
+    './dynamic-blocks/**/*.php',
     './woocommerce/**/*.php',
     './resources/**/*.{js,ts,jsx,tsx,mdx}',
   ].concat(glob.sync('./*.php')),
@@ -15,7 +15,7 @@ module.exports = {
     extend: {
       fontFamily: {
         'be-vietnam-pro': ['"Be Vietnam Pro", sans-serif'],
-        sample: ['"Sample"'],
+        // sample: ['"Sample"'],
       },
     },
   },

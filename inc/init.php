@@ -16,7 +16,7 @@ class Init
     Fonts::instance();
     Enqueue_Scripts::instance();
     Body_Class::instance();
-    Custom_Blocks::instance();
+    Dynamic_Blocks::instance();
     Require_Folders::instance();
     Hooks::instance();
   }
