@@ -11,7 +11,7 @@ get_header();
     the_post(); ?>
     <div>
       <div class="<?php echo $ui->container('default'); ?>">
-        <?php get_template_part('components/breadcrumb', '', ['list' => [['label' => 'Sample']]]); ?>
+        <?php get_template_part('components/breadcrumb', null, ['list' => [['label' => 'Sample']]]); ?>
       </div>
     </div>
     <div>
@@ -32,13 +32,13 @@ get_header();
     </div>
     <div>
       <div class="<?php echo $ui->container('default'); ?>">
-        <?php get_template_part('components/theme-switcher', ''); ?>
+        <?php get_template_part('components/theme-switcher'); ?>
       </div>
     </div>
     <div>
       <div class="<?php echo $ui->container('default'); ?>">
         <div class='max-w-lg'>
-          <?php get_template_part('components/forms/sample', ''); ?>
+          <?php get_template_part('components/forms/sample'); ?>
         </div>
       </div>
     </div>

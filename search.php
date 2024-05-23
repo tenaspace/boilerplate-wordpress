@@ -6,7 +6,7 @@ $dict = Dictionaries::instance()->get_scoped_i18n(['scope' => 'pages.search']);
 get_header();
 ?>
 
-<?php get_template_part('components/breadcrumb', ''); ?>
+<?php get_template_part('components/breadcrumb'); ?>
 
 <div>
   <?php echo $dict('searchForKeywords'); ?>: <?php echo esc_html(get_search_query()); ?>
