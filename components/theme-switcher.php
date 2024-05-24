@@ -1,4 +1,5 @@
 <?php
+// TODO
 use TS\Inc\Dictionaries;
 
 $dict = Dictionaries::instance()->get_scoped_i18n(['scope' => 'themes']);
