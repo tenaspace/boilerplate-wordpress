@@ -10,9 +10,7 @@
     "build": "vite build && yarn imagemin-build"
   },
   "dependencies": {
-    "@alpinejs/collapse": "^3.14.0",
-    "@alpinejs/focus": "^3.14.0",
-    "@alpinejs/mask": "^3.14.0",
+    "@alpinejs/persist": "^3.14.0",
     "@caneara/iodine": "^8.5.0",
     "alpinejs": "^3.14.0",
     "glob": "^10.3.16",

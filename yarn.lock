@@ -12,23 +12,10 @@
   resolved "https://registry.yarnpkg.com/@alloc/quick-lru/-/quick-lru-5.2.0.tgz#7bf68b20c0a350f936915fcae06f58e32007ce30"
   integrity sha512-UrcABB+4bUrFABwbluTIBErXwvbsU/V7TZWfmbgJfbkwiBuziS9gxdODUyuiecfdGQ85jglMW6juS3+z5TsKLw==
 
-"@alpinejs/collapse@^3.14.0":
+"@alpinejs/persist@^3.14.0":
   version "3.14.0"
-  resolved "https://registry.yarnpkg.com/@alpinejs/collapse/-/collapse-3.14.0.tgz#855622a49684f7d6acc586928e1b112dcc21a711"
-  integrity sha512-KB/rS3sGxDiV4bk9/I/96rxbWdwcD+MhxPleK1+/Ky0ptFuU+Zgf5YA3Biy5cr8sGyIER7fROCjSYR0TbZwvLA==
-
-"@alpinejs/focus@^3.14.0":
-  version "3.14.0"
-  resolved "https://registry.yarnpkg.com/@alpinejs/focus/-/focus-3.14.0.tgz#21d3333a494ad49448920d6c75a54040f2b84984"
-  integrity sha512-dMjvoK43Du9s35sAPf5DavwYnG7jRD3rVzhi9UUWbN5eS3L+BvCABH/mtBci71gWpTj/2cCKxIs7hZu1V4saAQ==
-  dependencies:
-    focus-trap "^6.9.4"
-    tabbable "^5.3.3"
-
-"@alpinejs/mask@^3.14.0":
-  version "3.14.0"
-  resolved "https://registry.yarnpkg.com/@alpinejs/mask/-/mask-3.14.0.tgz#9ea9dbffe0b2b0063ab2881918b992860ef99ca2"
-  integrity sha512-ObgjFH/0Hh2h7yIDMMuby4D957iJ+xnWE7p89T5JrN2Ao9Ne+hj5/2rlrCjYeKRrQiECIwsJo0yra+s5KIdLIg==
+  resolved "https://registry.yarnpkg.com/@alpinejs/persist/-/persist-3.14.0.tgz#81322e7f8a105974dc234a4b1937d3cdbb9792af"
+  integrity sha512-yv4CKzoTW+jmLeZMuRr/iuEJyviIvA6BKQ1PvonzdIzmHyQtL8psCwy1vtHC6eV/H7cBEaCnnedqOjMZopQb5w==
 
 "@caneara/iodine@^8.5.0":
   version "8.5.0"
@@ -1514,13 +1501,6 @@ flatted@^3.2.9:
   version "3.3.1"
   resolved "https://registry.yarnpkg.com/flatted/-/flatted-3.3.1.tgz#21db470729a6734d4997002f439cb308987f567a"
   integrity sha512-X8cqMLLie7KsNUDSdzeN8FYK9rEt4Dt67OsG/DNGnYTSDBG4uFAJFBnUeiV+zCVAvwFy56IjM9sH51jVaEhNxw==
-
-focus-trap@^6.9.4:
-  version "6.9.4"
-  resolved "https://registry.yarnpkg.com/focus-trap/-/focus-trap-6.9.4.tgz#436da1a1d935c48b97da63cd8f361c6f3aa16444"
-  integrity sha512-v2NTsZe2FF59Y+sDykKY+XjqZ0cPfhq/hikWVL88BqLivnNiEffAsac6rP6H45ff9wG9LL5ToiDqrLEP9GX9mw==
-  dependencies:
-    tabbable "^5.3.3"
 
 foreground-child@^3.1.0:
   version "3.1.1"
@@ -3223,11 +3203,6 @@ supports-preserve-symlinks-flag@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/supports-preserve-symlinks-flag/-/supports-preserve-symlinks-flag-1.0.0.tgz#6eda4bd344a3c94aea376d4cc31bc77311039e09"
   integrity sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==
-
-tabbable@^5.3.3:
-  version "5.3.3"
-  resolved "https://registry.yarnpkg.com/tabbable/-/tabbable-5.3.3.tgz#aac0ff88c73b22d6c3c5a50b1586310006b47fbf"
-  integrity sha512-QD9qKY3StfbZqWOPLp0++pOrAVb/HbUi5xCc8cUo4XjP19808oaMiDzn0leBY5mCespIBM0CIZePzZjgzR83kA==
 
 tailwind-bootstrap-grid@^5.1.0:
   version "5.1.0"

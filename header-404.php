@@ -14,7 +14,6 @@ $body_class = isset($args['body_class']) && is_array($args['body_class']) && siz
   <?php wp_head(); ?>
 </head>
 
-<body x-data="providers" x-cloak @resize.window="windowSize.set" <?php body_class($body_class); ?>
-  :style="{ '--ts-window-size-height': windowSize.height }">
+<body <?php body_class($body_class); ?>>
 
   <?php $utils->body_open(); ?>
