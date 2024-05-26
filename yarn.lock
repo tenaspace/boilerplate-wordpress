@@ -12,11 +12,6 @@
   resolved "https://registry.yarnpkg.com/@alloc/quick-lru/-/quick-lru-5.2.0.tgz#7bf68b20c0a350f936915fcae06f58e32007ce30"
   integrity sha512-UrcABB+4bUrFABwbluTIBErXwvbsU/V7TZWfmbgJfbkwiBuziS9gxdODUyuiecfdGQ85jglMW6juS3+z5TsKLw==
 
-"@alpinejs/persist@^3.14.0":
-  version "3.14.0"
-  resolved "https://registry.yarnpkg.com/@alpinejs/persist/-/persist-3.14.0.tgz#81322e7f8a105974dc234a4b1937d3cdbb9792af"
-  integrity sha512-yv4CKzoTW+jmLeZMuRr/iuEJyviIvA6BKQ1PvonzdIzmHyQtL8psCwy1vtHC6eV/H7cBEaCnnedqOjMZopQb5w==
-
 "@caneara/iodine@^8.5.0":
   version "8.5.0"
   resolved "https://registry.yarnpkg.com/@caneara/iodine/-/iodine-8.5.0.tgz#45227f98bb4486d87cbb3ba14a4f808613011525"

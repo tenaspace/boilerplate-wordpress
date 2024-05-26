@@ -1,9 +1,6 @@
-import persist from '@alpinejs/persist'
-
 const Theme = () => {
-  window.Alpine.plugin(persist)
   window.Alpine.store('theme', {
-    currentTheme: window.Alpine.$persist('system').as('theme'),
+    currentTheme: window.localStorage.getItem('theme') ?? 'system',
     handleTheme() {
       const isDark =
         this.currentTheme === 'system'
@@ -20,6 +17,7 @@ const Theme = () => {
       }
     },
     setTheme(theme) {
+      window.localStorage.setItem('theme', theme)
       this.currentTheme = theme
       this.handleTheme()
     },
