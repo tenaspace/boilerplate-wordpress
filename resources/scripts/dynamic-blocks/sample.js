@@ -1,7 +1,7 @@
 const Sample = () => {
   window.Alpine.data('dynamicBlockSample', (el) => ({
     handleClick() {
-      console.log(el)
+      console.log(el.innerText)
     },
   }))
 }
