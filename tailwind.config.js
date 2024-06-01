@@ -20,6 +20,7 @@ module.exports = {
     },
   },
   plugins: [
+    require('tailwindcss-animate'),
     require('tailwind-bootstrap-grid')({
       generateContainer: false,
       gridGutterWidth: '0',
