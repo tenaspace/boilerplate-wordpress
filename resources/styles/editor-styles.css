@@ -5,7 +5,7 @@
     @apply max-w-full font-sans;
 
     &.wp-block-post-title {
-      /* @apply ; */
+      @apply text-black;
     }
   }
 }
