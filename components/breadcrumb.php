@@ -13,40 +13,40 @@ $args = wp_parse_args($args, $defaults);
 $has_list = isset($args['list']) && is_array($args['list']) && sizeof((array) $args['list']) > 0 ? true : false;
 ?>
 <nav aria-label="breadcrumb">
-  <ol class="flex flex-wrap items-center gap-1.5 break-words text-sm text-zinc-500 sm:gap-2.5 dark:text-zinc-400">
-    <li class="inline-flex items-center gap-1.5">
+  <ol>
+    <li>
       <?php if ($has_list): ?>
-        <a href="<?php echo home_url(); ?>" class="transition-colors hover:text-zinc-950 dark:hover:text-zinc-50">
+        <a href="<?php echo home_url(); ?>">
           <?php echo $dict('home'); ?>
         </a>
       <?php else: ?>
-        <span role="link" aria-disabled="true" aria-current="page" class="font-normal text-zinc-950 dark:text-zinc-50">
+        <span role="link" aria-disabled="true" aria-current="page">
           <?php echo $dict('home'); ?>
         </span>
       <?php endif; ?>
     </li>
     <?php if ($has_list): ?>
-      <li role="presentation" aria-hidden="true" class="[&>svg]:size-3.5">
+      <li role="presentation" aria-hidden="true">
         <?php echo $args['separator']; ?>
       </li>
       <?php foreach ($args['list'] as $key => $item): ?>
-        <li class="inline-flex items-center gap-1.5">
+        <li>
           <?php if ($key < sizeof((array) $args['list']) - 1): ?>
             <?php if (isset($item['link']) && !empty($item['link'])): ?>
-              <a href="<?php echo $item['link']; ?>" class="transition-colors hover:text-zinc-950 dark:hover:text-zinc-50">
+              <a href="<?php echo $item['link']; ?>">
                 <?php echo $item['label']; ?>
               </a>
             <?php else: ?>
               <?php echo $item['label']; ?>
             <?php endif; ?>
           <?php else: ?>
-            <span role="link" aria-disabled="true" aria-current="page" class="font-normal text-zinc-950 dark:text-zinc-50">
+            <span role="link" aria-disabled="true" aria-current="page">
               <?php echo $item['label']; ?>
             </span>
           <?php endif; ?>
         </li>
         <?php if ($key < sizeof((array) $args['list']) - 1): ?>
-          <li role="presentation" aria-hidden="true" class="[&>svg]:size-3.5">
+          <li role="presentation" aria-hidden="true">
             <?php echo $args['separator']; ?>
           </li>
         <?php endif; ?>
