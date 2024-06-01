@@ -21,7 +21,7 @@ class Body_Class
   {
     $utils = Utils::instance();
     $ui = UI::instance();
-    $classes = explode(' ', $utils->cn('antialiased font-be-vietnam-pro bg-white text-black', $ui->typography(), $classes));
+    $classes = explode(' ', $utils->cn('antialiased font-sans bg-white text-black', $ui->typography(), $classes));
     return $classes;
   }
 }

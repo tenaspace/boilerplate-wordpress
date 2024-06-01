@@ -1,4 +1,5 @@
 const glob = require('glob')
+import { fontFamily } from 'tailwindcss/defaultTheme'
 
 module.exports = {
   darkMode: ['class'],
@@ -14,8 +15,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        'be-vietnam-pro': ['"Be Vietnam Pro", sans-serif'],
-        // sample: ['"Sample"'],
+        sans: ['"Be Vietnam Pro", sans-serif', ...fontFamily.sans],
       },
     },
   },

@@ -2,10 +2,10 @@
   @apply !px-5;
 
   .wp-block {
-    @apply max-w-full font-be-vietnam-pro text-base leading-7;
+    @apply max-w-full font-sans;
 
     &.wp-block-post-title {
-      @apply text-4xl font-extrabold tracking-tight;
+      /* @apply ; */
     }
   }
 }
