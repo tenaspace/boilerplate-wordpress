@@ -21,7 +21,7 @@ class Body_Class
   {
     $utils = Utils::instance();
     $ui = UI::instance();
-    $classes = explode(' ', $utils->cn('antialiased font-sans', $ui->typography(), $classes));
+    $classes = explode(' ', $utils->cn('antialiased font-sans', 'bg-white text-black dark:bg-black dark:text-white', $ui->typography(), $classes));
     return $classes;
   }
 }
