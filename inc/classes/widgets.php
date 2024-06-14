@@ -14,7 +14,7 @@ class Widgets
 
   protected function set_hooks()
   {
-    add_action('widget_init', [$this, 'widgets']);
+    add_action('widgets_init', [$this, 'widgets']);
   }
 
   public function widgets()
