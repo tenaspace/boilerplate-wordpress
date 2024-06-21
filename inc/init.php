@@ -19,7 +19,7 @@ class Init
     Dynamic_Blocks::instance();
     Require_Folders::instance();
     Hooks::instance();
-    Tiny_Mce::instance();
+    // Tiny_Mce::instance();
   }
 
   protected function set_hooks()
