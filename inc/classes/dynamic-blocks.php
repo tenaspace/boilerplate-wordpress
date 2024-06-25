@@ -32,13 +32,16 @@ class Dynamic_Blocks
     }
   }
 
-  public function dynamic_block_categories($categories)
+  public function dynamic_block_categories($block_categories)
   {
-    $categories[] = [
-      'slug' => 'dynamic-blocks',
-      'title' => 'Dynamic blocks'
+    $categories = [
+      [
+        'slug' => 'custom-blocks',
+        'title' => 'Custom blocks'
+      ]
     ];
-    return $categories;
+    $block_categories = array_merge($categories, $block_categories);
+    return $block_categories;
   }
 }
 ?>
