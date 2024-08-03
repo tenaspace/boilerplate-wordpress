@@ -7,7 +7,7 @@ module.exports = {
     './inc/**/*.php',
     './components/**/*.php',
     './templates/**/*.php',
-    './dynamic-blocks/**/*.php',
+    './blocks/**/*.php',
     './woocommerce/**/*.php',
     './resources/**/*.{js,ts,jsx,tsx,mdx}',
   ].concat(glob.sync('./*.php')),

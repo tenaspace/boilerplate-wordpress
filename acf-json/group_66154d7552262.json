@@ -1,6 +1,6 @@
 {
     "key": "group_66154d7552262",
-    "title": "Dynamic block -  Sample",
+    "title": "Blocks -  Sample",
     "fields": [
         {
             "key": "field_66154d75545ac",
@@ -28,7 +28,7 @@
             {
                 "param": "block",
                 "operator": "==",
-                "value": "dynamic-blocks\/sample"
+                "value": "blocks\/sample"
             }
         ]
     ],
@@ -41,5 +41,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1718988125
+    "modified": 1722656745
 }

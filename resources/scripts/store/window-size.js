@@ -15,4 +15,4 @@ const WindowSize = () => {
   })
 }
 
-export default WindowSize
+export { WindowSize }

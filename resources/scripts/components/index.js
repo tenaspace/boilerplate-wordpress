@@ -1,7 +1,7 @@
-import FormSample from './forms/sample'
+import { SampleForm } from './forms/sample'
 
 const Components = () => {
-  FormSample()
+  SampleForm()
 }
 
-export default Components
+export { Components }

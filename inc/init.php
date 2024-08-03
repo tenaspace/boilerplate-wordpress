@@ -16,7 +16,7 @@ class Init
     Fonts::instance();
     Enqueue_Scripts::instance();
     Body_Class::instance();
-    Dynamic_Blocks::instance();
+    Blocks::instance();
     Require_Folders::instance();
     Hooks::instance();
     // Tiny_Mce::instance();

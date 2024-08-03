@@ -1,7 +1,7 @@
-import VanillaLazyLoad from './vanilla-lazyload'
+import { VanillaLazyLoad } from './vanilla-lazyload'
 
 const Libraries = () => {
   VanillaLazyLoad()
 }
 
-export default Libraries
+export { Libraries }

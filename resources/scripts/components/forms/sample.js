@@ -1,7 +1,7 @@
-const FormSample = () => {
-  window.Alpine.data('formSample', (el) => ({
+const SampleForm = () => {
+  window.Alpine.data('sampleForm', (el) => ({
     // TODO
   }))
 }
 
-export default FormSample
+export { SampleForm }

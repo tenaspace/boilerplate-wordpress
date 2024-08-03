@@ -32,4 +32,4 @@ const Theme = () => {
   })
 }
 
-export default Theme
+export { Theme }

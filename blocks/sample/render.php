@@ -1,0 +1,1 @@
+<?php get_template_part('blocks/sample/block', null, get_fields()); ?>

@@ -9,4 +9,4 @@ const VanillaLazyLoad = () => {
   })
 }
 
-export default VanillaLazyLoad
+export { VanillaLazyLoad }

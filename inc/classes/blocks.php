@@ -3,7 +3,7 @@ namespace TS\Inc;
 
 use TS\Inc\Traits\Singleton;
 
-class Dynamic_Blocks
+class Blocks
 {
   use Singleton;
 
@@ -14,17 +14,17 @@ class Dynamic_Blocks
 
   protected function set_hooks()
   {
-    $this->dynamic_blocks();
+    $this->blocks();
     if (version_compare(get_bloginfo('version'), '5.8', '>=')) {
-      add_filter('block_categories_all', [$this, 'dynamic_block_categories']);
+      add_filter('block_categories_all', [$this, 'block_categories']);
     } else {
-      add_filter('block_categories', [$this, 'dynamic_block_categories']);
+      add_filter('block_categories', [$this, 'block_categories']);
     }
   }
 
-  protected function dynamic_blocks()
+  protected function blocks()
   {
-    $blocks = glob(get_template_directory() . '/dynamic-blocks/*/');
+    $blocks = glob(get_template_directory() . '/blocks/*/');
     if (isset($blocks) && is_array($blocks) && sizeof((array) $blocks) > 0) {
       foreach ($blocks as $block) {
         register_block_type($block);
@@ -32,7 +32,7 @@ class Dynamic_Blocks
     }
   }
 
-  public function dynamic_block_categories($block_categories)
+  public function block_categories($block_categories)
   {
     $categories = [
       [

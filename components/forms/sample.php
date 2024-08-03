@@ -7,7 +7,7 @@ $dict = Dictionaries::instance()->get_scoped_i18n(['scope' => 'components.forms.
 $ui = UI::instance();
 ?>
 
-<form x-data="formSample($el)" novalidate>
+<form x-data="sampleForm($el)" novalidate>
   <div>
     <button type="submit" class="<?php echo $ui->button(); ?>">
       <?php echo $dict('submit.label'); ?>
