@@ -51,7 +51,7 @@ return [
         'submit' => [
           'label' => 'Submit',
         ],
-        'pending' => 'Processing',
+        'processing' => 'Processing',
         'responses' => [
           'success' => 'Submitted successfully!',
           'error' => 'Error occurred!',

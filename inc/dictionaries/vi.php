@@ -51,7 +51,7 @@ return [
         'submit' => [
           'label' => 'Gửi',
         ],
-        'pending' => 'Đang xử lý',
+        'processing' => 'Đang xử lý',
         'responses' => [
           'success' => 'Gửi thành công!',
           'error' => 'Đã có lỗi xảy ra!',
