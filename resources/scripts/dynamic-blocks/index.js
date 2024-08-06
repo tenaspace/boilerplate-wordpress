@@ -1,7 +1,7 @@
 import { SampleBlock } from './sample'
 
-const Blocks = () => {
+const DynamicBlocks = () => {
   SampleBlock
 }
 
-export { Blocks }
+export { DynamicBlocks }

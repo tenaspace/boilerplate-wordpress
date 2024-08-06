@@ -2,7 +2,7 @@ import Alpine from 'alpinejs'
 import { Store } from './store'
 import { Libraries } from './libraries'
 import { Components } from './components'
-import { Blocks } from './blocks'
+import { DynamicBlocks } from './dynamic-blocks'
 
 /**
  * Alpinejs Safari fix: https://github.com/alpinejs/alpine/discussions/1964
@@ -25,7 +25,7 @@ window.Alpine = Alpine
 Store()
 Libraries()
 Components()
-Blocks()
+DynamicBlocks()
 
 /* That's all, stop editing! Happy publishing. */
 
