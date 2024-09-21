@@ -81,7 +81,7 @@ class Hooks
 
     add_filter('excerpt_more', function ($dots) {
       return '…';
-    });
+    }, 10, 1);
   }
 }
 ?>
