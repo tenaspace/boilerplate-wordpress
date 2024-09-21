@@ -80,7 +80,7 @@ class Hooks
      */
 
     add_filter('excerpt_more', function ($dots) {
-      return '...';
+      return '…';
     });
   }
 }
