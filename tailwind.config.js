@@ -1,7 +1,8 @@
-const glob = require('glob')
+import { glob } from 'glob'
 import { fontFamily } from 'tailwindcss/defaultTheme'
 
-module.exports = {
+/** @type {import('tailwindcss').Config} */
+export default {
   darkMode: ['class'],
   content: [
     './inc/**/*.php',
