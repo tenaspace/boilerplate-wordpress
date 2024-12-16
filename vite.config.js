@@ -6,7 +6,7 @@ import path from 'path'
 let rollupOptions = {
   input: {
     main: normalizePath(path.resolve(__dirname, './resources/main.js')),
-    app: normalizePath(path.resolve(__dirname, './resources/app.js')),
+    constants: normalizePath(path.resolve(__dirname, './resources/constants.js')),
   },
 }
 

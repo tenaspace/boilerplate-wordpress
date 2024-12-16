@@ -8,13 +8,13 @@ class Enqueue_Scripts
   use Singleton;
 
   private $name_main;
-  private $name_app;
+  private $name_constants;
   private $l10n_app;
 
   protected function __construct()
   {
     $this->name_main = 'main';
-    $this->name_app = 'app';
+    $this->name_constants = 'constants';
     $this->l10n_app = [
       'adminAjaxUrl' => admin_url('admin-ajax.php'),
     ];
@@ -71,18 +71,18 @@ class Enqueue_Scripts
     $utils = Utils::instance();
     $src = '';
     if ($utils->is_vite_dev_mode()) {
-      $src = PUBLIC_URI . '/' . $this->name_app . '.js';
+      $src = PUBLIC_URI . '/' . $this->name_constants . '.js';
     } else {
       $manifest = $utils->get_manifest();
       if ($manifest) {
-        if (isset($manifest['resources/' . $this->name_app . '.js']['file']) && !empty($manifest['resources/' . $this->name_app . '.js']['file'])) {
-          $src = PUBLIC_URI . '/' . $manifest['resources/' . $this->name_app . '.js']['file'];
+        if (isset($manifest['resources/' . $this->name_constants . '.js']['file']) && !empty($manifest['resources/' . $this->name_constants . '.js']['file'])) {
+          $src = PUBLIC_URI . '/' . $manifest['resources/' . $this->name_constants . '.js']['file'];
         }
       }
     }
-    wp_register_script($this->name_app, $src, [], null);
-    wp_enqueue_script($this->name_app);
-    wp_localize_script($this->name_app, $this->name_app, $this->l10n_app);
+    wp_register_script($this->name_constants, $src, [], null);
+    wp_enqueue_script($this->name_constants);
+    wp_localize_script($this->name_constants, $this->name_constants, $this->l10n_app);
   }
 }
 ?>
