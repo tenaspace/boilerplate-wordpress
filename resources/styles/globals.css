@@ -1,17 +1,41 @@
-@import './alpinejs.css';
-@import './editor-styles.css';
-@import './vanilla-lazyload.css';
-@import './google-recaptcha-v3.css';
-@import './prose.css';
-/* @import './woocommerce.css'; */
+@import 'tailwindcss';
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@plugin "../tailwind-plugins/hocus";
+@plugin "tailwindcss-animate";
 
-/* @layer base {
-  input[type='number']::-webkit-inner-spin-button,
-  input[type='number']::-webkit-outer-spin-button {
-    @apply appearance-none;
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+  --font-sans:
+    var(--font-sans), ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
+    'Noto Color Emoji';
+
+  --breakpoint-xs: 30rem;
+
+  --animate-indeterminate-bar: indeterminate-bar 1.5s cubic-bezier(0.65, 0.815, 0.735, 0.395) infinite normal none
+    running;
+  --animate-marquee: marquee 30s linear infinite;
+
+  @keyframes indeterminate-bar {
+    from {
+      transform: translateX(-50%) scaleX(0.2);
+    }
+    to {
+      transform: translateX(100%) scaleX(1);
+    }
   }
-} */
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-100%);
+    }
+  }
+}
+
+@import './alpinejs.css' layer(base);
+@import './editor-styles.css' layer(base);
+@import './vanilla-lazyload.css' layer(base);
+@import './prose.css' layer(components);
+/* @import './woocommerce.css' layer(components); */

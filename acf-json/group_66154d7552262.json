@@ -28,7 +28,7 @@
             {
                 "param": "block",
                 "operator": "==",
-                "value": "dynamic-blocks\/sample"
+                "value": "custom-blocks\/sample"
             }
         ]
     ],
@@ -41,5 +41,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1725894973
+    "modified": 1754850966
 }

@@ -1,12 +1,6 @@
 <?php
-use TS\Inc\Dictionaries;
-use TS\Inc\Utils;
-
-$dict = Dictionaries::instance()->get_scoped_i18n(['scope' => 'breadcrumb']);
-$utils = Utils::instance();
-
 $defaults = [
-  'list' => $utils->get_breadcrumb(),
+  'list' => app()->helpers->get_breadcrumb(),
   'separator' => '/',
 ];
 $args = wp_parse_args($args, $defaults);
@@ -17,11 +11,17 @@ $has_list = isset($args['list']) && is_array($args['list']) && sizeof((array) $a
     <li>
       <?php if ($has_list): ?>
         <a href="<?php echo home_url(); ?>">
-          <?php echo $dict('home'); ?>
+          <?php echo app()->i18n->translate([
+            'en' => 'Home',
+            'vi' => 'Trang chủ',
+          ]); ?>
         </a>
       <?php else: ?>
         <span role="link" aria-disabled="true" aria-current="page">
-          <?php echo $dict('home'); ?>
+          <?php echo app()->i18n->translate([
+            'en' => 'Home',
+            'vi' => 'Trang chủ',
+          ]); ?>
         </span>
       <?php endif; ?>
     </li>

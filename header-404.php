@@ -1,12 +1,8 @@
 <?php
-use TS\Inc\Utils;
-
-$utils = Utils::instance();
-
 $body_class = isset($args['body_class']) && is_array($args['body_class']) && sizeof((array) $args['body_class']) > 0 ? $args['body_class'] : [];
 ?>
 <!DOCTYPE html>
-<html class="no-js" <?php language_attributes(); ?>>
+<html class="no-js scroll-smooth" <?php language_attributes(); ?>>
 
 <head>
   <meta charset="<?php bloginfo('charset'); ?>">
@@ -16,4 +12,10 @@ $body_class = isset($args['body_class']) && is_array($args['body_class']) && siz
 
 <body <?php body_class($body_class); ?>>
 
-  <?php $utils->body_open(); ?>
+  <?php app()->helpers->body_open(); ?>
+
+  <div id="site-wrapper">
+
+  <header id="site-header" class="site-header"></header>
+
+  <main id="site-content" class="site-content">

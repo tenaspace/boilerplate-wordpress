@@ -1,81 +1,119 @@
-.prose {
-  * {
-    @apply first:!mt-0 last:!mb-0;
+.rich-text {
+  @apply space-y-5;
+
+  > * {
+    @apply first:mt-0! last:mb-0!;
   }
 
   /* h1 {
-    @apply;
-  }
+    @apply
+  } */
 
-  h2 {
-    @apply;
-  }
+  /* h2 {
+    @apply
+  } */
 
-  h3 {
-    @apply;
-  }
+  /* h3 {
+    @apply
+  } */
 
-  h4 {
-    @apply;
-  }
+  /* h4 {
+    @apply
+  } */
 
-  h5 {
-    @apply;
-  }
+  /* h5 {
+    @apply
+  } */
 
-  h6 {
-    @apply;
+  /* h6 {
+    @apply
   } */
 
   /* p {
     @apply;
   } */
 
+  /* .lead {
+    @apply
+  } */
+
+  /* a {
+    @apply
+  } */
+
   /* blockquote {
-    @apply;
+    @apply
+  } */
+
+  /* figure {
+    @apply
+  } */
+
+  /* figcaption {
+    @apply
+  } */
+
+  /* strong {
+    @apply
+  } */
+
+  /* em {
+    @apply
+  } */
+
+  /* kbd {
+    @apply
+  } */
+
+  /* code {
+    @apply
+  } */
+
+  /* pre {
+    @apply
+  } */
+
+  /* ol {
+    li {
+      @apply
+    }
+  } */
+
+  /* ul {
+    li {
+      @apply
+    }
   } */
 
   /* table {
-    @apply;
+    @apply 
+
+    thead {
+      @apply 
+    }
 
     tr {
-      @apply;
+      @apply 
+    }
+
+    th {
+      @apply 
     }
 
     td {
-      @apply;
+      @apply 
     }
   } */
 
-  ul {
-    @apply list-inside list-disc;
-
-    /* li {
-      @apply;
-    } */
-  }
-
-  ol {
-    @apply list-inside list-decimal;
-
-    /* li {
-      @apply;
-    } */
-  }
-
-  /* code {
-
-  } */
-
   /* img {
-    @apply;
+    @apply
   } */
 
-  a {
-    @apply underline underline-offset-4;
-  }
+  /* video {
+    @apply
+  } */
 
   /* hr {
-    @apply;
+    @apply
   } */
 }

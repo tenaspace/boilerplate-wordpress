@@ -1,11 +1,11 @@
 .editor-styles-wrapper {
-  @apply !px-5;
+  @apply bg-white! px-5! text-black! dark:bg-black! dark:text-white!;
 
   .wp-block {
     @apply max-w-full font-sans;
 
     &.wp-block-post-title {
-      @apply text-black;
+      @apply text-black! dark:text-white!;
     }
   }
 }

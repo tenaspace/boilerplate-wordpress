@@ -2,7 +2,7 @@ const Theme = () => {
   const defaultTheme = 'system'
   window.Alpine.store('theme', {
     defaultTheme: defaultTheme,
-    currentTheme: window.localStorage.getItem('theme') ?? defaultTheme,
+    currentTheme: window.localStorage.getItem('theme') || defaultTheme,
     handleTheme() {
       const isDark =
         this.currentTheme === 'system'

@@ -1,7 +1,8 @@
+import tailwindcss from '@tailwindcss/vite'
+import path from 'path'
 import { defineConfig, loadEnv, normalizePath } from 'vite'
 import liveReload from 'vite-plugin-live-reload'
 import { viteStaticCopy } from 'vite-plugin-static-copy'
-import path from 'path'
 
 let rollupOptions = {
   input: {
@@ -14,11 +15,16 @@ export default ({ mode }) => {
   process.env = { ...process.env, ...loadEnv(mode, process.cwd()) }
   return defineConfig({
     plugins: [
+      tailwindcss(),
       liveReload([`${__dirname}/**/*.php`]),
       viteStaticCopy({
         targets: [
           {
             src: 'resources/assets',
+            dest: '',
+          },
+          {
+            src: 'resources/tailwind-plugins',
             dest: '',
           },
         ],
@@ -40,7 +46,7 @@ export default ({ mode }) => {
       cors: true,
       strictPort: true,
       host: true,
-      port: process.env.VITE_SERVER_PORT ?? 3000,
+      port: process.env.VITE_SERVER_PORT || 3000,
       https: false,
     },
   })
