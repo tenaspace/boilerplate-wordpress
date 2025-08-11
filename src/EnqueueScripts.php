@@ -12,6 +12,7 @@ class EnqueueScripts
     $this->name_main = 'main';
     $this->name_constants = 'constants';
     $this->l10n_app = [
+      'current_language' => \pll_current_language(),
       'adminAjaxUrl' => admin_url('admin-ajax.php'),
     ];
     $this->hooks();

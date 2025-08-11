@@ -1,5 +1,4 @@
 <?php
-// TODO
 namespace TS\Ajaxs\Forms;
 
 class Sample
@@ -20,11 +19,12 @@ class Sample
 
   public function ajax()
   {
-    $response = [
-      'success' => false,
-    ];
-
-    wp_send_json($response);
+    $data = $_POST;
+    if (isset($data['nonce']) && wp_verify_nonce($data['nonce'], "{$this->action}_nonce")) {
+      wp_send_json(['success' => true]);
+    } else {
+      wp_send_json(['success' => false]);
+    }
     wp_die();
   }
 }
