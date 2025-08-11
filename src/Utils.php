@@ -21,25 +21,6 @@ class Utils
     }
   }
 
-  public function require_all_files(string $path)
-  {
-    if (!(isset($path) && !empty($path))) {
-      return;
-    }
-    try {
-      $dir = new \RecursiveDirectoryIterator(get_template_directory() . $path);
-      $iterator = new \RecursiveIteratorIterator($dir);
-      foreach ($iterator as $file) {
-        $fname = $file->getFilename();
-        if (preg_match('%\.php$%', $fname)) {
-          require_once($file->getPathname());
-        }
-      }
-    } catch (\Exception $error) {
-      $this->write_log($error->getMessage());
-    }
-  }
-
   public function clsx(...$args)
   {
     $class = [];
