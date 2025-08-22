@@ -7,13 +7,13 @@
 
 @theme {
   --font-sans:
-    var(--font-sans), ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
-    'Noto Color Emoji';
+    var(--font-sans), ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji',
+    'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 
   --breakpoint-xs: 30rem;
 
-  --animate-indeterminate-bar: indeterminate-bar 1.5s cubic-bezier(0.65, 0.815, 0.735, 0.395) infinite normal none
-    running;
+  --animate-indeterminate-bar: indeterminate-bar 1.5s
+    cubic-bezier(0.65, 0.815, 0.735, 0.395) infinite normal none running;
   --animate-marquee: marquee 30s linear infinite;
 
   @keyframes indeterminate-bar {

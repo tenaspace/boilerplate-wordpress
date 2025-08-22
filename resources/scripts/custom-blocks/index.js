@@ -1,7 +1,7 @@
-import { SampleBlock } from './sample'
+import { SampleBlock } from './sample';
 
 const CustomBlocks = () => {
-  SampleBlock()
-}
+  SampleBlock();
+};
 
-export { CustomBlocks }
+export { CustomBlocks };

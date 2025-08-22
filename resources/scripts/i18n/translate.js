@@ -1,10 +1,10 @@
 const translate = (dictionaries) => {
-  const currentLanguage = window.constants.current_language
+  const currentLanguage = window.constants.current_language;
   if (dictionaries[currentLanguage]) {
-    return dictionaries[currentLanguage]
+    return dictionaries[currentLanguage];
   } else {
-    return
+    return;
   }
-}
+};
 
-export { translate }
+export { translate };

@@ -1,7 +1,7 @@
-import { SampleForm } from './forms/sample'
+import { SampleForm } from './forms/sample';
 
 const Components = () => {
-  SampleForm()
-}
+  SampleForm();
+};
 
-export { Components }
+export { Components };

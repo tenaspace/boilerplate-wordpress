@@ -1,11 +1,11 @@
-import { Globals } from './globals'
-import { Theme } from './theme'
-import { WindowSize } from './window-size'
+import { Globals } from './globals';
+import { Theme } from './theme';
+import { WindowSize } from './window-size';
 
 const Store = () => {
-  Globals()
-  Theme()
-  WindowSize()
-}
+  Globals();
+  Theme();
+  WindowSize();
+};
 
-export { Store }
+export { Store };
