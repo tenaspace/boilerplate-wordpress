@@ -1,7 +1,5 @@
 .rich-text {
-  @apply space-y-5;
-
-  > * {
+  * {
     @apply first:mt-0! last:mb-0!;
   }
 
