@@ -12,7 +12,7 @@ class EnqueueScripts
     $this->name_main = 'main';
     $this->name_constants = 'constants';
     $this->l10n_app = [
-      'current_language' => \pll_current_language(),
+      'currentLanguage' => \pll_current_language(),
       'adminAjaxUrl' => admin_url('admin-ajax.php'),
     ];
     $this->hooks();
@@ -28,7 +28,7 @@ class EnqueueScripts
 
   public function enqueue_scripts()
   {
-    if (app()->helpers->is_vite_dev_mode()) {
+    if (app()->lib->helpers->is_vite_dev_mode()) {
       wp_enqueue_script($this->name_main, PUBLIC_URI . '/' . $this->name_main . '.js', [], null, []);
       add_filter('script_loader_tag', function ($tag, $handle, $src) {
         if ($this->name_main === $handle) {
@@ -37,14 +37,14 @@ class EnqueueScripts
         return $tag;
       }, 10, 3);
     } else {
-      $manifest_values = app()->helpers->get_manifest_values();
-      if (isset($manifest_values) && is_array($manifest_values) && sizeof((array) $manifest_values) > 0) {
+      $manifest_values = app()->lib->helpers->get_manifest_values();
+      if (is_array($manifest_values) && !empty($manifest_values)) {
         foreach ($manifest_values as $manifest_value) {
-          if (isset($manifest_value['css']) && is_array($manifest_value['css']) && sizeof((array) $manifest_value['css']) > 0) {
+          if (is_array($manifest_value['css']) && !empty($manifest_value['css'])) {
             foreach ($manifest_value['css'] as $key => $css) {
               wp_enqueue_style($this->name_main . '-' . $key, PUBLIC_URI . '/' . $css, [], null, 'all');
             }
-            if (isset($manifest_value['file']) && !empty($manifest_value['file'])) {
+            if (!empty($manifest_value['file'])) {
               wp_enqueue_script($this->name_main, PUBLIC_URI . '/' . $manifest_value['file'], [], null, ['in_footer' => true, 'strategy' => 'defer']);
             }
           }
@@ -56,12 +56,12 @@ class EnqueueScripts
   public function localizes_script_app()
   {
     $src = '';
-    if (app()->helpers->is_vite_dev_mode()) {
+    if (app()->lib->helpers->is_vite_dev_mode()) {
       $src = PUBLIC_URI . '/' . $this->name_constants . '.js';
     } else {
-      $manifest = app()->helpers->get_manifest();
+      $manifest = app()->lib->helpers->get_manifest();
       if ($manifest) {
-        if (isset($manifest['resources/' . $this->name_constants . '.js']['file']) && !empty($manifest['resources/' . $this->name_constants . '.js']['file'])) {
+        if (!empty($manifest['resources/' . $this->name_constants . '.js']['file'])) {
           $src = PUBLIC_URI . '/' . $manifest['resources/' . $this->name_constants . '.js']['file'];
         }
       }

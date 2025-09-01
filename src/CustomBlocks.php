@@ -21,7 +21,7 @@ class CustomBlocks
   public function custom_blocks()
   {
     $custom_blocks = glob(get_template_directory() . '/custom-blocks/*/');
-    if (isset($custom_blocks) && is_array($custom_blocks) && sizeof((array) $custom_blocks) > 0) {
+    if (is_array($custom_blocks) && !empty($custom_blocks)) {
       foreach ($custom_blocks as $block) {
         register_block_type($block);
       }

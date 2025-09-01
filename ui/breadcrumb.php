@@ -1,10 +1,10 @@
 <?php
 $defaults = [
-  'list' => app()->helpers->get_breadcrumb(),
+  'list' => app()->lib->helpers->get_breadcrumb(),
   'separator' => '/',
 ];
 $args = wp_parse_args($args, $defaults);
-$has_list = isset($args['list']) && is_array($args['list']) && sizeof((array) $args['list']) > 0 ? true : false;
+$has_list = is_array($args['list']) && !empty($args['list']) ? true : false;
 ?>
 <nav aria-label="breadcrumb">
   <ol>
@@ -32,7 +32,7 @@ $has_list = isset($args['list']) && is_array($args['list']) && sizeof((array) $a
       <?php foreach ($args['list'] as $key => $item): ?>
         <li>
           <?php if ($key < sizeof((array) $args['list']) - 1): ?>
-            <?php if (isset($item['link']) && !empty($item['link'])): ?>
+            <?php if (!empty($item['link'])): ?>
               <a href="<?php echo $item['link']; ?>">
                 <?php echo $item['label']; ?>
               </a>

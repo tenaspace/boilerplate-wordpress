@@ -15,7 +15,7 @@ class BodyClass
 
   public function body_class($classes)
   {
-    $classes = explode(' ', app()->utils->cn('antialiased font-sans', 'bg-white text-black dark:bg-black dark:text-white', app()->ui->typography(), $classes));
+    $classes = explode(' ', app()->lib->utils->cn('antialiased font-sans', 'bg-white text-black dark:bg-black dark:text-white', app()->ui->typography(), $classes));
     return $classes;
   }
 }

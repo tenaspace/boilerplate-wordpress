@@ -13,7 +13,7 @@ class Ui
     $variants = [
       'default' => '',
     ];
-    return app()->utils->cn('', $variants[$variant]);
+    return app()->lib->utils->cn('', $variants[$variant]);
   }
 
   public function typography(string $variant = 'default')
@@ -21,7 +21,7 @@ class Ui
     $variants = [
       'default' => '',
     ];
-    return app()->utils->cn('', $variants[$variant]);
+    return app()->lib->utils->cn('', $variants[$variant]);
   }
 
   public function button(string $variant = 'default', string $size = 'default')
@@ -32,6 +32,6 @@ class Ui
     $sizes = [
       'default' => '',
     ];
-    return app()->utils->cn('', $variants[$variant], $sizes[$size]);
+    return app()->lib->utils->cn('', $variants[$variant], $sizes[$size]);
   }
 }

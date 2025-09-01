@@ -1,5 +1,5 @@
 <?php
-$body_class = isset($args['body_class']) && is_array($args['body_class']) && sizeof((array) $args['body_class']) > 0 ? $args['body_class'] : [];
+$body_class = isset($args['body_class']) && is_array($args['body_class']) && !empty($args['body_class']) ? $args['body_class'] : [];
 ?>
 <!DOCTYPE html>
 <html class="no-js scroll-smooth" <?php language_attributes(); ?>>
@@ -8,11 +8,12 @@ $body_class = isset($args['body_class']) && is_array($args['body_class']) && siz
   <meta charset="<?php bloginfo('charset'); ?>">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <?php wp_head(); ?>
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" defer></script>
 </head>
 
 <body <?php body_class($body_class); ?>>
 
-  <?php app()->helpers->body_open(); ?>
+  <?php app()->lib->helpers->body_open(); ?>
 
   <div id="site-wrapper">
 

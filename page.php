@@ -1,21 +1,21 @@
 <?php get_header(); ?>
 
-<article class="<?php echo app()->utils->cn('h-entry'); ?>">
+<article class="<?php echo app()->lib->utils->cn('h-entry'); ?>">
   <header>
-    <?php get_template_part('components/breadcrumb'); ?>
+    <?php get_template_part('ui/breadcrumb'); ?>
     <?php if (has_post_thumbnail(get_the_ID())): ?>
       <?php $alt = get_post_meta(get_post_thumbnail_id(get_the_ID()), '_wp_attachment_image_alt', true); ?>
       <?php echo get_the_post_thumbnail(get_the_ID(), 'large', [
-        'alt' => isset($alt) && !empty($alt) ? $alt : get_the_title(get_the_ID()),
-        'class' => app()->utils->cn('u-featured'),
+        'alt' => !empty($alt) ? $alt : get_the_title(get_the_ID()),
+        'class' => app()->lib->utils->cn('u-featured'),
       ]); ?>
     <?php endif; ?>
-    <h1 class="<?php echo app()->utils->cn('p-name'); ?>">
+    <h1 class="<?php echo app()->lib->utils->cn('p-name'); ?>">
       <?php echo get_the_title(get_the_ID()); ?>
     </h1>
   </header>
   <?php if (have_posts()): ?>
-    <div class="<?php echo app()->utils->cn('e-content'); ?>">
+    <div class="<?php echo app()->lib->utils->cn('e-content'); ?>">
       <?php while (have_posts()):
         the_post(); ?>
         <?php the_content(); ?>
@@ -28,11 +28,11 @@
       <span class="p-author h-card">
         <?php echo get_the_author(); ?>
       </span>
-      <time dateTime="<?php echo get_the_date('c', get_the_ID()); ?>" class="<?php echo app()->utils->cn('dt-published'); ?>">
+      <time dateTime="<?php echo get_the_date('c', get_the_ID()); ?>" class="<?php echo app()->lib->utils->cn('dt-published'); ?>">
         <?php echo get_the_date(DATE_FORMAT, get_the_ID()); ?>
       </time>
       <time dateTime="<?php echo get_the_modified_date('c', get_the_ID()); ?>"
-        class="<?php echo app()->utils->cn('dt-updated'); ?>">
+        class="<?php echo app()->lib->utils->cn('dt-updated'); ?>">
         <?php echo get_the_modified_date(DATE_FORMAT, get_the_ID()); ?>
       </time>
     </p>

@@ -44,7 +44,7 @@ class Main
   private function get_public_path()
   {
     $path = get_template_directory() . '/dist';
-    if (app()->helpers->is_vite_dev_mode()) {
+    if (app()->lib->helpers->is_vite_dev_mode()) {
       $path = get_template_directory() . '/resources';
     }
     return $path;
@@ -53,9 +53,9 @@ class Main
   private function get_public_uri()
   {
     $uri = get_template_directory_uri() . '/dist';
-    if (app()->helpers->is_vite_dev_mode()) {
-      $vite_server_port = isset($_ENV['VITE_SERVER_PORT']) && $_ENV['VITE_SERVER_PORT'] ? $_ENV['VITE_SERVER_PORT'] : 3000;
-      $vite_server_origin = isset($_ENV['VITE_SERVER_ORIGIN']) && $_ENV['VITE_SERVER_ORIGIN'] ? $_ENV['VITE_SERVER_ORIGIN'] : 'http://localhost';
+    if (app()->lib->helpers->is_vite_dev_mode()) {
+      $vite_server_port = !empty($_ENV['VITE_SERVER_PORT']) ? $_ENV['VITE_SERVER_PORT'] : 3000;
+      $vite_server_origin = !empty($_ENV['VITE_SERVER_ORIGIN']) ? $_ENV['VITE_SERVER_ORIGIN'] : 'http://localhost';
       $uri = "{$vite_server_origin}:{$vite_server_port}/resources";
     }
     return $uri;

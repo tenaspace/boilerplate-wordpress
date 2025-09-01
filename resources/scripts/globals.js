@@ -1,8 +1,9 @@
 import Alpine from 'alpinejs';
-import { Store } from './store';
-import { Libraries } from './libraries';
 import { Components } from './components';
 import { CustomBlocks } from './custom-blocks';
+import { Libraries } from './libraries';
+import { Store } from './store';
+import { Ui } from './ui';
 
 /**
  * Alpinejs Safari fix: https://github.com/alpinejs/alpine/discussions/1964
@@ -25,6 +26,7 @@ window.Alpine = Alpine;
 Store();
 Libraries();
 Components();
+Ui();
 CustomBlocks();
 
 /* That's all, stop editing! Happy publishing. */

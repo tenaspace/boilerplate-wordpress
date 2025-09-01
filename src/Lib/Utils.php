@@ -1,5 +1,5 @@
 <?php
-namespace TS;
+namespace TS\Lib;
 use TailwindMerge\TailwindMerge;
 
 class Utils
@@ -66,7 +66,7 @@ class Utils
 
   public function limit_words(string $text, int $limit = 25)
   {
-    if (!(isset($text) && !empty($text))) {
+    if (empty($text)) {
       return;
     }
     return preg_replace('/((\w+\W*){' . ($limit - 1) . '}(\w+))(.*)/', '${1}', $text) . ((str_word_count($text) > $limit) ? '...' : '');

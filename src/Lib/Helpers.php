@@ -1,8 +1,6 @@
 <?php
-namespace TS;
+namespace TS\Lib;
 use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\SMTP;
-use PHPMailer\PHPMailer\Exception;
 use KubAT\PhpSimple\HtmlDomParser;
 
 class Helpers
@@ -37,7 +35,7 @@ class Helpers
   public function get_manifest_values()
   {
     $manifest = $this->get_manifest();
-    if (!(isset($manifest) && is_array($manifest) && sizeof((array) $manifest) > 0)) {
+    if (!(is_array($manifest) && !empty($manifest))) {
       return;
     }
     return array_values($manifest);
@@ -59,33 +57,33 @@ class Helpers
         $mail->Host = 'smtp.sendgrid.net';
         $mail->Username = 'apikey';
         $mail->Password = $_ENV['SENDGRID_API_KEY'];
-        $mail->SMTPSecure = 'tls';
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $mail->Port = 587;
       } else {
-        $mail->Host = $_ENV['SMTP_HOST'] || '';
-        $mail->Username = $_ENV['SMTP_USERNAME'] || '';
-        $mail->Password = $_ENV['SMTP_PASSWORD'] || '';
-        $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
-        $mail->Port = $_ENV['SMTP_PORT'] || '';
+        $mail->Host = $_ENV['SMTP_HOST'] ? $_ENV['SMTP_HOST'] : '';
+        $mail->Username = $_ENV['SMTP_USERNAME'] ? $_ENV['SMTP_USERNAME'] : '';
+        $mail->Password = $_ENV['SMTP_PASSWORD'] ? $_ENV['SMTP_PASSWORD'] : '';
+        $mail->SMTPSecure = $_ENV['SMTP_SECURE'] ? $_ENV['SMTP_SECURE'] : '';
+        $mail->Port = $_ENV['SMTP_PORT'] ? $_ENV['SMTP_PORT'] : '';
       }
-    } catch (Exception $error) {
-      app()->utils->write_log($error->errorMessage());
-      app()->utils->write_log($mail->ErrorInfo);
+    } catch (\PHPMailer\PHPMailer\Exception $error) {
+      app()->lib->utils->write_log($error->errorMessage());
+      app()->lib->utils->write_log($mail->ErrorInfo);
     }
     return $mail;
   }
 
   private function create_nav_menu(string $location)
   {
-    if (!(isset($location) && !empty($location))) {
+    if (empty($location)) {
       return;
     }
     $locations = get_nav_menu_locations();
-    if (!(isset($locations[$location]) && !empty($locations[$location]))) {
+    if (empty($locations[$location])) {
       return;
     }
     $result = wp_get_nav_menu_items($locations[$location]);
-    if (!(isset($result) && is_array($result) && sizeof((array) $result) > 0)) {
+    if (!(is_array($result) && !empty($result))) {
       return;
     }
     return $result;
@@ -93,7 +91,7 @@ class Helpers
 
   private function get_nav_menu_items(array &$items, int $parent_id = 0)
   {
-    if (!(isset($items) && is_array($items) && sizeof((array) $items) > 0)) {
+    if (!(is_array($items) && !empty($items))) {
       return;
     }
     $result = [];
@@ -113,7 +111,7 @@ class Helpers
   public function get_nav_menu(string $location)
   {
     $items = $this->create_nav_menu($location);
-    if (!(isset($items) && is_array($items) && sizeof((array) $items) > 0)) {
+    if (!(is_array($items) && !empty((array) $items))) {
       return;
     }
     return $this->get_nav_menu_items($items);
@@ -129,7 +127,7 @@ class Helpers
     }
     $the_content = HtmlDomParser::str_get_html(str_replace(']]>', ']]&gt;', apply_filters('the_content', get_the_content($post_id))));
     $heading_tags_setting = get_post_meta($post_id, 'table_of_contents', true);
-    if (!(isset($the_content) && !empty($the_content) && is_array($heading_tags_setting) && sizeof((array) $heading_tags_setting) > 0)) {
+    if (!(!empty($the_content) && is_array($heading_tags_setting) && !empty($heading_tags_setting))) {
       return;
     }
     $heading_tags = [];
@@ -138,7 +136,7 @@ class Helpers
         array_push($heading_tags, $heading_tag);
       }
     }
-    if (!(isset($heading_tags) && is_array($heading_tags) && sizeof((array) $heading_tags) > 0)) {
+    if (!(is_array($heading_tags) && !empty($heading_tags))) {
       return;
     }
     $result = [];
@@ -193,7 +191,7 @@ class Helpers
 
   private function get_table_of_contents_items(array &$items, $parent_id = 0)
   {
-    if (!(isset($items) && is_array($items) && sizeof((array) $items) > 0)) {
+    if (!(is_array($items) && !empty($items))) {
       return;
     }
     $result = [];
@@ -218,7 +216,7 @@ class Helpers
   public function get_table_of_contents(bool|int $post_id)
   {
     $items = $this->create_table_of_contents($post_id);
-    if (!(isset($items) && is_array($items) && sizeof((array) $items) > 0)) {
+    if (!(is_array($items) && !empty($items))) {
       return;
     }
     return $this->get_table_of_contents_items($items);
@@ -227,7 +225,7 @@ class Helpers
   public function get_breadcrumb()
   {
     $result = [];
-    $is_woocommerce = app()->helpers->is_woocommerce_activated() && \is_woocommerce();
+    $is_woocommerce = app()->lib->helpers->is_woocommerce_activated() && \is_woocommerce();
     if ($is_woocommerce && (\is_product() || \is_product_taxonomy())) {
       array_push($result, [
         'link' => esc_url(get_permalink(\wc_get_page_id('shop'))),
@@ -255,11 +253,11 @@ class Helpers
             $taxonomy = 'product_cat';
           }
           $terms = get_the_terms($queried_object, $taxonomy);
-          if (isset($terms) && is_array($terms) && sizeof((array) $terms) > 0) {
+          if (is_array($terms) && !empty($terms)) {
             $term = array_shift($terms);
             $ancestors = get_ancestors($term->term_id, $taxonomy, 'taxonomy');
             $ancestors = array_reverse($ancestors);
-            if (isset($ancestors) && is_array($ancestors) && sizeof((array) $ancestors) > 0) {
+            if (is_array($ancestors) && !empty($ancestors)) {
               foreach ($ancestors as $ancestor_id) {
                 $ancestor = get_term($ancestor_id, $taxonomy);
                 array_push($result, [
@@ -285,7 +283,7 @@ class Helpers
       if ($term->parent) {
         $ancestors = get_ancestors($term->term_id, $term->taxonomy);
         $ancestors = array_reverse($ancestors);
-        if (isset($ancestors) && is_array($ancestors) && sizeof((array) $ancestors) > 0) {
+        if (is_array($ancestors) && !empty($ancestors)) {
           foreach ($ancestors as $ancestor_id) {
             $ancestor = get_term($ancestor_id, $term->taxonomy);
             array_push($result, [

@@ -1,9 +1,9 @@
 <?php
-use TS\Helpers;
 use TS\I18n;
+use TS\Lib\Helpers;
+use TS\Lib\Utils;
 use TS\Main;
 use TS\Ui;
-use TS\Utils;
 
 if (is_readable(get_template_directory() . '/vendor/autoload.php')) {
   require_once get_template_directory() . '/vendor/autoload.php';
@@ -13,8 +13,9 @@ if (is_readable(get_template_directory() . '/vendor/autoload.php')) {
   {
     $app = new stdClass();
     $app->i18n = new I18n();
-    $app->utils = new Utils();
-    $app->helpers = new Helpers();
+    $app->lib = new stdClass();
+    $app->lib->utils = new Utils();
+    $app->lib->helpers = new Helpers();
     $app->ui = new Ui();
     return $app;
   } // SETUP

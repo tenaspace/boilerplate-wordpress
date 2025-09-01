@@ -1,5 +1,5 @@
 const translate = (dictionaries) => {
-  const currentLanguage = window.constants.current_language;
+  const currentLanguage = window.constants.currentLanguage;
   if (dictionaries[currentLanguage]) {
     return dictionaries[currentLanguage];
   } else {
