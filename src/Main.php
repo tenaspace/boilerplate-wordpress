@@ -38,6 +38,7 @@ class Main
   {
     define('PUBLIC_PATH', $this->get_public_path());
     define('PUBLIC_URI', $this->get_public_uri());
+    define('OPTION_PAGE_ID', pll_current_language() ? (pll_current_language() !== pll_default_language() ? 'options_page_' . pll_current_language() : 'option') : 'option');
     define('DATE_FORMAT', 'd-m-Y');
   }
 
