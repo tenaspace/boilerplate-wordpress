@@ -6,7 +6,7 @@ $fields = get_fields($queried_object->taxonomy . '_' . $queried_object->term_id)
 
 <div class="<?php echo app()->lib->utils->cn('h-feed'); ?>">
   <header>
-    <?php get_template_part('ui/breadcrumb'); ?>
+    <?php get_template_part('components/ui/breadcrumb'); ?>
     <?php if (!empty($fields['featured_image']['id'])): ?>
       <?php echo wp_get_attachment_image($fields['featured_image']['id'], 'large', false, [
         'class' => app()->lib->utils->cn('u-featured'),

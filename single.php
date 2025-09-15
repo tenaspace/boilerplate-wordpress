@@ -6,7 +6,7 @@ $tags = get_the_tags(get_the_ID());
 
 <article class="<?php echo app()->lib->utils->cn('h-entry'); ?>">
   <header>
-    <?php get_template_part('ui/breadcrumb'); ?>
+    <?php get_template_part('components/ui/breadcrumb'); ?>
     <?php if (has_post_thumbnail(get_the_ID())): ?>
       <?php $alt = get_post_meta(get_post_thumbnail_id(get_the_ID()), '_wp_attachment_image_alt', true); ?>
       <?php echo get_the_post_thumbnail(get_the_ID(), 'large', [

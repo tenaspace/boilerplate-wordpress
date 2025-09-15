@@ -20,7 +20,7 @@ class CustomBlocks
 
   public function custom_blocks()
   {
-    $custom_blocks = glob(get_template_directory() . '/custom-blocks/*/');
+    $custom_blocks = glob(get_template_directory() . '/components/custom-blocks/*/');
     if (is_array($custom_blocks) && !empty($custom_blocks)) {
       foreach ($custom_blocks as $block) {
         register_block_type($block);
