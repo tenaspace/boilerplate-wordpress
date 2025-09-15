@@ -11,7 +11,7 @@ $body_class = isset($args['body_class']) && is_array($args['body_class']) && !em
   <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" defer></script>
 </head>
 
-<body <?php body_class($body_class); ?>>
+<body <?php body_class($body_class); ?> style="--font-sans: 'Manrope', sans-serif;">
 
   <?php app()->lib->helpers->body_open(); ?>
 
