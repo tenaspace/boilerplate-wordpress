@@ -60,6 +60,12 @@
     </button>
   </div>
   <div>
+    <p x-show="processing === true" x-cloak>
+      <?php echo app()->i18n->translate([
+        'en' => 'Processing...',
+        'vi' => 'Đang xử lý...',
+      ]); ?>
+    </p>
     <p x-show="response === true" x-cloak>
       <?php echo app()->i18n->translate([
         'en' => 'Successfully.',

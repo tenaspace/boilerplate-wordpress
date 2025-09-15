@@ -113,14 +113,15 @@ const SampleForm = () => {
                 this.reset();
               }
               this.response = data.response;
+              this.processing = false;
             })
             .catch((error) => {
               console.error(error);
               this.response = false;
+              this.processing = false;
             })
             .finally(() => {});
         }
-        this.processing = false;
       }
     },
   }));
