@@ -64,6 +64,28 @@ class Utils
     return $this->tw_merge($this->clsx(...$args));
   }
 
+  public function args_to_attrs(array $args)
+  {
+    $html = '';
+    foreach ($args as $key => $value) {
+      if ($value === true) {
+        $html .= ' ' . esc_attr($key);
+      } elseif ($value !== false && $value !== null) {
+        $html .= ' ' . esc_attr($key) . '="' . esc_attr($value) . '"';
+      }
+    }
+    return trim($html);
+  }
+
+  public function phone_to_tel(string $phone)
+  {
+    $cleaned = preg_replace('/\D/', '', $phone);
+    if (preg_match('/^\d+$/', $cleaned)) {
+      return "tel:" . $cleaned;
+    }
+    return null;
+  }
+
   public function limit_words(string $text, int $limit = 25)
   {
     if (empty($text)) {
