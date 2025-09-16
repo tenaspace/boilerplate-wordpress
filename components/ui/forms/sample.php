@@ -12,7 +12,7 @@
       </label>
       <input required type="text" id="full-name" name="fullName" x-model="fields.fullName" x-bind:disabled="processing"
         x-on:input="validate" class="inline-flex w-full" />
-      <p x-show="!iodine?.fields?.fullName?.valid" x-text="iodine?.fields?.fullName?.error" x-cloak></p>
+      <p x-show="iodine?.fields?.fullName?.valid === false" x-text="iodine?.fields?.fullName?.error" x-cloak></p>
     </div>
     <div>
       <label for="email">
@@ -23,7 +23,7 @@
       </label>
       <input required type="email" id="email" name="email" x-model="fields.email" x-bind:disabled="processing"
         x-on:input="validate" class="inline-flex w-full" />
-      <p x-show="!iodine?.fields?.email?.valid" x-text="iodine?.fields?.email?.error" x-cloak></p>
+      <p x-show="iodine?.fields?.email?.valid === false" x-text="iodine?.fields?.email?.error" x-cloak></p>
     </div>
     <div>
       <label for="telephone">
@@ -34,7 +34,7 @@
       </label>
       <input required type="tel" id="telephone" name="telephone" x-model="fields.telephone" x-bind:disabled="processing"
         x-on:input="validate" class="inline-flex w-full" />
-      <p x-show="!iodine?.fields?.telephone?.valid" x-text="iodine?.fields?.telephone?.error" x-cloak></p>
+      <p x-show="iodine?.fields?.telephone?.valid === false" x-text="iodine?.fields?.telephone?.error" x-cloak></p>
     </div>
     <div>
       <label for="message">
@@ -45,7 +45,7 @@
       </label>
       <textarea id="message" name="message" x-model="fields.message" x-bind:disabled="processing" x-on:input="validate"
         class="inline-flex w-full"></textarea>
-      <p x-show="!iodine?.fields?.message?.valid" x-text="iodine?.fields?.message?.error" x-cloak></p>
+      <p x-show="iodine?.fields?.message?.valid === false" x-text="iodine?.fields?.message?.error" x-cloak></p>
     </div>
   </div>
   <div>
