@@ -89,12 +89,12 @@ const SampleForm = () => {
     onSubmit() {
       if (this.allowSubmit) {
         this.response = undefined;
-        this.processing = true;
         if (!this.hasFirstSubmit) {
           this.hasFirstSubmit = true;
         }
         this.validate();
         if (this.iodine.valid) {
+          this.processing = true;
           fetch(window.constants.adminAjaxUrl, {
             method: 'POST',
             headers: {
@@ -120,7 +120,9 @@ const SampleForm = () => {
               this.response = false;
               this.processing = false;
             })
-            .finally(() => {});
+            .finally(() => {
+              this.processing = false;
+            });
         }
       }
     },
