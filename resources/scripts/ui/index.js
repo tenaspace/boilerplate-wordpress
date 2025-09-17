@@ -1,7 +1,7 @@
-import { SampleForm } from './forms/sample';
+import { Forms } from './forms';
 
 const Ui = () => {
-  SampleForm();
+  Forms();
 };
 
 export { Ui };
