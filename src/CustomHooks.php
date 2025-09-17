@@ -50,5 +50,42 @@ class CustomHooks
     add_filter('excerpt_more', function ($dots) {
       return '…';
     }, 10, 1);
+
+    /** ===== */
+
+    add_action('admin_menu', function () {
+      if (!is_super_admin()) {
+        remove_menu_page('edit.php?post_type=acf-field-group');
+        remove_menu_page('plugins.php');
+      }
+    }, 999);
+
+    add_action('current_screen', function ($screen) {
+      if (!is_super_admin()) {
+        $acf_screens = [
+          'acf-field-group',
+          'edit-acf-field-group',
+          'plugins',
+        ];
+        if (in_array($screen->id, $acf_screens, true)) {
+          wp_die(
+            __('Sorry, you are not allowed to do that.', 'ts'),
+            __('Forbidden', 'ts'),
+            ['response' => 403]
+          );
+        }
+      }
+    });
+
+    add_action('admin_init', function () {
+      global $pagenow;
+      if (!is_super_admin() && $pagenow === 'plugins.php') {
+        wp_die(
+          __('Sorry, you are not allowed to do that.', 'ts'),
+          __('Forbidden', 'ts'),
+          ['response' => 403]
+        );
+      }
+    });
   }
 }
