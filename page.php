@@ -6,7 +6,7 @@
     <?php if (has_post_thumbnail(get_the_ID())): ?>
       <?php $alt = get_post_meta(get_post_thumbnail_id(get_the_ID()), '_wp_attachment_image_alt', true); ?>
       <?php echo get_the_post_thumbnail(get_the_ID(), 'large', [
-        'alt' => !empty($alt) ? $alt : get_the_title(get_the_ID()),
+        'alt' => !empty($alt) ? $alt : '',
         'class' => app()->lib->utils->cn('u-featured'),
       ]); ?>
     <?php endif; ?>

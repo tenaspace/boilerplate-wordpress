@@ -10,7 +10,7 @@ $fields = get_fields($queried_object->taxonomy . '_' . $queried_object->term_id)
     <?php if (!empty($fields['featured_image']['id'])): ?>
       <?php echo wp_get_attachment_image($fields['featured_image']['id'], 'large', false, [
         'class' => app()->lib->utils->cn('u-featured'),
-        'alt' => !empty($fields['featured_image']['alt']) ? $fields['featured_image']['alt'] : get_the_archive_title(),
+        'alt' => !empty($fields['featured_image']['alt']) ? $fields['featured_image']['alt'] : '',
       ]); ?>
     <?php endif; ?>
     <?php if (is_search()): ?>
@@ -41,7 +41,7 @@ $fields = get_fields($queried_object->taxonomy . '_' . $queried_object->term_id)
                 <?php if (has_post_thumbnail(get_the_ID())): ?>
                   <?php $alt = get_post_meta(get_post_thumbnail_id(get_the_ID()), '_wp_attachment_image_alt', true); ?>
                   <?php echo get_the_post_thumbnail(get_the_ID(), 'large', [
-                    'alt' => !empty($alt) ? $alt : get_the_title(get_the_ID()),
+                    'alt' => !empty($alt) ? $alt : '',
                     'class' => app()->lib->utils->cn('u-featured'),
                   ]); ?>
                 <?php endif; ?>
