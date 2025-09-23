@@ -19,7 +19,7 @@ const SampleForm = () => {
     iodine: {},
     response: undefined,
     init() {
-      window.onload = () => {
+      const renderTurnstile = () => {
         window.turnstile.render(this.$refs.turnstileWidget, {
           sitekey: import.meta.env.VITE_CLOUDFLARE_TURNSTILE_SITE_KEY || '',
           theme:
@@ -35,6 +35,9 @@ const SampleForm = () => {
           },
         });
       };
+      document.addEventListener('DOMContentLoaded', () => {
+        renderTurnstile();
+      });
     },
     validate() {
       if (this.hasFirstSubmit) {
