@@ -8,7 +8,7 @@ $body_class = isset($args['body_class']) && is_array($args['body_class']) && !em
   <meta charset="<?php bloginfo('charset'); ?>">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <?php wp_head(); ?>
-  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" defer></script>
 </head>
 
 <body <?php body_class($body_class); ?> style="--font-sans: 'Manrope', sans-serif;">
