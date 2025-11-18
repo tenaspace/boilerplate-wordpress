@@ -48,29 +48,26 @@ class Helpers
 
   public function mailer()
   {
-    $mail = new PHPMailer(true);
-    $mail->CharSet = PHPMailer::CHARSET_UTF8;
+    $mailer = new PHPMailer(true);
+    $mailer->CharSet = PHPMailer::CHARSET_UTF8;
     try {
-      $mail->isSMTP();
-      $mail->SMTPAuth = true;
-      if ($_ENV['SENDGRID_API_KEY']) {
-        $mail->Host = 'smtp.sendgrid.net';
-        $mail->Username = 'apikey';
-        $mail->Password = $_ENV['SENDGRID_API_KEY'];
-        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-        $mail->Port = 587;
-      } else {
-        $mail->Host = $_ENV['SMTP_HOST'] ? $_ENV['SMTP_HOST'] : '';
-        $mail->Username = $_ENV['SMTP_USERNAME'] ? $_ENV['SMTP_USERNAME'] : '';
-        $mail->Password = $_ENV['SMTP_PASSWORD'] ? $_ENV['SMTP_PASSWORD'] : '';
-        $mail->SMTPSecure = $_ENV['SMTP_SECURE'] ? $_ENV['SMTP_SECURE'] : '';
-        $mail->Port = $_ENV['SMTP_PORT'] ? $_ENV['SMTP_PORT'] : '';
-      }
+      $mailer->isSMTP();
+      $mailer->SMTPAuth = true;
+      $mailer->Host = !empty($_ENV['SMTP_HOST']) ? $_ENV['SMTP_HOST'] : '';
+      $mailer->Username = !empty($_ENV['SMTP_USERNAME']) ? $_ENV['SMTP_USERNAME'] : '';
+      $mailer->Password = !empty($_ENV['SMTP_PASSWORD']) ? $_ENV['SMTP_PASSWORD'] : '';
+      $mailer->SMTPSecure = !empty($_ENV['SMTP_SECURE']) ? $_ENV['SMTP_SECURE'] : '';
+      $mailer->Port = !empty($_ENV['SMTP_PORT']) ? $_ENV['SMTP_PORT'] : '';
     } catch (\PHPMailer\PHPMailer\Exception $error) {
       app()->lib->utils->write_log($error->errorMessage());
-      app()->lib->utils->write_log($mail->ErrorInfo);
+      app()->lib->utils->write_log($mailer->ErrorInfo);
     }
-    return $mail;
+    return $mailer;
+  }
+
+  public function sendgrid()
+  {
+    return new \SendGrid(!empty($_ENV['SENDGRID_API_KEY']) ? $_ENV['SENDGRID_API_KEY'] : '');
   }
 
   private function create_nav_menu(string $location)
