@@ -112,10 +112,10 @@ const SampleForm = () => {
           })
             .then((response) => response.json())
             .then((data) => {
-              if (data.response) {
+              if (!!data.response) {
                 this.reset();
               }
-              this.response = data.response;
+              this.response = !!data.response;
               this.processing = false;
             })
             .catch((error) => {
