@@ -783,10 +783,10 @@ ajv@^6.12.4:
     json-schema-traverse "^0.4.1"
     uri-js "^4.2.2"
 
-alpinejs@^3.14.9:
-  version "3.14.9"
-  resolved "https://registry.yarnpkg.com/alpinejs/-/alpinejs-3.14.9.tgz#381a050152acb221b2209d9398935d5cd4c18afc"
-  integrity sha512-gqSOhTEyryU9FhviNqiHBHzgjkvtukq9tevew29fTj+ofZtfsYriw4zPirHHOAy9bw8QoL3WGhyk7QqCh5AYlw==
+alpinejs@^3:
+  version "3.15.3"
+  resolved "https://registry.yarnpkg.com/alpinejs/-/alpinejs-3.15.3.tgz#667bce66914f8a11a786bffba9081c25ee3692d8"
+  integrity sha512-fSI6F5213FdpMC4IWaup92KhuH3jBX0VVqajRJ6cOTCy1cL6888KyXdGO+seAAkn+g6fnrxBqQEx6gRpQ5EZoQ==
   dependencies:
     "@vue/reactivity" "~3.1.1"
 
@@ -3173,10 +3173,15 @@ tailwindcss-animate@^1.0.7:
   resolved "https://registry.yarnpkg.com/tailwindcss-animate/-/tailwindcss-animate-1.0.7.tgz#318b692c4c42676cc9e67b19b78775742388bef4"
   integrity sha512-bl6mpH3T7I3UFxuvDEXLxy/VuFxBk5bbzplh7tXI68mwMokNYd1t9qPBHlnyTwfa4JGC4zP516I1hYYtQ/vspA==
 
-tailwindcss@4.1.12, tailwindcss@^4.1.12:
+tailwindcss@4.1.12:
   version "4.1.12"
   resolved "https://registry.yarnpkg.com/tailwindcss/-/tailwindcss-4.1.12.tgz#7baeed5b5ac77370571c2baa72ee06e0050fc0a8"
   integrity sha512-DzFtxOi+7NsFf7DBtI3BJsynR+0Yp6etH+nRPTbpWnS2pZBaSksv/JGctNwSWzbFjp0vxSqknaUylseZqMDGrA==
+
+tailwindcss@^4:
+  version "4.1.18"
+  resolved "https://registry.yarnpkg.com/tailwindcss/-/tailwindcss-4.1.18.tgz#f488ba47853abdb5354daf9679d3e7791fc4f4e3"
+  integrity sha512-4+Z+0yiYyEtUVCScyfHCxOYP06L5Ne+JiHhY2IjR2KWMIWhJOYZKLSGZaP5HkZ8+bY0cxfzwDE5uOmzFXyIwxw==
 
 tapable@^2.2.0:
   version "2.2.2"
