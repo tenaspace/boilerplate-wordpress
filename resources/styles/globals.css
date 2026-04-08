@@ -1,7 +1,7 @@
 @import 'tailwindcss';
+@import "tw-animate-css";
 
 @plugin "../tailwind-plugins/hocus";
-@plugin "tailwindcss-animate";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -37,5 +37,5 @@
 @import './alpinejs.css' layer(base);
 @import './editor-styles.css' layer(base);
 @import './vanilla-lazyload.css' layer(base);
-@import './prose.css' layer(components);
+@import './rich-text.css' layer(components);
 /* @import './woocommerce.css' layer(components); */
