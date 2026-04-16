@@ -14,7 +14,7 @@ class Utils
     if (!isset($log)) {
       return;
     }
-    if (is_array($log) || is_object($log)) {
+    if (\is_array($log) || \is_object($log)) {
       error_log(print_r($log, true));
     } else {
       error_log($log);
@@ -25,19 +25,19 @@ class Utils
   {
     $class = [];
     foreach ($args as $arg) {
-      if (is_array($arg)) {
+      if (\is_array($arg)) {
         foreach ($arg as $key => $value) {
           if (is_string($key)) {
-            if (is_array($value)) {
+            if (\is_array($value)) {
               $class = array_merge($class, $value);
             } elseif ($value) {
               $class[] = $key;
             }
           } elseif (is_string($value)) {
             $class = array_merge($class, explode(' ', $value));
-          } elseif (is_array($value)) {
+          } elseif (\is_array($value)) {
             $class[] = $this->clsx($value);
-          } elseif (is_object($value)) {
+          } elseif (\is_object($value)) {
             foreach ($value as $class => $condition) {
               if ($condition) {
                 $class[] = $class;
