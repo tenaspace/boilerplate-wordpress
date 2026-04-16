@@ -143,7 +143,7 @@ class Helpers
         'tag' => $node->tag,
         'text' => trim($node->plaintext),
         'hash' => sanitize_title(trim($node->plaintext)),
-        'uri' => ltrim(rtrim(str_replace(home_url(), '', get_the_permalink($post_id)), '/'), '/'),
+        'uri' => str_replace(home_url(), '', get_the_permalink($post_id)),
         'url' => rtrim(get_the_permalink($post_id), '/') . '#' . sanitize_title(trim($node->plaintext)),
         'parent_id' => $parent_id,
       ]);
@@ -167,7 +167,7 @@ class Helpers
                 'tag' => $node_shift,
                 'text' => trim($node->plaintext),
                 'hash' => sanitize_title(trim($node->plaintext)),
-                'uri' => ltrim(rtrim(str_replace(home_url(), '', get_the_permalink($post_id)), '/'), '/'),
+                'uri' => str_replace(home_url(), '', get_the_permalink($post_id)),
                 'url' => rtrim(get_the_permalink($post_id), '/') . '#' . sanitize_title(trim($node->plaintext)),
                 'parent_id' => $parent_id,
               ]);
