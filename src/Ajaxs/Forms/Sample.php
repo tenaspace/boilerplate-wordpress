@@ -111,7 +111,7 @@ class Sample
         }
         wp_send_json(['response' => ($this->response->send_mails || $this->response->submissions)]);
       } else {
-        if (\is_array($validation['error-codes']) && !empty($validation['error-codes'])) {
+        if (isset($validation['error-codes']) && \is_array($validation['error-codes']) && !empty($validation['error-codes'])) {
           foreach ($validation['error-codes'] as $error_code) {
             app()->lib->utils->write_log($turnstile->error_message($error_code));
           }

@@ -35,7 +35,7 @@ class Helpers
   public function get_manifest_values()
   {
     $manifest = $this->get_manifest();
-    if (!(\is_array($manifest) && !empty($manifest))) {
+    if (!(isset($manifest) && \is_array($manifest) && !empty($manifest))) {
       return;
     }
     return array_values($manifest);
@@ -75,7 +75,7 @@ class Helpers
       return;
     }
     $result = wp_get_nav_menu_items($locations[$location]);
-    if (!(\is_array($result) && !empty($result))) {
+    if (!(isset($result) && \is_array($result) && !empty($result))) {
       return;
     }
     return $result;
@@ -83,7 +83,7 @@ class Helpers
 
   private function get_nav_menu_items(array &$items, int $parent_id = 0)
   {
-    if (!(\is_array($items) && !empty($items))) {
+    if (!(isset($items) && \is_array($items) && !empty($items))) {
       return;
     }
     $result = [];
@@ -103,7 +103,7 @@ class Helpers
   public function get_nav_menu(string $location)
   {
     $items = $this->create_nav_menu($location);
-    if (!(\is_array($items) && !empty((array) $items))) {
+    if (!(isset($items) && \is_array($items) && !empty((array) $items))) {
       return;
     }
     return $this->get_nav_menu_items($items);
@@ -128,7 +128,7 @@ class Helpers
         array_push($heading_tags, $heading_tag);
       }
     }
-    if (!(\is_array($heading_tags) && !empty($heading_tags))) {
+    if (!(isset($heading_tags) && \is_array($heading_tags) && !empty($heading_tags))) {
       return;
     }
     $result = [];
@@ -137,7 +137,7 @@ class Helpers
     $current = [];
     foreach ($the_content->find($heading_tags[0]) as $key => $node) {
       $current[$heading_tags[0]] = $key;
-      $parent_id = 0;
+      $parent_id = '';
       array_push($result, [
         'id' => $node->tag . '-' . $key,
         'tag' => $node->tag,
@@ -183,7 +183,7 @@ class Helpers
 
   private function get_table_of_contents_items(array &$items, $parent_id = 0)
   {
-    if (!(\is_array($items) && !empty($items))) {
+    if (!(isset($items) && \is_array($items) && !empty($items))) {
       return;
     }
     $result = [];
@@ -208,7 +208,7 @@ class Helpers
   public function get_table_of_contents(bool|int $post_id)
   {
     $items = $this->create_table_of_contents($post_id);
-    if (!(\is_array($items) && !empty($items))) {
+    if (!(isset($items) && \is_array($items) && !empty($items))) {
       return;
     }
     return $this->get_table_of_contents_items($items);
@@ -245,11 +245,11 @@ class Helpers
             $taxonomy = 'product_cat';
           }
           $terms = get_the_terms($queried_object, $taxonomy);
-          if (\is_array($terms) && !empty($terms)) {
+          if (isset($terms) && \is_array($terms) && !empty($terms)) {
             $term = array_shift($terms);
             $ancestors = get_ancestors($term->term_id, $taxonomy, 'taxonomy');
             $ancestors = array_reverse($ancestors);
-            if (\is_array($ancestors) && !empty($ancestors)) {
+            if (isset($ancestors) && \is_array($ancestors) && !empty($ancestors)) {
               foreach ($ancestors as $ancestor_id) {
                 $ancestor = get_term($ancestor_id, $taxonomy);
                 array_push($result, [
@@ -275,7 +275,7 @@ class Helpers
       if ($term->parent) {
         $ancestors = get_ancestors($term->term_id, $term->taxonomy);
         $ancestors = array_reverse($ancestors);
-        if (\is_array($ancestors) && !empty($ancestors)) {
+        if (isset($ancestors) && \is_array($ancestors) && !empty($ancestors)) {
           foreach ($ancestors as $ancestor_id) {
             $ancestor = get_term($ancestor_id, $term->taxonomy);
             array_push($result, [

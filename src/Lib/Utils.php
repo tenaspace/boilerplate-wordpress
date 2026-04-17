@@ -25,19 +25,19 @@ class Utils
   {
     $class = [];
     foreach ($args as $arg) {
-      if (\is_array($arg)) {
+      if (isset($arg) && \is_array($arg)) {
         foreach ($arg as $key => $value) {
-          if (is_string($key)) {
-            if (\is_array($value)) {
+          if (isset($key) && \is_string($key)) {
+            if (isset($value) && \is_array($value)) {
               $class = array_merge($class, $value);
             } elseif ($value) {
               $class[] = $key;
             }
-          } elseif (is_string($value)) {
+          } elseif (isset($value) && \is_string($value)) {
             $class = array_merge($class, explode(' ', $value));
-          } elseif (\is_array($value)) {
+          } elseif (isset($value) && \is_array($value)) {
             $class[] = $this->clsx($value);
-          } elseif (\is_object($value)) {
+          } elseif (isset($value) && \is_object($value)) {
             foreach ($value as $class => $condition) {
               if ($condition) {
                 $class[] = $class;
@@ -45,7 +45,7 @@ class Utils
             }
           }
         }
-      } elseif (is_string($arg)) {
+      } elseif (isset($arg) && \is_string($arg)) {
         $class = array_merge($class, explode(' ', $arg));
       }
     }

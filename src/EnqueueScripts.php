@@ -38,9 +38,9 @@ class EnqueueScripts
       }, 10, 3);
     } else {
       $manifest_values = app()->lib->helpers->get_manifest_values();
-      if (\is_array($manifest_values) && !empty($manifest_values)) {
+      if (isset($manifest_values) && \is_array($manifest_values) && !empty($manifest_values)) {
         foreach ($manifest_values as $manifest_value) {
-          if (\is_array($manifest_value['css']) && !empty($manifest_value['css'])) {
+          if (isset($manifest_value['css']) && \is_array($manifest_value['css']) && !empty($manifest_value['css'])) {
             foreach ($manifest_value['css'] as $key => $css) {
               wp_enqueue_style($this->name_main . '-' . $key, PUBLIC_URI . '/' . $css, [], null, 'all');
             }
