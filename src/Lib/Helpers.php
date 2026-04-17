@@ -138,13 +138,14 @@ class Helpers
     foreach ($dom->find($heading_tags[0]) as $key => $node) {
       $current[$heading_tags[0]] = $key;
       $parent_id = '';
+      $hash = isset($node->id) && !empty($node->id) ? $node->id : sanitize_title(trim($node->plaintext));
       array_push($result, [
         'id' => $node->tag . '-' . $key,
         'tag' => $node->tag,
         'text' => trim($node->plaintext),
-        'hash' => sanitize_title(trim($node->plaintext)),
+        'hash' => $hash,
         'uri' => str_replace(home_url(), '', get_the_permalink($post_id)),
-        'url' => rtrim(get_the_permalink($post_id), '/') . '#' . sanitize_title(trim($node->plaintext)),
+        'url' => rtrim(get_the_permalink($post_id), '/') . '#' . $hash,
         'parent_id' => $parent_id,
       ]);
       if (count($heading_tags) > 1) {
@@ -162,13 +163,14 @@ class Helpers
                   $parent_id = $result[array_search($result[array_key_last($result)]['parent_id'], array_column($result, 'id'))]['parent_id'];
                 }
               }
+              $hash = isset($node->id) && !empty($node->id) ? $node->id : sanitize_title(trim($node->plaintext));
               array_push($result, [
                 'id' => $node_shift . '-' . $current[$node_shift],
                 'tag' => $node_shift,
                 'text' => trim($node->plaintext),
-                'hash' => sanitize_title(trim($node->plaintext)),
+                'hash' => $hash,
                 'uri' => str_replace(home_url(), '', get_the_permalink($post_id)),
-                'url' => rtrim(get_the_permalink($post_id), '/') . '#' . sanitize_title(trim($node->plaintext)),
+                'url' => rtrim(get_the_permalink($post_id), '/') . '#' . $hash,
                 'parent_id' => $parent_id,
               ]);
               $current[$node_shift] += 1;
