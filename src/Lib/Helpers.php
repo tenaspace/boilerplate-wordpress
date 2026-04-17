@@ -111,20 +111,20 @@ class Helpers
 
   private function create_table_of_contents(bool|int $post_id)
   {
-    if (!$post_id) {
+    if (empty($post_id)) {
       return;
     }
     if (!class_exists('ACF')) {
       return;
     }
-    $the_content = HtmlDomParser::str_get_html(str_replace(']]>', ']]&gt;', apply_filters('the_content', get_the_content($post_id))));
+    $dom = HtmlDomParser::str_get_html(str_replace(']]>', ']]&gt;', apply_filters('the_content', get_the_content(null, false, $post_id))));
     $heading_tags_setting = get_post_meta($post_id, 'table_of_contents', true);
-    if (!(!empty($the_content) && \is_array($heading_tags_setting) && !empty($heading_tags_setting))) {
+    if (!(!empty($dom) && \is_array($heading_tags_setting) && !empty($heading_tags_setting))) {
       return;
     }
     $heading_tags = [];
     foreach ($heading_tags_setting as $heading_tag) {
-      if ($the_content->find($heading_tag)) {
+      if ($dom->find($heading_tag)) {
         array_push($heading_tags, $heading_tag);
       }
     }
@@ -135,7 +135,7 @@ class Helpers
     $heading_tags_shift = $heading_tags;
     array_shift($heading_tags_shift);
     $current = [];
-    foreach ($the_content->find($heading_tags[0]) as $key => $node) {
+    foreach ($dom->find($heading_tags[0]) as $key => $node) {
       $current[$heading_tags[0]] = $key;
       $parent_id = '';
       array_push($result, [
@@ -147,7 +147,7 @@ class Helpers
         'url' => rtrim(get_the_permalink($post_id), '/') . '#' . sanitize_title(trim($node->plaintext)),
         'parent_id' => $parent_id,
       ]);
-      if (sizeof((array) $heading_tags) > 1) {
+      if (count($heading_tags) > 1) {
         $prev_tag = $node->tag;
         while (($node = $node->next_sibling()) && strcmp($node->tag, $heading_tags[0]) !== 0) {
           foreach ($heading_tags_shift as $node_shift) {
@@ -178,6 +178,8 @@ class Helpers
         }
       }
     }
+    $dom->clear();
+    unset($dom);
     return $result;
   }
 

@@ -1,5 +1,6 @@
 <?php
 namespace TS;
+use KubAT\PhpSimple\HtmlDomParser;
 
 class CustomHooks
 {
@@ -51,6 +52,41 @@ class CustomHooks
       return '…';
     }, 10, 1);
 
+    add_filter('the_content', function ($content) {
+      global $post;
+      $post_id = $post->ID;
+      if (empty($post_id)) {
+        return $content;
+      }
+      if (!class_exists('ACF')) {
+        return $content;
+      }
+      $dom = HtmlDomParser::str_get_html($content);
+      $heading_tags_setting = get_post_meta($post_id, 'table_of_contents', true);
+      if (!(!empty($dom) && \is_array($heading_tags_setting) && !empty($heading_tags_setting))) {
+        return $content;
+      }
+      $heading_tags = [];
+      foreach ($heading_tags_setting as $heading_tag) {
+        if ($dom->find($heading_tag)) {
+          array_push($heading_tags, $heading_tag);
+        }
+      }
+      if (!(isset($heading_tags) && \is_array($heading_tags) && !empty($heading_tags))) {
+        return $content;
+      }
+      foreach ($heading_tags as $heading_tag) {
+        foreach ($dom->find($heading_tag) as $node) {
+          $id = isset($node->id) && !empty($node->id) ? $node->id : sanitize_title(trim($node->plaintext));
+          $node->setAttribute('id', $id);
+        }
+      }
+      $the_content = $dom->save();
+      $dom->clear();
+      unset($dom);
+      return $the_content;
+    }, 10, 1);
+
     /** ===== */
 
     add_action('admin_menu', function () {
@@ -67,7 +103,7 @@ class CustomHooks
           'edit-acf-field-group',
           'plugins',
         ];
-        if (in_array($screen->id, $acf_screens, true)) {
+        if (\in_array($screen->id, $acf_screens, true)) {
           wp_die(
             __('Sorry, you are not allowed to do that.', 'ts'),
             __('Forbidden', 'ts'),
