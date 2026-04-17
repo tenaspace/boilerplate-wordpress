@@ -89,9 +89,9 @@ class Helpers
     $result = [];
     foreach ($items as &$item) {
       if ($item->menu_item_parent == $parent_id) {
-        $children = $this->get_nav_menu_items($items, $item->ID);
-        if ($children) {
-          $item->children = $children;
+        $child_items = $this->get_nav_menu_items($items, $item->ID);
+        if ($child_items) {
+          $item->child_items = $child_items;
         }
         $result[$item->ID] = $item;
         unset($item);
@@ -189,9 +189,9 @@ class Helpers
     $result = [];
     foreach ($items as $key => &$item) {
       if ($item['parent_id'] === $parent_id) {
-        $children = $this->get_table_of_contents_items($items, $item['id']);
-        if ($children) {
-          $item['children'] = $children;
+        $child_items = $this->get_table_of_contents_items($items, $item['id']);
+        if ($child_items) {
+          $item['child_items'] = $child_items;
         }
         $result[$key] = $item;
         unset($item);
