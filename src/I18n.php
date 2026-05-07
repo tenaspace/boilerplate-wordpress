@@ -13,6 +13,11 @@ class I18n
     return app()->lib->helpers->is_pll_activated() ? \pll_default_language($field) : explode('_', get_locale())[0];
   }
 
+  public function languages_list($args = [])
+  {
+    return app()->lib->helpers->is_pll_activated() ? \pll_languages_list($args) : [explode('_', get_locale())[0]];
+  }
+
   public function current_language(string $field = 'slug')
   {
     return app()->lib->helpers->is_pll_activated() ? \pll_current_language($field) : explode('_', get_locale())[0];

@@ -13,6 +13,7 @@ class EnqueueScripts
     $this->name_constants = 'constants';
     $this->l10n_app = [
       'defaultLanguage' => app()->i18n->default_language(),
+      'languagesList' => app()->i18n->languages_list(),
       'currentLanguage' => app()->i18n->current_language(),
       'adminAjaxUrl' => admin_url('admin-ajax.php'),
     ];
