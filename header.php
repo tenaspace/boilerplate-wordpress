@@ -17,6 +17,15 @@ $body_class = isset($args['body_class']) && is_array($args['body_class']) && !em
 
   <div id="site-wrapper">
 
-  <header id="site-header" class="site-header"></header>
+    <header id="site-header" class="site-header">
+      <?php $custom_logo_id = get_theme_mod('custom_logo'); ?>
+      <?php if (!empty($custom_logo_id)): ?>
+        <?php $alt = get_post_meta($custom_logo_id, '_wp_attachment_image_alt', true); ?>
+        <?php echo wp_get_attachment_image($custom_logo_id, 'large', false, [
+          'alt' => !empty($alt) ? $alt : '',
+          'class' => app()->lib->utils->cn(''),
+        ]); ?>
+      <?php endif; ?>
+    </header>
 
-  <main id="site-content" class="site-content">
+    <main id="site-content" class="site-content">

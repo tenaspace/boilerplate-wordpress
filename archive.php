@@ -9,8 +9,8 @@ $fields = get_fields($queried_object->taxonomy . '_' . $queried_object->term_id)
     <?php get_template_part('components/ui/breadcrumb'); ?>
     <?php if (!empty($fields['featured_image']['id'])): ?>
       <?php echo wp_get_attachment_image($fields['featured_image']['id'], 'large', false, [
-        'class' => app()->lib->utils->cn('u-featured'),
         'alt' => !empty($fields['featured_image']['alt']) ? $fields['featured_image']['alt'] : '',
+        'class' => app()->lib->utils->cn('u-featured'),
       ]); ?>
     <?php endif; ?>
     <?php if (is_search()): ?>

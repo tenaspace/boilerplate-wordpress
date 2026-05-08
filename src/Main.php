@@ -32,6 +32,7 @@ class Main
     add_theme_support('automatic-feed-links');
     add_theme_support('post-thumbnails');
     add_theme_support('widgets');
+    add_theme_support('custom-logo');
   }
 
   private function defines()
