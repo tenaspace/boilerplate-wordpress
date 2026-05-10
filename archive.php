@@ -54,11 +54,11 @@ $fields = get_fields($queried_object->taxonomy . '_' . $queried_object->term_id)
                   </span>
                   <time dateTime="<?php echo get_the_date('c', get_the_ID()); ?>"
                     class="<?php echo app()->lib->utils->cn('dt-published'); ?>">
-                    <?php echo get_the_date(DATE_FORMAT, get_the_ID()); ?>
+                    <?php echo get_the_date(DATE_FORMAT_ALT, get_the_ID()); ?>
                   </time>
                   <time dateTime="<?php echo get_the_modified_date('c', get_the_ID()); ?>"
                     class="<?php echo app()->lib->utils->cn('dt-updated'); ?>">
-                    <?php echo get_the_modified_date(DATE_FORMAT, get_the_ID()); ?>
+                    <?php echo get_the_modified_date(DATE_FORMAT_ALT, get_the_ID()); ?>
                   </time>
                 </p>
               </header>
