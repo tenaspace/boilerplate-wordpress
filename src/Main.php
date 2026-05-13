@@ -13,7 +13,8 @@ class Main
     new EnqueueScripts();
     new Fonts();
     new BodyClass();
-    // new \TS\NavMenus\Sample();
+    new \TS\NavMenus\Main();
+    new \TS\NavMenus\Privacy();
     // new \TS\Widgets\Sample();
     // new TinyMce();
     // new \TS\Shortcodes\Sample();

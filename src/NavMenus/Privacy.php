@@ -1,7 +1,7 @@
 <?php
 namespace TS\NavMenus;
 
-class Sample
+class Privacy
 {
   public function __construct()
   {
@@ -16,7 +16,7 @@ class Sample
   public function register_nav_menu()
   {
     register_nav_menus([
-      'sample' => __('Sample', 'ts'),
+      'privacy' => __('Privacy', 'ts'),
     ]);
   }
 }
