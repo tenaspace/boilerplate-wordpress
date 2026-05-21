@@ -14,7 +14,7 @@ class EnqueueScripts
     $this->l10n_app = [
       'defaultLanguage' => app()->i18n->default_language(),
       'languagesList' => app()->i18n->languages_list(),
-      'currentLanguage' => app()->i18n->current_language(),
+      'currentLanguage' => app()->i18n->get_current_language(),
       'adminAjaxUrl' => admin_url('admin-ajax.php'),
     ];
     $this->hooks();
@@ -30,7 +30,7 @@ class EnqueueScripts
 
   public function enqueue_scripts()
   {
-    if (app()->lib->helpers->is_vite_dev_mode()) {
+    if (app()->helpers->is_vite_dev_mode()) {
       wp_enqueue_script($this->name_main, PUBLIC_URI . '/' . $this->name_main . '.js', [], null, []);
       add_filter('script_loader_tag', function ($tag, $handle, $src) {
         if ($this->name_main === $handle) {
@@ -39,7 +39,7 @@ class EnqueueScripts
         return $tag;
       }, 10, 3);
     } else {
-      $manifest_values = app()->lib->helpers->get_manifest_values();
+      $manifest_values = app()->helpers->get_manifest_values();
       if (isset($manifest_values) && \is_array($manifest_values) && !empty($manifest_values)) {
         foreach ($manifest_values as $manifest_value) {
           if (isset($manifest_value['css']) && \is_array($manifest_value['css']) && !empty($manifest_value['css'])) {
@@ -58,10 +58,10 @@ class EnqueueScripts
   public function localizes_script_app()
   {
     $src = '';
-    if (app()->lib->helpers->is_vite_dev_mode()) {
+    if (app()->helpers->is_vite_dev_mode()) {
       $src = PUBLIC_URI . '/' . $this->name_constants . '.js';
     } else {
-      $manifest = app()->lib->helpers->get_manifest();
+      $manifest = app()->helpers->get_manifest();
       if ($manifest) {
         if (!empty($manifest['resources/' . $this->name_constants . '.js']['file'])) {
           $src = PUBLIC_URI . '/' . $manifest['resources/' . $this->name_constants . '.js']['file'];

@@ -40,15 +40,12 @@ class Main
   {
     define('PUBLIC_PATH', $this->get_public_path());
     define('PUBLIC_URI', $this->get_public_uri());
-    define('OPTION_PAGE_ID', app()->i18n->current_language() !== app()->i18n->default_language() ? 'options_page_' . app()->i18n->current_language() : 'option');
-    define('DATE_FORMAT_VALUE', 'Y-m-d');
-    define('DATE_FORMAT_ALT', 'F j, Y');
   }
 
   private function get_public_path()
   {
     $path = get_template_directory() . '/dist';
-    if (app()->lib->helpers->is_vite_dev_mode()) {
+    if (app()->helpers->is_vite_dev_mode()) {
       $path = get_template_directory() . '/resources';
     }
     return $path;
@@ -57,7 +54,7 @@ class Main
   private function get_public_uri()
   {
     $uri = get_template_directory_uri() . '/dist';
-    if (app()->lib->helpers->is_vite_dev_mode()) {
+    if (app()->helpers->is_vite_dev_mode()) {
       $vite_server_port = !empty($_ENV['VITE_SERVER_PORT']) ? $_ENV['VITE_SERVER_PORT'] : 3000;
       $vite_server_origin = !empty($_ENV['VITE_SERVER_ORIGIN']) ? $_ENV['VITE_SERVER_ORIGIN'] : 'http://localhost';
       $uri = "{$vite_server_origin}:{$vite_server_port}/resources";

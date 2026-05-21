@@ -43,7 +43,7 @@ class Sample
            * Send mails: admin
            */
           try {
-            $mailer = app()->lib->helpers->mailer();
+            $mailer = app()->helpers->mailer();
             $mailer->setFrom(!empty($_ENV['EMAIL_SENDER_ADDRESS']) ? $_ENV['EMAIL_SENDER_ADDRESS'] : '', !empty($_ENV['EMAIL_SENDER_NAME']) ? $_ENV['EMAIL_SENDER_NAME'] : '');
             if (!empty($_ENV['EMAIL_RECIPIENTS'])) {
               $email_recipients = explode(',', $_ENV['EMAIL_RECIPIENTS']);
@@ -64,14 +64,14 @@ class Sample
             $mailer->send();
             $this->response->send_mails = true;
           } catch (\Exception $error) {
-            app()->lib->utils->write_log($error->getMessage());
+            app()->utils->write_log($error->getMessage());
           }
           /**
            * Send mails: user
            */
           // if (!empty($data['email'])) {
           //   try {
-          //     $mailer = app()->lib->helpers->mailer();
+          //     $mailer = app()->helpers->mailer();
           //     $mailer->setFrom(!empty($_ENV['EMAIL_SENDER_ADDRESS']) ? $_ENV['EMAIL_SENDER_ADDRESS'] : '', !empty($_ENV['EMAIL_SENDER_NAME']) ? $_ENV['EMAIL_SENDER_NAME'] : '');
           //     $mailer->addAddress($data['email']);
           //     $mailer->addReplyTo(!empty($_ENV['EMAIL_REPLY_TO']) ? $_ENV['EMAIL_REPLY_TO'] : '');
@@ -86,7 +86,7 @@ class Sample
           //     $mailer->AltBody = $mail_template_user_html;
           //     $mailer->send();
           //   } catch (\Exception $error) {
-          //     app()->lib->utils->write_log($error->getMessage());
+          //     app()->utils->write_log($error->getMessage());
           //   }
           // }
         }
@@ -113,7 +113,7 @@ class Sample
       } else {
         if (isset($validation['error-codes']) && \is_array($validation['error-codes']) && !empty($validation['error-codes'])) {
           foreach ($validation['error-codes'] as $error_code) {
-            app()->lib->utils->write_log($turnstile->error_message($error_code));
+            app()->utils->write_log($turnstile->error_message($error_code));
           }
         }
       }

@@ -1,16 +1,20 @@
 <?php
+use Carbon\Carbon;
+
 get_header();
 $queried_object = get_queried_object();
 $fields = get_fields($queried_object->taxonomy . '_' . $queried_object->term_id);
+
+$current_date_fns = app()->date_fns->get_current_date_fns();
 ?>
 
-<div class="<?php echo app()->lib->utils->cn('h-feed'); ?>">
+<div class="<?php echo app()->utils->cn('h-feed'); ?>">
   <header>
     <?php get_template_part('components/ui/breadcrumb'); ?>
     <?php if (!empty($fields['featured_image']['id'])): ?>
       <?php echo wp_get_attachment_image($fields['featured_image']['id'], 'large', false, [
         'alt' => !empty($fields['featured_image']['alt']) ? $fields['featured_image']['alt'] : '',
-        'class' => app()->lib->utils->cn('u-featured'),
+        'class' => app()->utils->cn('u-featured'),
       ]); ?>
     <?php endif; ?>
     <?php if (is_search()): ?>
@@ -21,7 +25,7 @@ $fields = get_fields($queried_object->taxonomy . '_' . $queried_object->term_id)
         ]); ?>: <?php echo esc_html(get_search_query()); ?>
       </div>
     <?php else: ?>
-      <h1 class="<?php echo app()->lib->utils->cn('p-name'); ?>">
+      <h1 class="<?php echo app()->utils->cn('p-name'); ?>">
         <?php echo get_the_archive_title(); ?>
       </h1>
     <?php endif; ?>
@@ -34,18 +38,18 @@ $fields = get_fields($queried_object->taxonomy . '_' . $queried_object->term_id)
       <?php while (have_posts()):
         the_post(); ?>
         <div>
-          <article class="<?php echo app()->lib->utils->cn('h-entry'); ?>">
+          <article class="<?php echo app()->utils->cn('h-entry'); ?>">
             <a href="<?php echo get_the_permalink(get_the_ID()); ?>" title="<?php echo get_the_title(get_the_ID()); ?>"
-              class="<?php echo app()->lib->utils->cn('u-url'); ?>">
+              class="<?php echo app()->utils->cn('u-url'); ?>">
               <header>
                 <?php if (has_post_thumbnail(get_the_ID())): ?>
                   <?php $alt = get_post_meta(get_post_thumbnail_id(get_the_ID()), '_wp_attachment_image_alt', true); ?>
                   <?php echo get_the_post_thumbnail(get_the_ID(), 'large', [
                     'alt' => !empty($alt) ? $alt : '',
-                    'class' => app()->lib->utils->cn('u-featured'),
+                    'class' => app()->utils->cn('u-featured'),
                   ]); ?>
                 <?php endif; ?>
-                <h2 class="<?php echo app()->lib->utils->cn('p-name'); ?>">
+                <h2 class="<?php echo app()->utils->cn('p-name'); ?>">
                   <?php echo get_the_title(get_the_ID()); ?>
                 </h2>
                 <p>
@@ -53,16 +57,16 @@ $fields = get_fields($queried_object->taxonomy . '_' . $queried_object->term_id)
                     <?php echo get_the_author(); ?>
                   </span>
                   <time dateTime="<?php echo get_the_date('c', get_the_ID()); ?>"
-                    class="<?php echo app()->lib->utils->cn('dt-published'); ?>">
-                    <?php echo get_the_date(DATE_FORMAT_ALT, get_the_ID()); ?>
+                    class="<?php echo app()->utils->cn('dt-published'); ?>">
+                    <?php echo Carbon::parse(get_the_date('c', get_the_ID()))->locale($current_date_fns['language'])->isoFormat($current_date_fns['date_format']['alt']); ?>
                   </time>
                   <time dateTime="<?php echo get_the_modified_date('c', get_the_ID()); ?>"
-                    class="<?php echo app()->lib->utils->cn('dt-updated'); ?>">
-                    <?php echo get_the_modified_date(DATE_FORMAT_ALT, get_the_ID()); ?>
+                    class="<?php echo app()->utils->cn('dt-updated'); ?>">
+                    <?php echo Carbon::parse(get_the_modified_date('c', get_the_ID()))->locale($current_date_fns['language'])->isoFormat($current_date_fns['date_format']['alt']); ?>
                   </time>
                 </p>
               </header>
-              <div class="<?php echo app()->lib->utils->cn('e-content'); ?>">
+              <div class="<?php echo app()->utils->cn('e-content'); ?>">
                 <p>
                   <?php echo get_the_excerpt(get_the_ID()); ?>
                 </p>

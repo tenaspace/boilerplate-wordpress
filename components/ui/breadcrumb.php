@@ -1,6 +1,6 @@
 <?php
 $defaults = [
-  'list' => app()->lib->helpers->get_breadcrumb(),
+  'list' => app()->helpers->get_breadcrumb(),
   'separator' => '/',
 ];
 $args = wp_parse_args($args, $defaults);

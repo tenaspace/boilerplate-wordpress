@@ -13,7 +13,7 @@ $body_class = isset($args['body_class']) && is_array($args['body_class']) && !em
 
 <body <?php body_class($body_class); ?> style="--font-sans: 'Manrope', sans-serif;">
 
-  <?php app()->lib->helpers->body_open(); ?>
+  <?php app()->helpers->body_open(); ?>
 
   <div id="site-wrapper">
 
@@ -23,7 +23,7 @@ $body_class = isset($args['body_class']) && is_array($args['body_class']) && !em
         <?php $alt = get_post_meta($custom_logo_id, '_wp_attachment_image_alt', true); ?>
         <?php echo wp_get_attachment_image($custom_logo_id, 'large', false, [
           'alt' => !empty($alt) ? $alt : '',
-          'class' => app()->lib->utils->cn(''),
+          'class' => app()->utils->cn(''),
         ]); ?>
       <?php endif; ?>
     </header>

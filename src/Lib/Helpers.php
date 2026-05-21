@@ -17,14 +17,19 @@ class Helpers
     return !file_exists(get_template_directory() . $this->vite_manifest_path);
   }
 
-  public function is_woocommerce_activated()
-  {
-    return class_exists('WooCommerce');
-  }
-
   public function is_pll_activated()
   {
     return function_exists('pll_current_language');
+  }
+
+  public function is_acf_activated()
+  {
+    return class_exists('ACF');
+  }
+
+  public function is_woocommerce_activated()
+  {
+    return class_exists('WooCommerce');
   }
 
   public function get_manifest()
@@ -59,8 +64,8 @@ class Helpers
       $mailer->SMTPSecure = !empty($_ENV['SMTP_SECURE']) ? $_ENV['SMTP_SECURE'] : '';
       $mailer->Port = !empty($_ENV['SMTP_PORT']) ? $_ENV['SMTP_PORT'] : '';
     } catch (\PHPMailer\PHPMailer\Exception $error) {
-      app()->lib->utils->write_log($error->errorMessage());
-      app()->lib->utils->write_log($mailer->ErrorInfo);
+      app()->utils->write_log($error->errorMessage());
+      app()->utils->write_log($mailer->ErrorInfo);
     }
     return $mailer;
   }
@@ -114,7 +119,7 @@ class Helpers
     if (empty($post_id)) {
       return;
     }
-    if (!class_exists('ACF')) {
+    if (!$this->is_acf_activated()) {
       return;
     }
     $dom = HtmlDomParser::str_get_html(str_replace(']]>', ']]&gt;', apply_filters('the_content', get_the_content(null, false, $post_id))));
@@ -221,7 +226,7 @@ class Helpers
   public function get_breadcrumb()
   {
     $result = [];
-    $is_woocommerce = app()->lib->helpers->is_woocommerce_activated() && \is_woocommerce();
+    $is_woocommerce = app()->helpers->is_woocommerce_activated() && \is_woocommerce();
     if ($is_woocommerce && (\is_product() || \is_product_taxonomy())) {
       array_push($result, [
         'link' => esc_url(get_permalink(\wc_get_page_id('shop'))),
@@ -313,5 +318,15 @@ class Helpers
       ]);
     }
     return $result;
+  }
+
+  public function get_option_page_id(string $language = '')
+  {
+    if ($this->is_pll_activated()) {
+      $current_language = isset($language) && !empty($language) ? $language : app()->i18n->get_current_language();
+      return 'option-' . $current_language;
+    } else {
+      return 'option';
+    }
   }
 }

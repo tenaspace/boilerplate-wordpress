@@ -58,7 +58,7 @@ class CustomHooks
       if (empty($post_id)) {
         return $content;
       }
-      if (!class_exists('ACF')) {
+      if (!app()->helpers->is_acf_activated()) {
         return $content;
       }
       $dom = HtmlDomParser::str_get_html($content);
