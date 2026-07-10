@@ -1,4 +1,4 @@
-<?php 
+<?php
 use Carbon\Carbon;
 
 get_header();
@@ -22,11 +22,15 @@ $current_date_fns = app()->date_fns->get_current_date_fns();
   </header>
   <?php if (have_posts()): ?>
     <div class="<?php echo app()->utils->cn('e-content'); ?>">
-      <?php while (have_posts()):
-        the_post(); ?>
-        <?php the_content(); ?>
-      <?php endwhile;
-      wp_reset_postdata(); ?>
+      <?php if (post_password_required(get_the_ID())): ?>
+        <?php echo get_the_password_form(); ?>
+      <?php else: ?>
+        <?php while (have_posts()):
+          the_post(); ?>
+          <?php the_content(); ?>
+        <?php endwhile;
+        wp_reset_postdata(); ?>
+      <?php endif; ?>
     </div>
   <?php endif; ?>
   <footer>
@@ -34,7 +38,8 @@ $current_date_fns = app()->date_fns->get_current_date_fns();
       <span class="p-author h-card">
         <?php echo get_the_author(); ?>
       </span>
-      <time dateTime="<?php echo get_the_date('c', get_the_ID()); ?>" class="<?php echo app()->utils->cn('dt-published'); ?>">
+      <time dateTime="<?php echo get_the_date('c', get_the_ID()); ?>"
+        class="<?php echo app()->utils->cn('dt-published'); ?>">
         <?php echo Carbon::parse(get_the_date('c', get_the_ID()))->locale($current_date_fns['language'])->isoFormat($current_date_fns['date_format']['alt']); ?>
       </time>
       <time dateTime="<?php echo get_the_modified_date('c', get_the_ID()); ?>"
